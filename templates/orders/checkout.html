@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h3>Checkout</h3>
+<form method="post" class="row g-4 mb-5" id="checkout-form">
+  {% csrf_token %}
+  <div class="col-md-7">
+    <div class="card card-body">
+      <h5>Shipping Address</h5>
+      
+      <!-- Render form fields except phone -->
+      {% for field in form %}
+        {% if field.name != 'phone' %}
+          {{ field|as_crispy_field }}
+        {% endif %}
+      {% endfor %}
+      
+      <!-- Custom phone number field with country dropdown -->
+      <div class="mb-3">
+        <label for="id_phone_country" class="form-label">Phone Number</label>
+        <div class="phone-widget-container">
+          {{ form.phone.0 }}
+          {{ form.phone.1 }}
+        </div>
+        {% if form.phone.errors %}
+          <div class="invalid-feedback d-block">
+            {{ form.phone.errors.0 }}
+          </div>
+        {% endif %}
+        <small class="text-muted">
+          Select your country and enter your phone number. It will be automatically formatted.
+        </small>
+      </div>
+      
+      <h5 class="mt-4">Shipping Method</h5>
+      <div id="shipping-options" class="mb-3">
+        {% if shipping_options %}
+          {% for option in shipping_options %}
+            <div class="form-check mb-2">
+              <input class="form-check-input shipping-method-radio" type="radio" name="shipping_method" 
+                     id="shipping_{{ option.method }}" value="{{ option.method }}"
+                     {% if option.method == selected_shipping_method %}checked{% endif %}
+                     data-cost="{{ option.cost }}" data-est-days="{{ option.est_days.0 }}-{{ option.est_days.1 }}">
+              <label class="form-check-label" for="shipping_{{ option.method }}">
+                <strong>{{ option.method_name }}</strong> 
+                - ₦{{ option.cost|floatformat:2|intcomma }} 
+                <small>({{ option.est_days.0 }}-{{ option.est_days.1 }} days, weight: {{ option.total_weight|floatformat:2 }} kg)</small>
+                {% if option.breakdown.free_shipping_applied %}
+                  <span class="badge bg-success">{{ option.breakdown.free_shipping_applied }}</span>
+                {% endif %}
+              </label>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-5">
+    <div class="card card-body">
+      <h5>Order Summary</h5>
+      <ul class="list-group" id="order-summary-list">
+        {% for i in cart_items %}
+          <li class="list-group-item d-flex justify-content-between align-items-start">
+            <div>
+              <div class="fw-bold">{{ i.product.title }}</div>
+              <div class="small text-muted">Quantity: <span class="item-quantity">{{ i.quantity }}</span></div>
+            </div>
+            <div class="text-end">₦{{ i.line_total|floatformat:2|intcomma }}</div>
+          </li>
+        {% endfor %}
+      </ul>
+      
+      <div class="mt-3">
+        <div class="d-flex justify-content-between mb-2">
+          <strong>Subtotal:</strong>
+          <span id="subtotal">₦{{ totals.subtotal|floatformat:2|intcomma }}</span>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+          <strong>Shipping:</strong>
+          <span id="shipping-cost">₦{{ totals.shipping|floatformat:2|intcomma }}</span>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <strong>Total:</strong>
+          <span id="total-cost" class="fs-5">₦{{ totals.total|floatformat:2|intcomma }}</span>
+        </div>
+      </div>
+      
+      <div class="mt-3" id="shipping-breakdown">
+        {% if totals.shipping_breakdown %}
+          <small class="text-muted">
+            <strong>Shipping Breakdown:</strong><br>
+            Base: ₦{{ totals.shipping_breakdown.base|floatformat:2 }}<br>
+            Weight Cost: ₦{{ totals.shipping_breakdown.weight_cost|floatformat:2 }}<br>
+            Regional Surcharge: ₦{{ totals.shipping_breakdown.regional_surcharge|floatformat:2 }}<br>
+          </small>
+        {% endif %}
+      </div>
+      
+      <button type="submit" class="btn btn-success btn-lg w-100 mt-4">Place Order & Pay</button>
+    </div>
+  </div>
+</form>
+
+<script>
+// Phone widget auto-sync with country field
+const countrySelect = document.querySelector('[name="country"]');
+const phoneCountrySelect = document.querySelector('#id_phone_country');
+const phoneInput = document.querySelector('#id_phone_0');
+
+// Sync country dropdown to phone country when main country changes
+if (countrySelect && phoneCountrySelect) {
+  countrySelect.addEventListener('change', function() {
+    phoneCountrySelect.value = this.value;
+    console.log('Country synced:', this.value);
+  });
+}
+
+// Sync phone country to main country when phone country changes
+if (phoneCountrySelect && countrySelect) {
+  phoneCountrySelect.addEventListener('change', function() {
+    countrySelect.value = this.value;
+    console.log('Phone country changed:', this.value);
+  });
+}
+
+// Format phone number on blur
+if (phoneInput) {
+  phoneInput.addEventListener('blur', function() {
+    // Just validate format - backend will do full validation
+    const value = this.value.trim();
+    if (value && !value.startsWith('+')) {
+      // Add placeholder for international format
+      if (value.length > 0 && !isNaN(value[0])) {
+        this.placeholder = '+' + (phoneCountrySelect.value || '') + ' XXXXXXXXXX';
+      }
+    }
+  });
+  
+  phoneInput.addEventListener('input', function() {
+    // Auto-add + if user starts typing a number
+    if (this.value && !this.value.startsWith('+') && !isNaN(this.value[0])) {
+      // Don't auto-add, let user type naturally
+    }
+  });
+}
+
+document.querySelectorAll('.shipping-method-radio').forEach(radio => {
+  radio.addEventListener('change', function() {
+    updateShippingCost();
+  });
+});
+
+function updateShippingCost() {
+  const selectedRadio = document.querySelector('input[name="shipping_method"]:checked');
+  const state = document.querySelector('[name="state"]')?.value || '';
+  
+  if (!selectedRadio) return;
+  
+  const method = selectedRadio.value;
+  const cost = parseFloat(selectedRadio.dataset.cost);
+  const estDays = selectedRadio.dataset.estDays;
+  
+  // Update display
+  const subtotal = parseFloat(document.getElementById('subtotal').textContent.replace(/[^0-9.]/g, ''));
+  const newTotal = subtotal + cost;
+  
+  document.getElementById('shipping-cost').textContent = '₦' + cost.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  document.getElementById('total-cost').textContent = '₦' + newTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  
+  // Optional: fetch updated shipping details from server for real-time calculation with state surcharge
+  // Uncomment the code below if you want live updates when state changes
+  /*
+  fetch(`/orders/api/calculate-shipping/?shipping_method=${method}&state=${state}`)
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('shipping-cost').textContent = '₦' + parseFloat(data.cost).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      const newTotal = subtotal + parseFloat(data.cost);
+      document.getElementById('total-cost').textContent = '₦' + newTotal.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    })
+    .catch(err => console.error('Error fetching shipping cost:', err));
+  */
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', updateShippingCost);
+</script>
+{% endblock %}

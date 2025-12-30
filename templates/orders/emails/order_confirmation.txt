@@ -1,0 +1,65 @@
+{% load humanize %}
+Order Confirmation
+==================
+
+Hi {{ customer_name }},
+
+Thank you for your purchase! Your order has been successfully placed and confirmed.
+
+ORDER DETAILS
+=============
+Order Number: #{{ order.pk }}
+Order Date: {{ order.created_at|date:"F j, Y \a\t g:i A" }}
+Status: {{ order.get_status_display }}
+Order Title: {{ order_title }}
+Items Ordered: {{ total_items }}
+Item Value: ₦{{ total_item_value|floatformat:2 }}
+
+ITEMS ORDERED
+=============
+{% for item in order_items %}
+{{ item.product.title }}
+  Quantity: {{ item.quantity }}
+  Unit Price: ₦{{ item.unit_price|floatformat:2 }}
+  Total: ₦{{ item.line_total|floatformat:2 }}
+
+{% endfor %}
+
+ORDER SUMMARY
+=============
+Subtotal: ₦{{ order_subtotal|floatformat:2 }}
+Shipping: ₦{{ shipping_cost|floatformat:2 }}
+Total Amount: ₦{{ order_total|floatformat:2 }}
+
+SHIPPING ADDRESS
+================
+{{ shipping_address.full_name }}
+{{ shipping_address.line1 }}
+{% if shipping_address.line2 %}{{ shipping_address.line2 }}
+{% endif %}{{ shipping_address.city }}{% if shipping_address.state %}, {{ shipping_address.state }}{% endif %} {{ shipping_address.postcode }}
+Phone: {{ shipping_address.phone }}
+
+SHIPPING METHOD
+===============
+Method: {{ order.get_shipping_method_display }}
+Estimated Delivery: 5-10 business days
+
+WHAT HAPPENS NEXT?
+==================
+1. We'll prepare your order for shipment
+2. You'll receive a shipping notification with tracking information
+3. Your items will be delivered to the address above
+4. Confirm delivery and enjoy your purchase!
+
+IMPORTANT
+=========
+Keep this email safe. You'll need the order number (#{{ order.pk }}) for any inquiries about your order.
+
+NEED HELP?
+==========
+If you have any questions about your order, please contact us:
+Email: {{ support_email }}
+
+---
+This is an automated email. Please do not reply directly.
+{{ site_name }} | Order Management System

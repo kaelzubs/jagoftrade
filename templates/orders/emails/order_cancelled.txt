@@ -1,0 +1,45 @@
+Order Cancelled
+================
+
+Hi {{ customer_name }},
+
+We're sorry to inform you that your order has been cancelled.
+
+CANCELLATION DETAILS
+====================
+Order Number: #{{ order_number }}
+Order Title: {{ order_title }}
+Status: CANCELLED
+
+{% if cancellation_reason %}Reason: {{ cancellation_reason }}
+{% endif %}
+
+REFUND INFORMATION
+==================
+Refund Amount: ₦{{ refund_amount|floatformat:2 }}
+
+Your refund has been initiated. Depending on your payment method, 
+it may take 3-7 business days to appear in your account.
+
+IMPORTANT
+=========
+If you don't see the refund within 7 business days, please contact 
+your bank or payment provider, and include Order #{{ order_number }}.
+
+WE'D LIKE TO KNOW
+=================
+We'd appreciate your feedback on why this order was cancelled. 
+Your input helps us serve you better.
+
+QUESTIONS?
+==========
+Email: {{ support_email }}
+Reference Order #{{ order_number }} in your message
+
+READY TO TRY AGAIN?
+===================
+Check out our latest products and special offers!
+
+---
+We hope to see you again soon!
+{{ site_name }} | Order Management System

@@ -1,0 +1,40 @@
+Order Delivered
+================
+
+Hi {{ customer_name }},
+
+Your order has been successfully delivered!
+
+ORDER DELIVERED
+===============
+Order Number: #{{ order_number }}
+Status: DELIVERED ✓
+Order Title: {{ order_title }}
+
+WHAT'S NEXT?
+============
+1. Inspect your items - Check that everything is in good condition
+2. Verify contents - Ensure all items from your order are included
+3. Leave feedback - Share your experience with us
+4. Contact us - If there are any issues, reach out immediately
+
+WE'D LOVE YOUR FEEDBACK
+=======================
+Your feedback helps us improve. If you're satisfied with your purchase, 
+please consider leaving a review on our website.
+
+ISSUES WITH YOUR ORDER?
+=======================
+If you received damaged items, missing products, or have any concerns, 
+please contact us immediately:
+
+Email: {{ support_email }}
+Reference Order #{{ order_number }} for quick resolution
+
+READY TO SHOP AGAIN?
+====================
+Check out our latest products and exclusive offers!
+
+---
+Thank you for being our valued customer!
+{{ site_name }} | Order Management System

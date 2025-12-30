@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Shipped</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #007bff 0%, #0056b3 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
+        .header h1 { font-size: 28px; margin-bottom: 5px; }
+        .header .icon { font-size: 48px; margin-bottom: 10px; }
+        .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px; }
+        .section { margin-bottom: 30px; }
+        .section-title { font-size: 18px; font-weight: bold; color: #007bff; margin-bottom: 15px; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        .tracking-box { background: white; padding: 20px; border-radius: 5px; border-left: 4px solid #007bff; }
+        .tracking-label { font-weight: bold; color: #555; margin-bottom: 8px; }
+        .tracking-number { font-size: 18px; font-weight: bold; color: #007bff; font-family: monospace; word-break: break-all; }
+        .items-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .items-table th { background: #007bff; color: white; padding: 12px; text-align: left; }
+        .items-table td { padding: 10px 12px; border-bottom: 1px solid #ddd; }
+        .address-box { background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #007bff; }
+        .timeline { margin: 20px 0; }
+        .timeline-item { display: flex; margin-bottom: 20px; }
+        .timeline-marker { width: 30px; height: 30px; background: #007bff; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; margin-right: 15px; }
+        .timeline-content { flex: 1; }
+        .timeline-content strong { display: block; margin-bottom: 5px; }
+        .timeline-item.completed .timeline-marker { background: #28a745; }
+        .timeline-item.in-progress .timeline-marker { background: #ffc107; }
+        .info-highlight { background: #e7f3ff; padding: 15px; border-radius: 5px; margin: 15px 0; border-left: 4px solid #007bff; }
+        .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">📦</div>
+            <h1>Your Order is on Its Way!</h1>
+            <p>Your package has been shipped</p>
+        </div>
+        
+        <div class="content">
+            <p style="margin-bottom: 20px;">Hi {{ customer_name }},</p>
+            
+            <p style="margin-bottom: 20px;">
+                Exciting news! Your order has been shipped and is on its way to you. 
+                You can track your package using the tracking number below.
+            </p>
+            
+            <!-- Tracking Information -->
+            <div class="section">
+                <div class="section-title">Tracking Information</div>
+                <div class="tracking-box">
+                    <div class="tracking-label">📍 Tracking Number:</div>
+                    <div class="tracking-number">{{ tracking_number }}</div>
+                    <p style="margin-top: 12px; font-size: 13px; color: #666;">
+                        Click the tracking number above or visit the carrier's website to monitor your shipment in real-time.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Order Details -->
+            <div class="section">
+                <div class="section-title">Order Summary</div>
+                <table class="items-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order_items %}
+                        <tr>
+                            <td>{{ item.product.title }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>₦{{ item.line_total|floatformat:2 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Delivery Address -->
+            <div class="section">
+                <div class="section-title">Delivery Address</div>
+                <div class="address-box">
+                    <strong>{{ shipping_address.full_name }}</strong><br>
+                    {{ shipping_address.line1 }}{% if shipping_address.line2 %}<br>{{ shipping_address.line2 }}{% endif %}<br>
+                    {{ shipping_address.city }}{% if shipping_address.state %}, {{ shipping_address.state }}{% endif %} {{ shipping_address.postcode }}<br>
+                    Phone: {{ shipping_address.phone }}
+                </div>
+            </div>
+            
+            <!-- Delivery Timeline -->
+            <div class="section">
+                <div class="section-title">Delivery Timeline</div>
+                <div class="timeline">
+                    <div class="timeline-item completed">
+                        <div class="timeline-marker">✓</div>
+                        <div class="timeline-content">
+                            <strong>Order Confirmed</strong>
+                            <span style="color: #666;">Payment received and order prepared</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item in-progress">
+                        <div class="timeline-marker">📦</div>
+                        <div class="timeline-content">
+                            <strong>Shipped</strong>
+                            <span style="color: #666;">On its way to you - Tracking #{{ tracking_number }}</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">🚚</div>
+                        <div class="timeline-content">
+                            <strong>In Transit</strong>
+                            <span style="color: #666;">Expected delivery in {{ estimated_delivery }}</span>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">📫</div>
+                        <div class="timeline-content">
+                            <strong>Delivered</strong>
+                            <span style="color: #666;">Arrive at your doorstep</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Important Info -->
+            <div class="info-highlight">
+                <strong>⏱️ Expected Delivery:</strong> Your package should arrive within {{ estimated_delivery }}. 
+                Use your tracking number to monitor the exact status of your shipment.
+            </div>
+            
+            <!-- Support -->
+            <div class="section">
+                <div class="section-title">Need Help?</div>
+                <p>
+                    If you have any questions about your shipment, please contact us:
+                </p>
+                <p style="margin-top: 10px;">
+                    📧 Email: <a href="mailto:{{ support_email }}">{{ support_email }}</a><br>
+                    📌 Reference Order #{{ order.pk }} in your message
+                </p>
+            </div>
+            
+            <div class="footer">
+                <p>Thank you for your patience!</p>
+                <p>{{ site_name }} | Order Management System</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

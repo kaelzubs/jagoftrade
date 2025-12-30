@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Terms & Conditions{% endblock %}
+{% block content %}
+<div class="card shadow">
+  <div class="card-body">
+    <h1 class="card-title">Terms & Conditions</h1>
+    <p>By accessing {{ company_name }}, you agree to these Terms. If you do not agree, please discontinue use.</p>
+
+    <h2>Use of the Site</h2>
+    <ul class="list-group mb-3">
+      <li class="list-group-item">Lawful use only.</li>
+      <li class="list-group-item">We strive for accuracy but do not guarantee completeness.</li>
+      <li class="list-group-item">We may modify or discontinue features without notice.</li>
+    </ul>
+
+    <h2>Affiliate Disclosure</h2>
+    <p>We may earn commissions from qualifying purchases. This does not affect editorial independence.</p>
+
+    <h2>Governing Law</h2>
+    <p>These Terms are governed by the laws of {{ location }}.</p>
+
+    <p class="text-muted"><em>Effective date:</em> {{ effective_date }}</p>
+  </div>
+</div>
+{% endblock %}

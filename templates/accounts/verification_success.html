@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Verification Success{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow text-center">
+        <div class="card-body">
+          <h3 class="text-success mb-3">Email Verified</h3>
+          <p class="lead">
+            Welcome, <strong>{{ user.username }}</strong>! Your account is now active.
+          </p>
+          <a href="{% url 'accounts:login' %}" class="btn btn-success mt-3">Log In</a>
+        </div>
+        <div class="card-footer text-muted">
+          You can now access your dashboard and start shopping.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

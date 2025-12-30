@@ -1,0 +1,34 @@
+Payment Received Confirmation
+==============================
+
+Hi {{ customer_name }},
+
+Great news! Your payment has been successfully processed.
+
+PAYMENT DETAILS
+===============
+Order Number: #{{ order_number }}
+Order Title: {{ order_title }}
+Amount Paid: ₦{{ order_total|floatformat:2 }}
+Status: PAID ✓
+
+WHAT HAPPENS NEXT?
+==================
+1. Order Preparation - We're preparing your items for shipment (1-2 days)
+2. Shipping Notification - You'll receive an email with tracking information
+3. In Transit - Your package will be on its way
+4. Delivery - Receive your items at your address
+
+SHIPPING TIMELINE
+=================
+Your order should arrive within 5-10 business days.
+Once your package ships, you'll receive a tracking link via email.
+
+NEED HELP?
+==========
+Email: {{ support_email }}
+Reference your Order #{{ order_number }} in all communications
+
+---
+This is an automated email. Please do not reply directly.
+{{ site_name }} | Order Management System

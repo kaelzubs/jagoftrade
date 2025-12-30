@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Received</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
+        .header h1 { font-size: 28px; margin-bottom: 5px; }
+        .header .checkmark { font-size: 48px; margin-bottom: 10px; }
+        .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px; }
+        .section { margin-bottom: 30px; }
+        .section-title { font-size: 18px; font-weight: bold; color: #28a745; margin-bottom: 15px; border-bottom: 2px solid #28a745; padding-bottom: 10px; }
+        .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #ddd; }
+        .info-label { font-weight: bold; color: #555; }
+        .info-value { color: #333; }
+        .payment-summary { background: white; padding: 20px; border-radius: 5px; }
+        .amount-box { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: #f0f8f4; border-radius: 5px; border-left: 4px solid #28a745; font-size: 18px; }
+        .amount-label { font-weight: bold; color: #555; }
+        .amount-value { font-size: 24px; font-weight: bold; color: #28a745; }
+        .status-badge { display: inline-block; background: #28a745; color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold; }
+        .next-steps { background: #fff3cd; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107; margin: 15px 0; }
+        .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="checkmark">✓</div>
+            <h1>Payment Received!</h1>
+            <p>Your payment has been successfully processed</p>
+        </div>
+        
+        <div class="content">
+            <p style="margin-bottom: 20px;">Hi {{ customer_name }},</p>
+            
+            <p style="margin-bottom: 20px;">
+                Great news! We've confirmed receipt of your payment. Your order is now being prepared for shipment.
+            </p>
+            
+            <!-- Payment Details -->
+            <div class="section">
+                <div class="section-title">Payment Details</div>
+                <div class="payment-summary">
+                    <div class="info-row">
+                        <span class="info-label">Order Number:</span>
+                        <span class="info-value">#{{ order_number }}</span>
+                    </div>
+                    <div class="amount-box" style="margin-top: 15px;">
+                        <span class="amount-label">Amount Paid:</span>
+                        <span class="amount-value">₦{{ order_total|floatformat:2 }}</span>
+                    </div>
+                    <div class="info-row" style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 15px;">
+                        <span class="info-label">Status:</span>
+                        <span class="status-badge">PAID</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- What's Next -->
+            <div class="section">
+                <div class="section-title">What Happens Next?</div>
+                <ol style="margin-left: 20px; line-height: 2;">
+                    <li><strong>Order Preparation</strong> - We're now preparing your items for shipment (usually 1-2 days)</li>
+                    <li><strong>Shipping Notification</strong> - You'll receive an email with tracking information when your order ships</li>
+                    <li><strong>In Transit</strong> - Your package will be on its way to you</li>
+                    <li><strong>Delivery</strong> - Receive your items at the address you provided</li>
+                </ol>
+            </div>
+            
+            <!-- Important Info -->
+            <div class="next-steps">
+                <strong>📦 Shipping Timeline:</strong> Your order should arrive within 5-10 business days. 
+                Once your package ships, you'll receive a tracking link via email.
+            </div>
+            
+            <!-- Support -->
+            <div class="section">
+                <div class="section-title">Questions?</div>
+                <p>
+                    If you need to reach us about your order, here's how you can contact our support team:
+                </p>
+                <p style="margin-top: 10px;">
+                    📧 Email: <a href="mailto:{{ support_email }}">{{ support_email }}</a><br>
+                    📞 Reference your Order #{{ order_number }} in all communications
+                </p>
+            </div>
+            
+            <div class="footer">
+                <p>Thank you for shopping with us!</p>
+                <p>{{ site_name }} | Order Management System</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

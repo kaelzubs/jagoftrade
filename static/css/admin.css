@@ -1,0 +1,353 @@
+/* Django Admin Custom Styling - JagofTrade Brand Colors */
+
+:root {
+  --jagof-primary: #28a745;
+  --jagof-primary-dark: #218838;
+  --jagof-primary-light: #20c997;
+  --jagof-background: #f8f9fa;
+  --jagof-text: #333;
+}
+
+/* Header and Branding */
+#header {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: white;
+}
+
+#header a, #header h1 a {
+  color: white;
+}
+
+#header h1 a:hover {
+  color: #e0f7f4;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+#header h2 {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#header .logo {
+  margin-right: 20px;
+}
+
+/* Navigation */
+#user-tools {
+  background-color: rgba(33, 136, 56, 0.95);
+  color: white;
+}
+
+#user-tools a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+#user-tools a:hover {
+  color: #b3e5b3;
+  text-decoration: underline;
+}
+
+/* Sidebar */
+#sidebar {
+  background: #f8f9fa;
+  border-right: 3px solid #28a745;
+}
+
+#sidebar h2 {
+  color: #28a745;
+  border-bottom: 2px solid #28a745;
+  padding-bottom: 10px;
+  font-weight: 700;
+}
+
+#sidebar .module h2 {
+  background-color: transparent;
+  color: #28a745;
+  border-left: 4px solid #28a745;
+  padding-left: 10px;
+}
+
+#sidebar .module a {
+  color: #28a745;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+#sidebar .module a:hover {
+  color: #218838;
+  padding-left: 5px;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+/* Buttons */
+.button, input[type="submit"], input[type="button"], input[type="reset"],
+.submit-row input {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: white;
+  border: none;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.button:hover, input[type="submit"]:hover, input[type="button"]:hover,
+input[type="reset"]:hover, .submit-row input:hover {
+  background: linear-gradient(135deg, #218838 0%, #1a6e2f 100%);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+  transform: translateY(-2px);
+}
+
+.button:active, input[type="submit"]:active, input[type="button"]:active,
+input[type="reset"]:active, .submit-row input:active {
+  transform: translateY(0);
+}
+
+/* Danger buttons */
+.button.default, input[type="submit"].default {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+}
+
+/* Delete and other action buttons */
+.deletelink {
+  color: #dc3545;
+  text-decoration: none;
+}
+
+.deletelink:hover {
+  color: #c82333;
+  text-decoration: underline;
+}
+
+/* Form Elements */
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus,
+input[type="url"]:focus, input[type="number"]:focus, input[type="search"]:focus,
+textarea:focus, select:focus {
+  border-color: #28a745 !important;
+  box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25) !important;
+  outline: none;
+}
+
+input[type="text"], input[type="password"], input[type="email"],
+input[type="url"], input[type="number"], input[type="search"],
+textarea, select {
+  border-color: #ddd;
+  border-radius: 4px;
+}
+
+/* Links in content */
+a {
+  color: #28a745;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #218838;
+  text-decoration: underline;
+}
+
+/* Table styling */
+table {
+  background-color: white;
+  border-collapse: collapse;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #f8f9fa;
+}
+
+table thead th {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: white;
+  font-weight: 600;
+  padding: 12px;
+  border: none;
+}
+
+table tbody td {
+  border-color: #eee;
+  padding: 10px 12px;
+}
+
+table tbody tr:hover {
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+/* Pagination */
+.pagination a, .pagination span {
+  color: #28a745;
+  border: 1px solid #28a745;
+}
+
+.pagination a:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+.pagination .step-links span.current {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Messages */
+.messagelist li {
+  border-left: 4px solid #28a745;
+  padding-left: 12px;
+}
+
+.messagelist li.success {
+  border-left-color: #28a745;
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+.messagelist li.warning {
+  border-left-color: #ffc107;
+  background-color: rgba(255, 193, 7, 0.05);
+}
+
+.messagelist li.error {
+  border-left-color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+/* Breadcrumbs */
+.breadcrumbs {
+  background-color: white;
+  border-bottom: 2px solid #28a745;
+  padding: 10px 20px;
+}
+
+.breadcrumbs a {
+  color: #28a745;
+}
+
+.breadcrumbs a:hover {
+  color: #218838;
+}
+
+/* Form errors */
+.errornote, .errorlist {
+  color: #dc3545;
+  border-left: 4px solid #dc3545;
+  padding-left: 12px;
+}
+
+.errorlist li {
+  margin-bottom: 5px;
+}
+
+/* Search */
+#toolbar form input[type="text"],
+#toolbar form input[type="search"] {
+  border: 1px solid #28a745;
+}
+
+#toolbar form input[type="submit"] {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+#toolbar form input[type="submit"]:hover {
+  background: linear-gradient(135deg, #218838 0%, #1a6e2f 100%);
+}
+
+/* Filters */
+#changelist-filter {
+  background-color: #f8f9fa;
+}
+
+#changelist-filter h2 {
+  color: #28a745;
+  border-bottom: 2px solid #28a745;
+  padding-bottom: 10px;
+}
+
+#changelist-filter a {
+  color: #28a745;
+}
+
+#changelist-filter a:hover {
+  color: #218838;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+#changelist-filter .selected a {
+  color: #218838;
+  font-weight: 600;
+}
+
+/* Field descriptions */
+.help {
+  color: #666;
+  font-size: 12px;
+}
+
+/* Fieldset styling */
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 15px;
+  margin: 20px 0;
+  background-color: white;
+}
+
+fieldset h2 {
+  color: #28a745;
+  border-bottom: 2px solid #28a745;
+  padding-bottom: 10px;
+  margin: -15px -15px 15px -15px;
+  padding: 15px 15px 10px 15px;
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.05) 0%, rgba(40, 167, 69, 0.02) 100%);
+}
+
+/* Related widget */
+.related-lookup {
+  color: white;
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  padding: 4px 8px;
+  border-radius: 3px;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.related-lookup:hover {
+  background: linear-gradient(135deg, #218838 0%, #1a6e2f 100%);
+}
+
+/* Readonly fields */
+.readonly {
+  color: #666;
+  padding: 8px 12px;
+  background-color: #f8f9fa;
+  border-radius: 3px;
+}
+
+/* Badges and status indicators */
+.badge {
+  background-color: #28a745;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Focus and active states */
+:focus {
+  outline-color: #28a745;
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+button, input[type="submit"], input[type="button"], a, select {
+  transition: all 0.2s ease;
+}
+

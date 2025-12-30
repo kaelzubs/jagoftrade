@@ -1,0 +1,48 @@
+Order Shipped Notification
+===========================
+
+Hi {{ customer_name }},
+
+Great news! Your order has been shipped and is on its way to you.
+
+TRACKING INFORMATION
+====================
+Order Number: #{{ order.pk }}
+Order Title: {{ order_title }}
+Tracking Number: {{ tracking_number }}
+
+Track your package in real-time using the tracking number above.
+
+ITEMS SHIPPED
+=============
+{% for item in order_items %}
+- {{ item.product.title }} (Qty: {{ item.quantity }})
+{% endfor %}
+
+DELIVERY ADDRESS
+================
+{{ shipping_address.full_name }}
+{{ shipping_address.line1 }}
+{% if shipping_address.line2 %}{{ shipping_address.line2 }}
+{% endif %}{{ shipping_address.city }}{% if shipping_address.state %}, {{ shipping_address.state }}{% endif %} {{ shipping_address.postcode }}
+Phone: {{ shipping_address.phone }}
+
+DELIVERY TIMELINE
+=================
+✓ Order Confirmed - Payment received
+📦 Shipped - On its way (Tracking #{{ tracking_number }})
+🚚 In Transit - Expected delivery in {{ estimated_delivery }}
+📫 Delivered - Arrive at your doorstep
+
+ESTIMATED DELIVERY
+==================
+Your package should arrive within {{ estimated_delivery }}.
+
+NEED HELP?
+==========
+Email: {{ support_email }}
+Reference Order #{{ order.pk }} in your message
+
+---
+This is an automated email. Please do not reply directly.
+{{ site_name }} | Order Management System

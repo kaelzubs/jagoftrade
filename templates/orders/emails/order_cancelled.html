@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Cancelled</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
+        .header h1 { font-size: 28px; margin-bottom: 5px; }
+        .header .icon { font-size: 48px; margin-bottom: 10px; }
+        .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px; }
+        .section { margin-bottom: 30px; }
+        .section-title { font-size: 18px; font-weight: bold; color: #dc3545; margin-bottom: 15px; border-bottom: 2px solid #dc3545; padding-bottom: 10px; }
+        .info-box { background: white; padding: 20px; border-radius: 5px; border-left: 4px solid #dc3545; }
+        .info-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #ddd; }
+        .info-label { font-weight: bold; color: #555; }
+        .info-value { color: #333; }
+        .refund-box { background: #f0f0f0; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107; margin: 15px 0; }
+        .warning-box { background: #fff3cd; padding: 15px; border-radius: 5px; border-left: 4px solid #ffc107; margin: 15px 0; }
+        .cta-button { display: inline-block; background: #dc3545; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 15px 0; font-weight: bold; }
+        .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">✕</div>
+            <h1>Order Cancelled</h1>
+            <p>Your order has been cancelled</p>
+        </div>
+        
+        <div class="content">
+            <p style="margin-bottom: 20px;">Hi {{ customer_name }},</p>
+            
+            <p style="margin-bottom: 20px;">
+                We're sorry to inform you that your order has been cancelled. 
+                Below are the details regarding your cancellation and refund.
+            </p>
+            
+            <!-- Cancellation Details -->
+            <div class="section">
+                <div class="section-title">Cancellation Details</div>
+                <div class="info-box">
+                    <div class="info-row">
+                        <span class="info-label">Order Number:</span>
+                        <span class="info-value">#{{ order_number }}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value" style="color: #dc3545; font-weight: bold;">CANCELLED</span>
+                    </div>
+                    {% if cancellation_reason %}
+                    <div class="info-row">
+                        <span class="info-label">Reason:</span>
+                        <span class="info-value">{{ cancellation_reason }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Refund Information -->
+            <div class="section">
+                <div class="section-title">Refund Information</div>
+                <div class="refund-box">
+                    <strong>Refund Amount: ₦{{ refund_amount|floatformat:2 }}</strong>
+                    <p style="margin-top: 10px; font-size: 14px;">
+                        Your refund has been initiated. Depending on your payment method, 
+                        it may take 3-7 business days to appear in your account.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Important Info -->
+            <div class="warning-box">
+                <strong>📌 Important:</strong> If you don't see the refund within 7 business days, 
+                please contact your bank or payment provider, and include Order #{{ order_number }} in your inquiry.
+            </div>
+            
+            <!-- What Went Wrong? -->
+            <div class="section">
+                <div class="section-title">We'd Like to Know</div>
+                <p>
+                    We'd appreciate your feedback on why this order was cancelled. 
+                    Your input helps us serve you better in the future.
+                </p>
+                <center>
+                    <a href="#" class="cta-button">Share Feedback</a>
+                </center>
+            </div>
+            
+            <!-- Support -->
+            <div class="section">
+                <div class="section-title">Questions?</div>
+                <p>
+                    If you have any questions about your cancellation or refund, 
+                    please don't hesitate to contact us:
+                </p>
+                <p style="margin-top: 10px;">
+                    📧 Email: <a href="mailto:{{ support_email }}">{{ support_email }}</a><br>
+                    📌 Reference Order #{{ order_number }} in your message
+                </p>
+            </div>
+            
+            <!-- Next Steps -->
+            <div class="section">
+                <div class="section-title">Ready to Try Again?</div>
+                <p>
+                    We'd love to serve you better next time. Check out our latest products 
+                    and special offers.
+                </p>
+                <center>
+                    <a href="#" class="cta-button">Browse Our Store</a>
+                </center>
+            </div>
+            
+            <div class="footer">
+                <p>We hope to see you again soon!</p>
+                <p>{{ site_name }} | Order Management System</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

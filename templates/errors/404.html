@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Error 404{% endblock %}
+{% block content %}
+  <div class="container text-center">
+    <h1 class="display-3 text-danger">404</h1>
+    <h2 class="mb-3">Oops! Page not found</h2>
+    <p class="lead">The page you’re looking for doesn’t exist or has been moved.</p>
+    <a href="{% url 'core:home' %}" class="btn btn-success mt-3">Return to Homepage</a>
+  </div>
+{% endblock %}

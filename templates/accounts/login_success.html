@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Login Successful{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-body text-center">
+          <h3 class="card-title text-success mb-4">
+            <i class="fas fa-check-circle"></i> Login Successful
+          </h3>
+          <p class="lead">Welcome! You are now logged in.</p>
+          <div class="mt-4 mb-4">
+            <a href="{% url 'core:home' %}" class="btn btn-success">Go to Dashboard</a>
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

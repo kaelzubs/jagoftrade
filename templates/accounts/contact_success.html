@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Contact Successful{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow text-center">
+        <div class="card-body">
+          <h3 class="card-title text-success mb-3">
+            <i class="fas fa-check-circle"></i> Message Sent Successfully
+          </h3>
+          <p class="lead">Thank you for reaching out, {{ name|default:"Friend" }}!</p>
+          <p>We’ve received your message and our support team will get back to you as soon as possible.</p>
+
+          <div class="mt-4">
+            <a href="{% url 'core:home' %}" class="btn btn-success mb-3">Return to Homepage</a>
+            <a href="{% url 'catalog:list' %}" class="btn btn-outline-success">Continue Shopping</a>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          Need urgent help? <a href="{% url 'suppliers:faq' %}">Check our FAQs</a> or <a href="{% url 'accounts:contact' %}">contact support</a>.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

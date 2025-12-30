@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="card-title text-center mb-4">Create Your Account</h3>
+          <form method="post" novalidate>
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+              <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+            {% endif %}
+
+            <div class="form-group">
+              {{ form.username.label_tag }} {{ form.username }}
+              <div class="text-danger small">{{ form.username.errors }}</div>
+            </div>
+            <div class="form-group">
+              {{ form.email.label_tag }} {{ form.email }}
+              <div class="text-danger small">{{ form.email.errors }}</div>
+            </div>
+            <div class="form-group">
+              {{ form.password1.label_tag }}
+              <div class="input-group">
+                {{ form.password1 }}
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-outline-success" id="togglePwd1">Show</button>
+                </div>
+              </div>
+              {{ form.password1.errors }}
+            </div>
+
+            <div class="form-group">
+              {{ form.password2.label_tag }}
+              <div class="input-group">
+                {{ form.password2 }}
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-outline-success" id="togglePwd2">Show</button>
+                </div>
+              </div>
+              {{ form.password2.errors }}
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Register</button>
+            <div class="text-center my-3">
+              {% if 'google' in socialaccount_providers %}
+                <a href="{% provider_login_url 'google' %}" 
+                  class="btn btn-danger btn-block mb-2">
+                  <i class="fab fa-google mr-2"></i> Login with Google
+                </a>
+              {% else %}
+                <p class="text-muted">Google login not available</p>
+              {% endif %}
+
+              {% if 'facebook' in socialaccount_providers %}
+                <a href="{% provider_login_url 'facebook' %}" 
+                  class="btn btn-success btn-block">
+                  <i class="fab fa-facebook-f mr-2"></i> Login with Facebook
+                </a>
+              {% else %}
+                <p class="text-muted">Facebook login not available</p>
+              {% endif %}
+            </div>
+          </form>
+        </div>
+        <div class="card-footer text-center text-muted">
+          Already have an account? <a href="{% url 'accounts:login' %}">Log in</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function togglePassword(buttonId, inputId) {
+    const btn = document.getElementById(buttonId);
+    const input = document.getElementById(inputId);
+    btn.addEventListener("click", function () {
+      const isPassword = input.type === "password";
+      input.type = isPassword ? "text" : "password";
+      btn.textContent = isPassword ? "Hide" : "Show";
+    });
+  }
+
+  // Django auto-generates IDs like id_password1 and id_password2
+  togglePassword("togglePwd1", "id_password1");
+  togglePassword("togglePwd2", "id_password2");
+</script>
+{% endblock %}
+

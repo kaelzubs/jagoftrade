@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}User Content Policy{% endblock %}
+{% block content %}
+<div class="card shadow">
+  <div class="card-body">
+    <h1 class="card-title">User Content Policy</h1>
+    <p>Users are responsible for ensuring submitted content is lawful and respectful.</p>
+
+    <h2>Rules</h2>
+    <ul class="list-group mb-3">
+      <li class="list-group-item">No illegal content: Do not post defamatory, fraudulent, or infringing materials.</li>
+      <li class="list-group-item">No abuse: Harassment, hate, or personal attacks are prohibited.</li>
+      <li class="list-group-item">Disclosure: Declare any material connections to products you review.</li>
+    </ul>
+
+    <h2>Moderation</h2>
+    <p>{{ company_name }} may remove content that violates these rules and restrict accounts that repeatedly break them.</p>
+  </div>
+</div>
+{% endblock %}

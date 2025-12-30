@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block title %}Order success{% endblock %}
+{% block content %}
+<div class="alert alert-primary">
+  <h4>Thank you!</h4>
+  <p>Your order #{{ order.id }} was placed. We’ll email updates as it’s fulfilled.</p>
+</div>
+{% endblock %}

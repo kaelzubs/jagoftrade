@@ -1,0 +1,71 @@
+ADMIN ORDER NOTIFICATION
+========================
+
+EVENT:
+{% if event_type == 'created' %}
+🆕 New Order Received
+{% elif event_type == 'paid' %}
+💳 Payment Received
+{% elif event_type == 'shipped' %}
+📦 Order Shipped
+{% elif event_type == 'delivered' %}
+✅ Order Delivered
+{% elif event_type == 'cancelled' %}
+❌ Order Cancelled
+{% endif %}
+
+ORDER INFORMATION
+=================
+Order ID: #{{ order.pk }}
+Order Date: {{ order.created_at|date:"F j, Y \a\t g:i A" }}
+Status: {{ order.get_status_display }}
+
+CUSTOMER INFORMATION
+====================
+Name: {{ customer_name }}
+Email: {{ customer_email }}
+Phone: {{ customer_phone|default:"Not provided" }}
+
+SHIPPING ADDRESS
+================
+{{ shipping_address.full_name }}
+{{ shipping_address.line1 }}
+{% if shipping_address.line2 %}{{ shipping_address.line2 }}
+{% endif %}{{ shipping_address.city }}, {% if shipping_address.state %}{{ shipping_address.state }} {% endif %}{{ shipping_address.postcode }}
+{{ shipping_address.country }}
+Phone: {{ shipping_address.phone }}
+
+ORDER ITEMS
+===========
+{% for item in order %}
+Product: {{ item.product.title }}
+Quantity: {{ item.quantity }}
+Unit Price: ₦{{ item.unit_price|floatformat:2 }}
+Total: ₦{{ item.line_total|floatformat:2 }}
+
+{% endfor %}
+Items Ordered: {{ total_items }}
+Item Value: ₦{{ total_item_value|floatformat:2 }}
+
+ORDER SUMMARY
+=============
+Subtotal: ₦{{ order_subtotal|floatformat:2 }}
+Shipping: ₦{{ shipping_cost|floatformat:2 }}
+Total Amount: ₦{{ order_total|floatformat:2 }}
+
+ADMIN ACTION
+============
+To manage this order, log in to the admin dashboard:
+/admin/orders/order/{{ order.pk }}/change/
+
+{% if event_type == 'created' %}
+REMINDER: You have a new order awaiting confirmation and processing.
+{% elif event_type == 'paid' %}
+PAYMENT CONFIRMED: Proceed with order fulfillment.
+{% elif event_type == 'cancelled' %}
+WARNING: Order Cancelled. Please initiate refund if payment was received.
+{% endif %}
+
+---
+This is an automated admin notification from {{ site_name }} Order Management System.
+Please do not reply to this email.

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Accessibility Statement{% endblock %}
+{% block content %}
+<div class="card shadow">
+  <div class="card-body">
+    <h1 class="card-title">Accessibility Statement</h1>
+    <p>We aim to make {{ company_name }} accessible to all users and strive to meet recognized accessibility standards.</p>
+
+    <h2>Commitments</h2>
+    <ul class="list-group mb-3">
+      <li class="list-group-item">Compatibility with modern browsers and assistive technologies.</li>
+      <li class="list-group-item">Clear navigation, readable text, and descriptive links.</li>
+      <li class="list-group-item">Continuous improvement based on feedback.</li>
+    </ul>
+
+    <h2>Feedback</h2>
+    <p>If you encounter barriers, please email {{ contact_email }}. We will work to address issues promptly.</p>
+  </div>
+</div>
+{% endblock %}

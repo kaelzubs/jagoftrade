@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Cookie Config{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-body p-4">
+          <h3 class="mb-3">Cookie settings</h3>
+          <p>Essential cookies are always on to keep the site working. Choose your preferences for optional cookies below.</p>
+
+          <form method="post">
+            {% csrf_token %}
+            <div class="custom-control custom-checkbox mb-2">
+              <input type="checkbox" class="custom-control-input" id="analytics" name="analytics"
+                     {% if prefs.analytics %}checked{% endif %}>
+              <label class="custom-control-label" for="analytics">Analytics cookies</label>
+            </div>
+            <div class="custom-control custom-checkbox mb-3">
+              <input type="checkbox" class="custom-control-input" id="marketing" name="marketing"
+                     {% if prefs.marketing %}checked{% endif %}>
+              <label class="custom-control-label" for="marketing">Marketing cookies</label>
+            </div>
+
+            <button type="submit" class="btn btn-success">Save preferences</button>
+            <div class="mt-3">
+              <a href="{% url 'core:home' %}" class="btn btn-outline-success">Return to homepage</a>
+            </div>
+          </form>
+
+          <hr>
+          <h5>Cookie categories</h5>
+          <ul>
+            <li><strong>Essential:</strong> Required for core site functions (authentication, cart, CSRF). Always on.</li>
+            <li><strong>Analytics:</strong> Helps us understand usage and improve the site.</li>
+            <li><strong>Marketing:</strong> Used for personalization and advertising.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

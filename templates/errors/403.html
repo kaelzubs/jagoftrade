@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Error 403{% endblock %}
+{% block content %}
+  <div class="container text-center">
+    <h1 class="display-3 text-danger">403</h1>
+    <h2 class="mb-3">Access Forbidden</h2>
+    <p class="lead">Sorry, you don’t have permission to view this page.</p>
+    <a href="{% url 'core:home' %}" class="btn btn-success mt-3">Return to Homepage</a>
+    <a href="{% url 'accounts:contact' %}" class="btn btn-outline-secondary mt-3">Contact Support</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,298 @@
+{% load static %}
+{% load humanize %}
+{% include "partials/cookie_banner.html" %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}JagofTrade{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link href="{% static 'img/jagoftrade.png' %}" type="image/png" rel="icon">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <style>
+    /* Full-screen overlay */
+    .loader-overlay {
+      position: fixed; inset: 0; background: #ffffff; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* Spinner */
+    .spinner {
+      width: 56px; height: 56px; border: 4px solid #e5e7eb; border-top-color: #28a745;;
+      border-radius: 50%; animation: spin .9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* Hide overlay once ready */
+    .loader-hidden { opacity: 0; visibility: hidden; transition: opacity .2s ease; }
+  </style>
+  <style>
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      30% { transform: scale(1.3); }
+      50% { transform: scale(0.9); }
+      70% { transform: scale(1.1); }
+    }
+
+    .badge.bounce {
+      animation: bounce 0.5s ease;
+    }
+
+    /* Flash effect */
+    @keyframes flash {
+      0%, 100% { background-color: #dc3545; } /* Bootstrap red */
+      50% { background-color: #ffc107; }      /* Bootstrap yellow */
+    }
+
+    .badge.flash {
+      animation: flash 0.6s ease;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
+    <a href="{% url 'core:home' %}">
+      <img class='mobile-logo' src="{% static 'img/mobile_logo.png' %}" width="40" height="40" alt="JagofTrade Logo">
+    </a>
+    <a class="navbar-brand text-white font-weight-bolder" href="{% url 'core:home' %}">JagofTrade</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div id="nav" class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item"><a class="nav-link text-white font-weight-bold" href="{% url 'catalog:list' %}">Explore</a></li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0 mx-4" method="get" action="{% url 'catalog:search' %}">
+        {% csrf_token %}
+        <div class="input-group w-100">
+          <input type="search" name='q' class="form-control mr-sm-0" placeholder="Search products..." aria-label="Search">
+          <div class="input-group-append">
+            <button class="btn btn-outline-light my-sm-0" type="submit">Search</button>
+          </div>
+        </div>
+      </form>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link text-white" href="{% url 'policies:about' %}">About</a></li>
+        <li class="nav-item"><a class="nav-link text-white" href="{% url 'accounts:contact' %}">Contact</a></li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link text-white position-relative" href="{% url 'orders:cart_detail' %}">
+              Wishlist<span id="cart-count" class="badge bg-danger top-0 start-100 translate-middle">
+                {{ cart|length }}
+              </span>          
+            </a>
+          </li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'accounts:logout' %}">Welcome {{ user.username }}, Logout?</a></li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'orders:cart_detail' %}">
+              Wishlist<span id="cart-count" class="badge bg-danger top-0 start-100 translate-middle">
+                  {{ cart|length }}
+              </span>
+            </a>
+          </li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'accounts:register' %}">Register</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="{% url 'accounts:login' %}">Login</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+  <main role="main" class="container mt-5">
+    <div id="page-loader" class="loader-overlay">
+      <div class="spinner" aria-label="Loading"></div>
+    </div>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="bg-dark text-light pt-5 pb-3 footer">
+    <div class="container">
+      <div class="row">
+        <!-- Brand -->
+        <div class="col-md-3 mb-4">
+          <h5 class="font-weight-bold">JagofTrade</h5>
+          <p class="small">Your trusted online shopping store worldwide.</p>
+          <img class='logo' src="{% static 'img/jagoftrade.png' %}" alt="JagofTrade Logo">
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-md-3 mb-4">
+          <h6 class="font-weight-bold">Quick Links</h6>
+          <ul class="list-unstyled">
+            <li><a href="{% url 'catalog:list' %}" class="text-light">Shop</a></li>
+            <li><a href="{% url 'policies:about' %}" class="text-light">About Us</a></li>
+            <li><a href="{% url 'accounts:contact' %}" class="text-light">Contact</a></li>
+            <li><a href="{% url 'policies:faqs' %}" class="text-light">FAQs</a></li>
+            <li><a href="{% url 'policies:terms' %}" class="text-light">Terms & Conditions</a></li>
+          </ul>
+        </div>
+
+        <!-- Policies -->
+        <div class="col-md-3 mb-4">
+          <h6 class="font-weight-bold">Policies</h6>
+          <ul class="list-unstyled">
+            <li><a href="{% url 'policies:privacy' %}" class="text-light">Privacy</a></li>
+            <li><a href="{% url 'policies:editorial' %}" class="text-light">Editorial</a></li>
+            <li><a href="{% url 'policies:advertising' %}" class="text-light">Advertising</a></li>
+            <li><a href="{% url 'policies:affiliate' %}" class="text-light">Affiliate</a></li>
+            <li><a href="{% url 'policies:accessibility' %}" class="text-light">Accessibility</a></li>
+            <li><a href="{% url 'policies:user_content' %}" class="text-light">User Content</a></li>
+          </ul>
+        </div>
+
+        <!-- Newsletter & Social -->
+        <div class="col-md-3 mb-4">
+          <h6 class="font-weight-bold">Stay Connected</h6>
+          <form class="form-inline" method="post" action="{% url 'accounts:newsletter_subscribe' %}">
+            {% csrf_token %}
+            <div class="input-group w-100 mb-2">
+              <input type="email" name='email' class="form-control" placeholder="Your email">
+              <div class="input-group-append">
+                <button class="btn btn-success" type="submit">Subscribe</button>
+              </div>
+            </div>
+          </form>
+          <div>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="text-light mr-2">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="{{ request.build_absolute_uri }}" class="text-light mr-2" onclick="copyShareLink();">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="{{ request.build_absolute_uri }}" class="text-light" onclick="copyShareLink();">
+              <i class="fab fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <hr class="border-secondary">
+
+      <div class="row d-flex justify-content-between small text-center">
+        <div class='col-sm-12 col-md-6 mb-2 mb-md-0 text-md-left'>
+          <span>© <script>document.write(new Date().getFullYear())</script> JagofTrade. All rights reserved.</span>
+        </div>
+        <div class='col justify-content-end text-md-right'>
+          <span>
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fab fa-cc-paypal"></i>
+            <i class="fas fa-lock"></i> Secure Checkout
+          </span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 4 JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Font Awesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async></script>
+  <script src="{% static 'js/script.js' %}"></script>
+  <!-- Page Loader Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const overlay = document.getElementById('page-loader');
+      if (overlay) overlay.classList.add('loader-hidden');
+    })
+  </script>
+  <script>
+    (function() {
+      var CONSENT_COOKIE = "cookie_consent";
+
+      function getConsent() {
+        var m = document.cookie.match(new RegExp('(^| )' + CONSENT_COOKIE + '=([^;]+)'));
+        if (!m) return null;
+        try { return JSON.parse(decodeURIComponent(m[2])); } catch(e) { return null; }
+      }
+
+      function setConsent(prefs) {
+        var value = encodeURIComponent(JSON.stringify(prefs));
+        var maxAge = 365*24*60*60;
+        var secure = location.protocol === "https:" ? "; Secure" : "";
+        document.cookie = CONSENT_COOKIE + "=" + value + "; Max-Age=" + maxAge + "; Path=/; SameSite=Lax" + secure;
+      }
+
+      function showBannerIfNeeded() {
+        var c = getConsent();
+        if (!c) {
+          document.getElementById("cookieBanner").classList.remove("d-none");
+        } else {
+          window.dispatchEvent(new CustomEvent("cookie-consent-ready", { detail: c }));
+        }
+      }
+
+      document.getElementById("acceptAll")?.addEventListener("click", function() {
+        var prefs = { essential: true, analytics: true, marketing: true, version: 1, timestamp: new Date().toISOString() };
+        setConsent(prefs);
+        document.getElementById("cookieBanner").classList.add("d-none");
+        window.dispatchEvent(new CustomEvent("cookie-consent-ready", { detail: prefs }));
+      });
+
+      document.getElementById("acceptSelected")?.addEventListener("click", function() {
+        var prefs = {
+          essential: true,
+          analytics: document.getElementById("consentAnalytics").checked,
+          marketing: document.getElementById("consentMarketing").checked,
+          version: 1,
+          timestamp: new Date().toISOString()
+        };
+        setConsent(prefs);
+        document.getElementById("cookieBanner").classList.add("d-none");
+        window.dispatchEvent(new CustomEvent("cookie-consent-ready", { detail: prefs }));
+      });
+
+      showBannerIfNeeded();
+    })();
+  </script>
+  <!-- Add to Cart AJAX Script -->  
+  <script>
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const productId = this.dataset.id;
+        fetch(`/cart/add/${productId}/`, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ quantity: 1 }) // optional if your view expects POST data
+        })
+        .then(res => res.json())
+        .then(data => {
+          // Update cart count
+          const cartCountElem = document.getElementById('cart-count');
+          cartCountElem.textContent = data.cart_item_count;
+
+          // Add bounce animation
+          cartCountElem.classList.remove('bounce');
+          void cartCountElem.offsetWidth; // trigger reflow
+          cartCountElem.classList.add('bounce');
+        })
+        .then(data => {
+          // Show toast/alert
+          const toast = document.createElement('div');
+          toast.className = "toast align-items-center text-bg-success border-0 show position-fixed bottom-0 end-0 m-3";
+          toast.innerHTML = `<div class="d-flex">
+              <div class="toast-body">${data.message}</div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>`;
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3000);
+        });
+      });
+    });
+  </script>
+  <script>
+  function copyShareLink() {
+    const link = "{{ request.build_absolute_uri }}";
+    navigator.clipboard.writeText(link).then(() => {
+      alert("Product link copied! Paste it into Instagram or TikTok.");
+    });
+  }
+  </script>
+</body>
+</html>

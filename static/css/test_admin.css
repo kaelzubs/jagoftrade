@@ -1,0 +1,23 @@
+/* Visual regression tests for admin.css padding */
+
+/* Test: Toolbar submit button padding */
+#toolbar form input[type="submit"] {
+    padding: 8px 16px;
+    /* Expected: 8px vertical, 16px horizontal */
+}
+
+/* Visual verification - add to test file temporarily */
+.test-padding-8-16 {
+    padding: 8px 16px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    display: inline-block;
+    margin: 10px;
+}
+
+/* Comparison test cases */
+.test-padding-default { padding: 8px 16px; }
+.test-padding-small { padding: 4px 8px; }
+.test-padding-large { padding: 12px 24px; }

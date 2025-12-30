@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="jumbotron img-fluid" style="
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/static/img/products_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: white;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+">
+  <div class="jumbotron-content">
+    <h2 class="display-4 jumb font-weight-bold">Your trusted online store</h2>
+    <p class="lead font-weight-bold">Curated products, fulfilled by trusted suppliers.</p>
+    <a href="{% url 'catalog:list' %}" class="btn btn-success btn-lg font-weight-bolder">Explore</a>
+  </div>
+</div>
+
+<style>
+  @media (max-width: 768px) {
+    .jumbotron {
+      background-attachment: scroll !important;
+      min-height: 300px !important;
+      padding: 2rem 1rem !important;
+    }
+    .jumbotron h2 {
+      font-size: 1.75rem !important;
+    }
+    .jumbotron p {
+      font-size: 1rem !important;
+    }
+    .jumbotron .btn {
+      font-size: 0.95rem !important;
+      padding: 0.5rem 1.25rem !important;
+    }
+  }
+</style>
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-md-3 mb-4 main-div">
+    <div class="card shadow py-2 pl-2 d-flex">
+        <div class='image-container'>
+          {% with first_image=product.images.all.0 %}
+            {% if first_image %}
+              <img src="{{ first_image.image.url }}" class="card-img-top" alt="{{ product.title }}">
+            {% else %}
+              <div class="card-img-top img-fluid item-placeholder">No image</div>
+            {% endif %}
+          {% endwith %}
+        </div>
+        <div class="card-body">
+          <div class="title-container desktop-only">
+            <h5 class="card-title">{{ product.title|truncatechars:60 }}</h5>
+          </div>
+          <div class="title-container mobile-only">
+            <h5 class="card-title">{{ product.title }}</h5>
+          </div>
+          <p class="card-text">${{ product.price|floatformat:2|intcomma }}</p>
+          <a href="{% url 'catalog:detail' product.slug %}" class="btn btn-sm btn-success">View</a>
+        </div>
+    </div>
+  </div>
+  {% empty %}
+    <div class="col-12 text-center text-muted">
+      <p>No products available.</p>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

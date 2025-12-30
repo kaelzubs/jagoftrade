@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}FAQs{% endblock %}
+{% block content %}
+<div class="card shadow">
+  <div class="card-body">
+    <h1 class="card-title">Frequently Asked Questions</h1>
+
+    <h5>Do affiliate links change the price?</h5>
+    <p>No. You pay the same price. {{ company_name }} may earn a commission from qualifying purchases.</p>
+
+    <h5>How do you choose products?</h5>
+    <p>We compare performance, durability, support, and price-to-value, and consider verified customer feedback.</p>
+
+    <h5>Are rankings sponsored?</h5>
+    <p>No. Sponsorships are disclosed and do not influence reviews or rankings.</p>
+
+    <h5>How often do you update content?</h5>
+    <p>We update when products or pricing change, and perform periodic reviews.</p>
+
+    <h5>How can I request a review?</h5>
+    <p>Email {{ contact_email }} with product details and your use case.</p>
+  </div>
+</div>
+{% endblock %}

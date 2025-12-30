@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Delivered</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 30px; border-radius: 8px 8px 0 0; text-align: center; }
+        .header h1 { font-size: 28px; margin-bottom: 5px; }
+        .header .icon { font-size: 48px; margin-bottom: 10px; }
+        .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px; }
+        .section { margin-bottom: 30px; }
+        .section-title { font-size: 18px; font-weight: bold; color: #28a745; margin-bottom: 15px; border-bottom: 2px solid #28a745; padding-bottom: 10px; }
+        .success-box { background: white; padding: 20px; border-radius: 5px; border-left: 4px solid #28a745; text-align: center; }
+        .cta-button { display: inline-block; background: #28a745; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 15px 0; font-weight: bold; }
+        .next-steps { background: #f0f8f4; padding: 15px; border-radius: 5px; border-left: 4px solid #28a745; }
+        .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="icon">✅</div>
+            <h1>Order Delivered!</h1>
+            <p>Your package has arrived safely</p>
+        </div>
+        
+        <div class="content">
+            <p style="margin-bottom: 20px;">Hi {{ customer_name }},</p>
+            
+            <p style="margin-bottom: 20px;">
+                Your order has been successfully delivered! We hope you're satisfied with your purchase. 
+                Below are your order details for reference.
+            </p>
+            
+            <!-- Success Message -->
+            <div class="section">
+                <div class="success-box">
+                    <h2 style="color: #28a745; margin-bottom: 10px;">Order #{{ order_number }} Delivered</h2>
+                    <p>Thank you for shopping with us!</p>
+                </div>
+            </div>
+            
+            <!-- What's Next? -->
+            <div class="section">
+                <div class="section-title">What's Next?</div>
+                <div class="next-steps">
+                    <ol style="margin-left: 20px; line-height: 2;">
+                        <li><strong>Inspect Your Items</strong> - Check that everything is in good condition</li>
+                        <li><strong>Verify Contents</strong> - Ensure all items from your order are included</li>
+                        <li><strong>Leave Feedback</strong> - Share your experience with us</li>
+                        <li><strong>Contact Support</strong> - If there are any issues, reach out immediately</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Feedback Section -->
+            <div class="section">
+                <div class="section-title">We'd Love Your Feedback</div>
+                <p>
+                    Your feedback helps us improve our products and services. 
+                    If you're satisfied with your purchase, please consider leaving a review.
+                </p>
+                <center>
+                    <a href="#" class="cta-button">Leave a Review</a>
+                </center>
+            </div>
+            
+            <!-- Help Section -->
+            <div class="section">
+                <div class="section-title">Issues with Your Order?</div>
+                <p>
+                    If you received damaged items, missing products, or have any concerns, 
+                    please contact us immediately. We're here to help!
+                </p>
+                <p style="margin-top: 10px;">
+                    📧 Email: <a href="mailto:{{ support_email }}">{{ support_email }}</a><br>
+                    📌 Reference Order #{{ order_number }} for quick resolution
+                </p>
+            </div>
+            
+            <!-- Next Purchase -->
+            <div class="section">
+                <div class="section-title">Ready to Shop Again?</div>
+                <p>
+                    Enjoyed your experience? Check out our latest products and exclusive offers!
+                </p>
+                <center>
+                    <a href="#" class="cta-button">Continue Shopping</a>
+                </center>
+            </div>
+            
+            <div class="footer">
+                <p>Thank you for being our valued customer!</p>
+                <p>{{ site_name }} | Order Management System</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

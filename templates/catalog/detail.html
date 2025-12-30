@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}{{ product.title }}{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    {% if product.images.all %}
+    <div class="card shadow category-item py-2 px-2 d-flex">
+      {% with first_image=product.images.all.0 %}
+        {% if first_image %}
+          <img id="mainImage" src="{{ first_image.image.url }}" class="img-fluid cursor-pointer" data-bs-toggle="modal" data-bs-target="#imageModal" alt="{{ product.title }}">
+        {% else %}
+          <div class="card-img-top img-fluid item-placeholder">No image</div>
+        {% endif %}
+      {% endwith %}
+    </div>
+    {% endif %}
+    {% if product.images.all %}
+    <div class="row mt-4">
+      <div class="col-12">
+        <h3>More Images</h3>
+        <div class="row">
+          <div class="more-images d-flex">
+            {% for image in product.images.all %}
+              <img id="otherImage" src="{{ image.image.url }}" class="shadow cursor-pointer" onclick="updateMainImage(this)" alt="{{ product.title }}">
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="col-md-6 mb-5">
+    <h3>{{ product.title }}</h3>
+    <p class="text-muted">${{ product.price|floatformat:2|intcomma }}</p>
+    <p>{{ product.description }}</p>
+    <form method="post" action="{% url 'orders:cart_add' product.id %}">
+      {% csrf_token %}
+      <button class="btn btn-success add-to-cart" data-id="{{ product.id }}">Add to Wishlist</button>
+      <a class="btn btn-primary add-to-cart" href="{{ product.affiliate_link }}" target="_blank">Buy Now</a>
+    </form>
+  </div>
+</div>
+<script>
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+  }
+</script>
+<style>
+  .selected-image {
+    border: 2px solid #007bff;
+  }
+</style>
+<script>
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+    // Remove border from all other images
+    document.querySelectorAll('#otherImage').forEach(img => {
+      img.classList.remove('selected-image');
+    });
+    // Add border to clicked image
+    src.classList.add('selected-image');
+  }
+</script>
+{% endblock %}

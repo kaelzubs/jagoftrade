@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load socialaccount %}
+{% block title %}Social Login{% endblock %}
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="card-title text-center mb-4">Sign in with Social Account</h3>
+          <div class="text-center mb-3">
+            <a href="{% provider_login_url 'google' %}" class="btn btn-danger btn-block mb-2">
+              <i class="fab fa-google mr-2"></i> Continue with Google
+            </a>
+            <a href="{% provider_login_url 'facebook' %}" class="btn btn-primary btn-block">
+              <i class="fab fa-facebook-f mr-2"></i> Continue with Facebook
+            </a>
+          </div>
+          <hr>
+          <div class="text-center">
+            <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary">Login with Email</a>
+            <a href="{% url 'accounts:register' %}" class="btn btn-outline-success ml-2">Register with Email</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

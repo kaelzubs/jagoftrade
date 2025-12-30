@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}About Us{% endblock %}
+{% block content %}
+<div class="card shadow">
+  <div class="card-body">
+    <h1 class="card-title">About Us</h1>
+    <p class="lead">
+      Welcome to <strong>{{ company_name }}</strong> — your trusted companion for smart shopping and affiliate insights.
+    </p>
+
+    <h2>Our Mission</h2>
+    <p>
+      {{ mission_statement }}
+    </p>
+
+    <h2>What We Do</h2>
+    <ul class="list-group mb-3">
+      <li class="list-group-item">
+        <strong>Curated Recommendations:</strong> We analyze specifications, performance, and pricing to spotlight the best options.
+      </li>
+      <li class="list-group-item">
+        <strong>Independent Reviews:</strong> Our editorial team ensures unbiased, fact‑checked content free from outside influence.
+      </li>
+      <li class="list-group-item">
+        <strong>Affiliate Transparency:</strong> We disclose when links may earn us a commission, at no extra cost to you.
+      </li>
+      <li class="list-group-item">
+        <strong>Continuous Updates:</strong> Content is refreshed regularly to reflect market changes and new product launches.
+      </li>
+    </ul>
+
+    <h2>Our Values</h2>
+    <p>
+      {{ values_statement }}
+    </p>
+
+    <h2>Contact Us</h2>
+    <p>
+      📧 Email: <a href="mailto:{{ contact_email }}">{{ contact_email }}</a><br>
+      📍 Location: {{ location }}
+    </p>
+
+    <p class="text-muted"><em>Last updated:</em> {{ effective_date }}</p>
+  </div>
+</div>
+{% endblock %}
