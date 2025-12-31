@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 import warnings
 from datetime import timedelta
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 
 # Generate a secure random secret key
 choices = string.ascii_letters + string.digits + "<>()[]*?@!#~,.;"
@@ -206,26 +207,37 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'shop.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('DB_NAME', 'jagoftrade_db'),
-#         'USER': os.getenv('DB_USER', 'jagoftrade_user'),
-#         'PASSWORD': os.getenv('DB_PASSWORD', ''),
-#         'HOST': os.getenv('DB_HOST', 'localhost'),
-#         'PORT': os.getenv('DB_PORT', '5432'),
-#     }
-# }
+def get_database_config():
+    # Get DATABASE_URL from environment
+    database_url = os.environ.get("DATABASE_URL")
+    if not database_url:
+        raise ImproperlyConfigured(
+            "DATABASE_URL environment variable is not set. "
+            "Heroku requires this for database configuration."
+        )
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+    # Parse the URL into Django DATABASES format
+    config = dj_database_url.config(
+        default=database_url,
+        conn_max_age=600,
+        ssl_require=True
+    )
+
+    # Validate ENGINE
+    if "ENGINE" not in config or not config["ENGINE"]:
+        raise ImproperlyConfigured(
+            "settings.DATABASES is improperly configured. "
+            "Please supply the ENGINE value (e.g., 'django.db.backends.postgresql')."
+        )
+
+    return config
+
+
+DATABASES = {
+    "default": get_database_config()
+}
 
 # Use dj-database-url for Heroku PostgreSQL
 # DATABASES = {
