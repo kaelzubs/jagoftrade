@@ -16,7 +16,6 @@ from dotenv import load_dotenv
 import warnings
 from datetime import timedelta
 import dj_database_url
-from django.core.exceptions import ImproperlyConfigured
 
 # Generate a secure random secret key
 choices = string.ascii_letters + string.digits + "<>()[]*?@!#~,.;"
@@ -209,50 +208,14 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-def get_database_config():
-    # Get DATABASE_URL from environment
-    database_url = os.environ.get("DATABASE_URL")
-    if not database_url:
-        raise ImproperlyConfigured(
-            "DATABASE_URL environment variable is not set. "
-            "Heroku requires this for database configuration."
-        )
-
-    # Parse the URL into Django DATABASES format
-    config = dj_database_url.config(
-        default=database_url,
-        conn_max_age=600,
-        ssl_require=True
-    )
-
-    # Validate ENGINE
-    if "ENGINE" not in config or not config["ENGINE"]:
-        raise ImproperlyConfigured(
-            "settings.DATABASES is improperly configured. "
-            "Please supply the ENGINE value (e.g., 'django.db.backends.postgresql')."
-        )
-
-    return config
-
-
-DATABASES = {
-    "default": get_database_config()
-}
-
-# Use dj-database-url for Heroku PostgreSQL
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=os.getenv('DATABASE_URL', f'sqlite:///{BASE_DIR / "db.sqlite3"}'),
-#         conn_max_age=600
-#     )
-# }
-
 DATABASES = {
     'default': dj_database_url.config(
         default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
         conn_max_age=600,
+        ssl_require=False
     )
 }
+DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
