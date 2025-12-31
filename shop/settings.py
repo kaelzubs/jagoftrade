@@ -334,7 +334,7 @@ LOGIN_REDIRECT_URL = 'core:home'
 ACCOUNT_LOGIN_METHODS = {'email'} # Or {'username', 'email'} if you allow both
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] # For email/password signup
 
-AUTH_USER_MODEL = 'accounts.CustomUser'  # replace 'accounts' with your app name
+# AUTH_USER_MODEL = 'accounts.CustomUser'  # replace 'accounts' with your app name
 
 AMAZON_PAAPI = {
     "ACCESS_KEY": os.getenv('AMAZON_ACCESS_KEY', ''),
