@@ -3,6 +3,7 @@ from django.db import models
 from catalog.models import Product
 
 class Address(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     full_name = models.CharField(max_length=120)
     line1 = models.CharField(max_length=200)
     line2 = models.CharField(max_length=200, blank=True)
@@ -22,6 +23,7 @@ class Order(models.Model):
         ('fulfilled', 'Fulfilled'),
         ('cancelled', 'Cancelled'),
     ]
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
     email = models.EmailField()
     shipping_address = models.ForeignKey(Address, on_delete=models.PROTECT, related_name='shipping_orders')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='created')
