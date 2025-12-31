@@ -44,7 +44,7 @@ def main():
         print("\nFetching products from Amazon...\n")
         
         # Populate all categories
-        stats = populator.populate_all_categories(limit=10)
+        stats = populator.populate_all_categories(limit=100)
         
         if not stats.get('success'):
             print(f"❌ Error: {stats.get('error')}")
