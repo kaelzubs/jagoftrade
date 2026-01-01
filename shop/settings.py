@@ -322,6 +322,6 @@ AMAZON_PAAPI = {
     "ACCESS_KEY": os.getenv('AMAZON_ACCESS_KEY', ''),
     "SECRET_KEY": os.getenv('AMAZON_SECRET_KEY', ''),
     "PARTNER_TAG": os.getenv('AMAZON_PARTNER_TAG', ''),
-    "PARTNER_TYPE": "Associates",
-    "MARKETPLACE": "www.amazon.com",
+    "PARTNER_TYPE": os.getenv('AMAZON_PARTNER_TYPE', 'Associates'),
+    "MARKETPLACE": os.getenv('AMAZON_MARKETPLACE', 'https://webservices.amazon.com/paapi5/searchitems'),
 }

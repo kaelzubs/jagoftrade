@@ -1,10 +1,11 @@
-import os, json
+import os
+import json
 import time
 import logging
 import hashlib
 import hmac
 import datetime
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import requests
 from requests.exceptions import RequestException
@@ -18,25 +19,16 @@ class AmazonPAAPIService:
     Provides search functionality for products.
     """
 
-    def __init__(
-        self,
-        access_key: Optional[str] = None,
-        secret_key: Optional[str] = None,
-        partner_tag: Optional[str] = None,
-        region: str = "us-east-1",
-        marketplace: str = "webservices.amazon.com",
-        max_retries: int = 3,
-        timeout: int = 10,
-    ):
-        self.access_key = access_key or os.getenv("AMAZON_ACCESS_KEY")
-        self.secret_key = secret_key or os.getenv("AMAZON_SECRET_KEY")
-        self.partner_tag = partner_tag or os.getenv("AMAZON_PARTNER_TAG")
-        self.region = region or os.getenv("AMAZON_REGION", "us-east-1")
-        self.marketplace = marketplace or os.getenv("AMAZON_MARKETPLACE", "webservices.amazon.com")
-        self.max_retries = max_retries or int(os.getenv("AMAZON_MAX_RETRIES", "3"))
-        self.timeout = timeout or int(os.getenv("AMAZON_TIMEOUT", "10"))
+    def __init__(self):
+        self.access_key = os.getenv("AMAZON_ACCESS_KEY")
+        self.secret_key = os.getenv("AMAZON_SECRET_KEY")
+        self.partner_tag = os.getenv("AMAZON_PARTNER_TAG")
+        self.region = os.getenv("AMAZON_REGION", "us-east-1")
+        self.marketplace = os.getenv("AMAZON_MARKETPLACE", "webservices.amazon.com")
+        self.timeout = int(os.getenv("AMAZON_TIMEOUT", 10))
+        self.max_retries = int(os.getenv("AMAZON_MAX_RETRIES", 3))
 
-        if not all([self.access_key, self.secret_key, self.partner_tag]):
+        if not all([self.access_key, self.secret_key, self.partner_tag, self.marketplace, self.region, self.timeout, self.max_retries]):
             raise RuntimeError("Amazon PAAPI credentials are missing")
 
         self.endpoint = f"https://{self.marketplace}/paapi5/searchitems"
@@ -79,7 +71,7 @@ class AmazonPAAPIService:
             f"{hashlib.sha256(canonical_request.encode('utf-8')).hexdigest()}"
         )
 
-        signing_key = self._get_signature_key(self.secret_key, date_stamp, self.region, service)
+        signing_key = self._get_signature_key(str(self.secret_key), date_stamp, self.region, service)
         signature = hmac.new(signing_key, string_to_sign.encode("utf-8"), hashlib.sha256).hexdigest()
 
         authorization_header = (
@@ -91,6 +83,8 @@ class AmazonPAAPIService:
             "Content-Type": content_type,
             "X-Amz-Date": amz_date,
             "Authorization": authorization_header,
+            "X-Amz-Target": "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems",
+            "Host": host,
         }
         return headers
 
@@ -104,7 +98,7 @@ class AmazonPAAPIService:
             "Keywords": keyword,
             "PartnerTag": self.partner_tag,
             "PartnerType": "Associates",
-            "Marketplace": "www.amazon.com",
+            "Marketplace": "https://webservices.amazon.com/paapi5/searchitems",
             "Resources": [
                 "ItemInfo.Title",
                 "ItemInfo.Features",
@@ -145,7 +139,7 @@ class AmazonPAAPIService:
                         item.get("Offers", {})
                         .get("Listings", [{}])[0]
                         .get("Price", {})
-                        .get("Amount")
+                        .get("DisplayAmount")
                     )
                     image_url = (
                         item.get("Images", {})

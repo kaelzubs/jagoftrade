@@ -213,7 +213,7 @@ class Command(BaseCommand):
         parser.add_argument("--limit", type=int, default=10, help="Max products per category")
         parser.add_argument("--force", action="store_true", help="Re-populate existing categories/products")
         parser.add_argument("--dry-run", action="store_true", help="Simulate without writing to DB/storage")
-        parser.add_argument("--rate-limit", type=float, default=0.0, help="Seconds to sleep between product operations")
+        parser.add_argument("--rate-limit", type=float, default=1.0, help="Seconds to sleep between product operations")
         parser.add_argument(
             "--categories",
             type=str,
