@@ -104,10 +104,10 @@ class ProductImage(models.Model):
         related_name="images",
         help_text="The product this image belongs to."
     )
-    image = models.ImageField(
-        upload_to="product_images/",
-        help_text="Uploaded product image."
+    image = models.URLField(
+        help_text="URL of the product image.",
     )
+
 
     class Meta:
         verbose_name = "Product Image"

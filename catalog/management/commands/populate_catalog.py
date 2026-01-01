@@ -98,6 +98,7 @@ class CatalogPopulator:
                 logger.info("Category exists: %s", name)
 
             should_populate = self.force or category.products.count() == 0
+            
             if not should_populate:
                 logger.info("Skipping products for %s (already populated)", name)
                 return
