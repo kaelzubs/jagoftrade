@@ -106,8 +106,6 @@ class AmazonPAAPIService:
             "ASSOCIATE_TAG": self.partner_tag,
             "AWSAccessKeyId": self.access_key,
             "SecretKey": self.secret_key,
-            "Service": "ProductAdvertisingAPI",
-            "Operation": "SearchItems",
             "PartnerTag": self.partner_tag,
             "PartnerType": self.partner_type,
             "Host": self.host,
