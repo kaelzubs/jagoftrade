@@ -25,12 +25,8 @@ class AmazonPAAPIService:
         self.partner_tag = os.getenv("AMAZON_PARTNER_TAG")
         self.partner_type = os.getenv("AMAZON_PARTNER_TYPE", "Associates")
         self.region = os.getenv("AMAZON_REGION", "us-east-1")
-        self.country = os.getenv("AMAZON_COUNTRY", "US")
-        self.host = os.getenv("AMAZON_HOST")
-        self.marketplace = os.getenv("AMAZON_MARKETPLACE")
-
-        # Host (API endpoint) vs Marketplace (payload)
-        self.marketplace = os.getenv("AMAZON_MARKETPLACE")
+        self.host = os.getenv("AMAZON_HOST", "webservices.amazon.com")
+        self.marketplace = os.getenv("AMAZON_MARKETPLACE", "www.amazon.com")
 
         self.timeout = int(os.getenv("AMAZON_TIMEOUT", 10))
         self.max_retries = int(os.getenv("AMAZON_MAX_RETRIES", 3))
@@ -51,24 +47,22 @@ class AmazonPAAPIService:
         k_signing = self._sign(k_service, "aws4_request")
         return k_signing
 
-    def _signed_headers(self, payload):
+    def _signed_headers(self, payload: str) -> Dict[str, str]:
         method = "POST"
         service = "ProductAdvertisingAPI"
-        host = self.marketplace
+        host = self.host
         content_type = "application/json; charset=UTF-8"
 
         t = datetime.datetime.utcnow()
         amz_date = t.strftime("%Y%m%dT%H%M%SZ")
-        date_stamp = t.strftime("%Y%m%d")  # Date w/o time
+        date_stamp = t.strftime("%Y%m%d")
 
         canonical_uri = "/paapi5/searchitems"
-        canonical_querystring = ""
         canonical_headers = f"content-type:{content_type}\nhost:{host}\nx-amz-date:{amz_date}\n"
         signed_headers = "content-type;host;x-amz-date"
         payload_hash = hashlib.sha256(payload.encode("utf-8")).hexdigest()
         canonical_request = (
-            f"{method}\n{canonical_uri}\n{canonical_querystring}\n"
-            f"{canonical_headers}\n{signed_headers}\n{payload_hash}"
+            f"{method}\n{canonical_uri}\n\n{canonical_headers}\n{signed_headers}\n{payload_hash}"
         )
 
         algorithm = "AWS4-HMAC-SHA256"
@@ -90,11 +84,10 @@ class AmazonPAAPIService:
             "Content-Type": content_type,
             "X-Amz-Date": amz_date,
             "Authorization": authorization_header,
-            "X-Amz-Target": "com.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems",
             "Host": host,
         }
         return headers
-    
+
     # --- Public API ---
     def search_products(self, keyword: str, limit: int = 10) -> List[Dict]:
         """
@@ -102,17 +95,13 @@ class AmazonPAAPIService:
         Returns a list of product dictionaries.
         """
         payload = {
-            "Keywords": keyword,
-            "ASSOCIATE_TAG": self.partner_tag,
-            "AWSAccessKeyId": self.access_key,
-            "SecretKey": self.secret_key,
             "PartnerTag": self.partner_tag,
             "PartnerType": self.partner_type,
-            "Host": self.host,
-            "Region": self.region,
-            "Marketplace": self.marketplace, # FIXED: must be www.amazon.com, not webservices.amazon.com
+            "Marketplace": self.marketplace,
             "Operation": "SearchItems",
-            "SearchItemsRequest": {},
+            "Keywords": keyword,
+            "SearchIndex": "All",
+            "ItemCount": min(limit, 10),
             "Resources": [
                 "ItemInfo.Title",
                 "ItemInfo.Features",
@@ -120,8 +109,6 @@ class AmazonPAAPIService:
                 "Offers.Listings.Price",
                 "Images.Primary.Medium",
             ],
-            "SearchIndex": "All",
-            "ItemCount": min(limit, 10),  # Amazon max is 10
         }
 
         json_payload = json.dumps(payload)
@@ -179,7 +166,7 @@ class AmazonPAAPIService:
                     self.max_retries,
                     exc,
                 )
-                time.sleep(2 ** retries)  # exponential backoff
+                time.sleep(2 ** retries)
             except Exception as exc:
                 logger.error("Unexpected PAAPI error: %s", exc, exc_info=True)
                 break
