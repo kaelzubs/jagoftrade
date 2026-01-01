@@ -111,6 +111,7 @@ class AmazonPAAPIService:
             "Host": self.host,
             "Region": self.region,
             "Marketplace": self.marketplace, # FIXED: must be www.amazon.com, not webservices.amazon.com
+            "Opreration": "SearchItems",
             "Resources": [
                 "ItemInfo.Title",
                 "ItemInfo.Features",
