@@ -26,18 +26,19 @@ class AmazonPAAPIService:
         self.partner_type = os.getenv("AMAZON_PARTNER_TYPE", "Associates")
         self.region = os.getenv("AMAZON_REGION", "us-east-1")
         self.country = os.getenv("AMAZON_COUNTRY", "US")
+        self.host = os.getenv("AMAZON_HOST")
+        self.marketplace = os.getenv("AMAZON_MARKETPLACE")
 
         # Host (API endpoint) vs Marketplace (payload)
-        self.api_host = os.getenv("AMAZON_API_HOST", "webservices.amazon.com")
-        self.marketplace = os.getenv("AMAZON_MARKETPLACE", "www.amazon.com")
+        self.marketplace = os.getenv("AMAZON_MARKETPLACE")
 
         self.timeout = int(os.getenv("AMAZON_TIMEOUT", 10))
         self.max_retries = int(os.getenv("AMAZON_MAX_RETRIES", 3))
 
-        if not all([self.access_key, self.secret_key, self.partner_tag, self.api_host, self.region]):
+        if not all([self.access_key, self.secret_key, self.partner_tag, self.host, self.region, self.marketplace]):
             raise RuntimeError("Amazon PAAPI credentials are missing")
 
-        self.endpoint = f"https://{self.api_host}/paapi5/searchitems"
+        self.endpoint = f"https://{self.host}/paapi5/searchitems"
 
     # --- AWS Signature V4 helpers ---
     def _sign(self, key: bytes, msg: str) -> bytes:
@@ -53,7 +54,7 @@ class AmazonPAAPIService:
     def _signed_headers(self, payload: str) -> Dict[str, str]:
         method = "POST"
         service = "ProductAdvertisingAPI"
-        host = self.api_host
+        host = self.marketplace
         content_type = "application/json; charset=UTF-8"
 
         t = datetime.datetime.utcnow()
@@ -102,9 +103,16 @@ class AmazonPAAPIService:
         """
         payload = {
             "Keywords": keyword,
+            "ASSOCIATE_TAG": self.partner_tag,
+            "AWSAccessKeyId": self.access_key,
+            "SecretKey": self.secret_key,
+            "Service": "ProductAdvertisingAPI",
+            "Operation": "SearchItems",
             "PartnerTag": self.partner_tag,
             "PartnerType": self.partner_type,
-            "Marketplace": self.marketplace,  # FIXED: must be www.amazon.com, not webservices.amazon.com
+            "Host": self.host,
+            "Region": self.region,
+            "Marketplace": self.marketplace, # FIXED: must be www.amazon.com, not webservices.amazon.com
             "Resources": [
                 "ItemInfo.Title",
                 "ItemInfo.Features",
