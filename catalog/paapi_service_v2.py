@@ -51,7 +51,7 @@ class AmazonPAAPIService:
         k_signing = self._sign(k_service, "aws4_request")
         return k_signing
 
-    def _signed_headers(self, payload: str) -> Dict[str, str]:
+    def _signed_headers(self, payload):
         method = "POST"
         service = "ProductAdvertisingAPI"
         host = self.marketplace
@@ -94,7 +94,7 @@ class AmazonPAAPIService:
             "Host": host,
         }
         return headers
-
+    
     # --- Public API ---
     def search_products(self, keyword: str, limit: int = 10) -> List[Dict]:
         """
@@ -111,7 +111,8 @@ class AmazonPAAPIService:
             "Host": self.host,
             "Region": self.region,
             "Marketplace": self.marketplace, # FIXED: must be www.amazon.com, not webservices.amazon.com
-            "Opreration": "SearchItems",
+            "Operation": "SearchItems",
+            "SearchItemsRequest": {},
             "Resources": [
                 "ItemInfo.Title",
                 "ItemInfo.Features",
