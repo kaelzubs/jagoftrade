@@ -25,6 +25,10 @@ from django.views.generic.base import RedirectView
 from django.contrib.sitemaps.views import sitemap
 from shop.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
 
+admin.site.site_header = "JagofTrade Administration"
+admin.site.site_title = "JagofTrade Portal"
+admin.site.index_title = "Welcome to JagofTrade Admin"
+
 sitemaps_dict = {
     "products": ProductSitemap,
     "categories": CategorySitemap,

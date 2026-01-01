@@ -324,4 +324,9 @@ AMAZON_PAAPI = {
     "PARTNER_TAG": os.getenv('AMAZON_PARTNER_TAG', ''),
     "PARTNER_TYPE": os.getenv('AMAZON_PARTNER_TYPE'),
     "MARKETPLACE": os.getenv('AMAZON_MARKETPLACE'),
+    "HOST": os.getenv('AMAZON_HOST'),
+    "REGION": os.getenv('AMAZON_REGION'),
+    "COUNTRY": os.getenv('AMAZON_COUNTRY'),
+    "TIMEOUT": int(os.getenv('AMAZON_TIMEOUT', '10')),
+    "MAX_RETRIES": int(os.getenv('AMAZON_MAX_RETRIES', '3')),
 }
