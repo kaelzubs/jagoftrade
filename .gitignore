@@ -1,21 +1,7 @@
-# Python
+# Python bytecode
 __pycache__/
 *.py[cod]
 *.pyo
-*.pyd
-*.so
-*.egg
-*.egg-info/
-dist/
-build/
-.eggs/
-
-# Virtual environments
-venv/
-env/
-ENV/
-.venv/
-.ENV/
 
 # Django stuff
 *.log
@@ -24,51 +10,40 @@ ENV/
 db.sqlite3
 media/
 staticfiles/
-local_settings.py
 
-# Migrations (optional — keep if you want to version them)
-*/migrations/*.py
-!*/migrations/__init__.py
-
-# IDEs and editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Environment variables
+# Environment & secrets
 .env
+.env.*
+*.pem
+*.key
 
-# Ignore all migration folders
-*/migrations/
-
-# Python bytecode
-__pycache__/
-*.py[cod]
-*.pyo
-
-# Virtual environment
+# Virtual environments
 venv/
-.env/
-
-# Django stuff:
-# Ignore SQLite database
-db.sqlite3
-
-# Ignore media/static files if generated
-/media/
-/staticfiles/
-
-# DO NOT ignore migrations — keep them tracked
-# (remove or comment out any lines like */migrations/)
-
-# Logs
-*.log
+env/
+ENV/
+*.egg-info/
 
 # IDE/editor files
 .vscode/
 .idea/
+*.swp
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Coverage & testing
+.coverage
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Build & packaging
+build/
+dist/
+*.egg
+.eggs/
+pip-wheel-metadata/
