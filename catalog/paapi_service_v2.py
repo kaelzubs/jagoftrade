@@ -10,6 +10,8 @@ from typing import Dict, List
 import requests
 from requests.exceptions import RequestException
 
+from jagoftrade.catalog.models import Product
+
 logger = logging.getLogger(__name__)
 
 
@@ -172,3 +174,22 @@ class AmazonPAAPIService:
                 break
 
         return []
+    
+    def search_and_save_products(self, keyword: str, limit: int = 10):
+        results = self.search_products(keyword, limit)
+
+        saved_products = []
+        for item in results:
+            product, created = Product.objects.update_or_create(
+                asin=item["asin"],
+                defaults={
+                    "title": item["title"],
+                    "description": item["description"],
+                    "price": item["price"],
+                    "image_url": item["image_url"],
+                    "affiliate_link": item["affiliate_link"],
+                },
+            )
+            saved_products.append(product)
+        return saved_products
+

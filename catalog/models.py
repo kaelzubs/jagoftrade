@@ -6,6 +6,13 @@ from decimal import Decimal
 class Category(models.Model):
     name = models.CharField(max_length=120, unique=True)
     amazon_id = models.CharField(max_length=20, unique=True)
+    parent = models.ForeignKey(
+        'self',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='subcategories'
+    )
     slug = models.SlugField(max_length=140, unique=True, blank=True)
     
     class Meta:
@@ -51,6 +58,8 @@ class Product(models.Model):
         blank=True,
         help_text="URL-friendly identifier generated from the title."
     )
+    brand = models.CharField(max_length=100, blank=True, null=True)
+    currency = models.CharField(max_length=10, default="USD")
     description = models.TextField(
         blank=True,
         help_text="Detailed description of the product."
@@ -72,6 +81,7 @@ class Product(models.Model):
         auto_now_add=True,
         help_text="Timestamp when the product was created."
     )
+    last_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["-created_at", "title"]
