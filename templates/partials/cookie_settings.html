@@ -11,12 +11,12 @@
 
           <form method="post">
             {% csrf_token %}
-            <div class="custom-control custom-checkbox mb-2">
+            <div class="custom-control custom-checkbox mb-2 my-green-checkbox">
               <input type="checkbox" class="custom-control-input" id="analytics" name="analytics"
                      {% if prefs.analytics %}checked{% endif %}>
               <label class="custom-control-label" for="analytics">Analytics cookies</label>
             </div>
-            <div class="custom-control custom-checkbox mb-3">
+            <div class="custom-control custom-checkbox mb-3 my-green-checkbox">
               <input type="checkbox" class="custom-control-input" id="marketing" name="marketing"
                      {% if prefs.marketing %}checked{% endif %}>
               <label class="custom-control-label" for="marketing">Marketing cookies</label>
