@@ -301,7 +301,7 @@ MAILCHIMP_EMAIL_LIST_ID = os.getenv('MAILCHIMP_EMAIL_LIST_ID')
 MAILCHIMP_DATA_CENTER = os.getenv('MAILCHIMP_DATA_CENTER')
 
 # # settings.py (production)
-if not DEBUG:
+if DEBUG == False:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SAMESITE = "Lax"

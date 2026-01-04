@@ -59,9 +59,7 @@ def robots_txt(request):
         content = (
             "User-agent: *\n"
             "Disallow: /admin/\n"
-            "Disallow: /cart/\n"
-            "Disallow: /checkout/\n"
             "Allow: /\n"
-            "Sitemap: https://jagoftrade.com/sitemap.xml\n"
+            "Sitemap: https://www.jagoftrade.com/sitemap.xml\n"
         )
     return HttpResponse(content, content_type="text/plain")
