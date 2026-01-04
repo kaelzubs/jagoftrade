@@ -767,8 +767,10 @@ h2.jumb {
 
 @media (max-width: 768px) {
   .header-one { font-size: 2rem; }
+  .header-two { font-size: 14px; }
 }
 
 @media (max-width: 480px) {
   .header-one { font-size: 1.6rem; }
+  .header-two { font-size: 12px; }
 }
