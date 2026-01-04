@@ -5,7 +5,7 @@ from django.shortcuts import render
 def about(request):
     context = {
         "company_name": "JagofTrade",
-        "mission_statement": "We empower shoppers in Nigeria and beyond to make confident, value‑driven decisions.",
+        "mission_statement": "We empower shoppers in the US and beyond to make confident, value‑driven decisions.",
         "values_statement": "Integrity, clarity, and accessibility guide everything we publish.",
         "contact_email": "support@jagoftrade.com",
         "location": "Newark, Delaware, United States",
