@@ -82,3 +82,25 @@ class SecurityHeadersMiddleware:
         response['Referrer-Policy'] = 'same-origin'
         response['Permissions-Policy'] = 'geolocation=(), microphone=()'
         return response
+    
+class ContentSecurityPolicyMiddleware:
+    """
+    Middleware that adds Content Security Policy headers to responses.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        csp_policy = (
+            "default-src 'self'; "
+            "script-src 'self' https://accounts.google.com/gsi/client; "
+            "style-src 'self' 'unsafe-inline'; "
+            "img-src 'self' data:; "
+            "font-src 'self'; "
+            "connect-src 'self' https://accounts.google.com/gsi/; "
+            "frame-src https://accounts.google.com/gsi/; "
+        )
+        response['Content-Security-Policy'] = csp_policy
+        return response
