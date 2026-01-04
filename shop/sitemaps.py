@@ -32,10 +32,14 @@ class StaticViewSitemap(Sitemap):
             "core:home",
             "policies:terms",
             "policies:privacy",
-            "policies:shipping_returns",
-            "policies:faq",
-            "policies:about_us",
-            "accounts:contact",  
+            "policies:faqs",
+            "policies:about",
+            "policies:affiliate",
+            "policies:editorial",
+            "policies:advertising",
+            "policies:user_content",
+            "policies:accessibility",
+            "accounts:contact",
         ]
 
     def location(self, item):
