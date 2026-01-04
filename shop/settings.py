@@ -358,3 +358,12 @@ CACHES = {
     }
 }
 
+WHITENOISE_MAX_AGE = 31536000 # 1 year in seconds
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
+
+
