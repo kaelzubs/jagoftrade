@@ -183,8 +183,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'shop.middleware.CSPReportOnlyMiddleware',
-    'shop.middleware.HTTPSRedirectMiddleware',
-    'shop.middleware.HSTSMiddleware',
+    # 'shop.middleware.HTTPSRedirectMiddleware',
     'shop.middleware.ForceWWWMiddleware',
 ]
 

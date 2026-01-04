@@ -23,7 +23,6 @@ class RemoveWWWMiddleware:
             return HttpResponsePermanentRedirect(new_url)
         return self.get_response(request)
 
-
 class HTTPSRedirectMiddleware:
     """
     Middleware that redirects all HTTP requests to HTTPS.
@@ -40,7 +39,6 @@ class HTTPSRedirectMiddleware:
         response = self.get_response(request)
         return response
     
-    
 class HSTSMiddleware:
     """
     Middleware that adds HSTS headers to responses.
@@ -52,4 +50,20 @@ class HSTSMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
         response['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains; preload'
+        return response
+    
+class SecurityHeadersMiddleware:
+    """
+    Middleware that adds various security headers to responses.
+    """
+
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        response['X-Content-Type-Options'] = 'nosniff'
+        response['X-Frame-Options'] = 'DENY'
+        response['Referrer-Policy'] = 'same-origin'
+        response['Permissions-Policy'] = 'geolocation=(), microphone=()'
         return response
