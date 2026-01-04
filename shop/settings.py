@@ -183,6 +183,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'shop.middleware.CSPReportOnlyMiddleware',
+    'shop.middleware.HTTPSRedirectMiddleware',
+    'shop.middleware.HSTSMiddleware',
+    'shop.middleware.SecurityHeadersMiddleware',
+    'shop.middleware.ForceWWWMiddleware',
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

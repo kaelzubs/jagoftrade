@@ -63,3 +63,4 @@ def robots_txt(request):
             "Sitemap: https://www.jagoftrade.com/sitemap.xml\n"
         )
     return HttpResponse(content, content_type="text/plain")
+
