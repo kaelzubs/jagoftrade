@@ -66,7 +66,6 @@ INSTALLED_APPS = [
     'catalog',
     'orders',
     'policies',
-    'pipeline',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
@@ -340,14 +339,6 @@ AMAZON_PAAPI = {
     "MAX_RETRIES": int(os.getenv('AMAZON_MAX_RETRIES', '3')),
 }
 
-# Robust caching (recommended)
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "paapi-cache",
-        "TIMEOUT": 300,  # 5 minutes
-    }
-}
 
 WHITENOISE_MAX_AGE = 31536000 # 1 year in seconds
 
@@ -357,20 +348,6 @@ STORAGES = {
     },
 }
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-STATICFILES_STORAGE = "pipeline.storage.PipelineManifestStorage"
-PIPELINE = {
-    "JS_COMPRESSOR": "pipeline.compressors.uglifyjs.UglifyJSCompressor",
-    "JAVASCRIPT": {
-        "app": {
-            "source_filenames": (
-                "js/app.js",
-                "js/extra.js",
-            ),
-            "output_filename": "js/app.min.js",
-        }
-    },
-}
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
