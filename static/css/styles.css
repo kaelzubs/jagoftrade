@@ -767,10 +767,26 @@ h2.jumb {
 
 @media (max-width: 768px) {
   .header-one { font-size: 2rem; }
-  .header-two { font-size: 1em; }
+  .header-text {
+    font-weight: bold;
+    font-size: 1.5em; /* Default h2 font size */
+    margin-top: 0.83em; /* Default h2 top margin */
+    margin-bottom: 0.83em; /* Default h2 bottom margin */
+    /* Remove default margins added by some frameworks if necessary */
+    margin-left: 0;
+    margin-right: 0;
+    font-size: 1em; }
 }
 
 @media (max-width: 576px) {
   .header-one { font-size: 1.6rem; }
-  .header-two { font-size: 0.7em; }
+  .header-two {
+    font-weight: bold;
+    font-size: 1em; /* Default h2 font size */
+    margin-top: 0.83em; /* Default h2 top margin */
+    margin-bottom: 0.83em; /* Default h2 bottom margin */
+    /* Remove default margins added by some frameworks if necessary */
+    margin-left: 0;
+    margin-right: 0;
+  }
 }
