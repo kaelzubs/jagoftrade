@@ -771,11 +771,11 @@ h1 { font-size: 2.5rem; line-height: 1.2; }
   .header-one { font-size: 2rem; }
   /* Reset h2 to look like p */
   .header-two {
-    all: unset;             /* remove browser defaults */
-    display: block;         /* reset to block element */
-    font-size: inherit;     /* inherit from parent (same as p) */
-    line-height: inherit;
-    margin: 0 0 1em 0;
+    font-size: 1rem;       /* same as paragraph text */
+    font-weight: normal;   /* remove bold */
+    line-height: 1.5;      /* match paragraph line height */
+    margin: 0 0 1em 0;     /* same spacing as p */
+    color: inherit; 
   }
 }
 
@@ -783,11 +783,10 @@ h1 { font-size: 2.5rem; line-height: 1.2; }
   .header-one { font-size: 1.6rem; }
   /* Reset h2 to look like p */
   .header-two {
-    all: unset;             /* remove browser defaults */
-    display: block;         /* reset to block element */
-    font-size: inherit;     /* inherit from parent (same as p) */
-    line-height: inherit;
-    margin: 0 0 1em 0;
-
+    font-size: 1rem;       /* same as paragraph text */
+    font-weight: normal;   /* remove bold */
+    line-height: 1.5;      /* match paragraph line height */
+    margin: 0 0 1em 0;     /* same spacing as p */
+    color: inherit; 
   }
 }
