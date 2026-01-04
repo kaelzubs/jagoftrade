@@ -185,7 +185,6 @@ MIDDLEWARE = [
     'shop.middleware.CSPReportOnlyMiddleware',
     'shop.middleware.HTTPSRedirectMiddleware',
     'shop.middleware.HSTSMiddleware',
-    'shop.middleware.SecurityHeadersMiddleware',
     'shop.middleware.ForceWWWMiddleware',
 ]
 
