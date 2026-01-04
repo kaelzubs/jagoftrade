@@ -334,3 +334,13 @@ AMAZON_PAAPI = {
     "TIMEOUT": int(os.getenv('AMAZON_TIMEOUT', '10')),
     "MAX_RETRIES": int(os.getenv('AMAZON_MAX_RETRIES', '3')),
 }
+
+# Robust caching (recommended)
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "paapi-cache",
+        "TIMEOUT": 300,  # 5 minutes
+    }
+}
+

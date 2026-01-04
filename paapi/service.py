@@ -1,60 +1,31 @@
-from .client import AmazonPAAPIClient
+from django.core.cache import cache
+from .client import PaapiClient
+from .schemas import parse_search_response, parse_get_items_response
 
+CACHE_TTL = 300  # seconds
 
-class AmazonProductService:
-    def __init__(self, access_key, secret_key, partner_tag):
-        self.client = AmazonPAAPIClient(access_key, secret_key, partner_tag)
-        
-    def fetch_product(self, asin):
-        response = self.client.get_items([asin])
+class PaapiService:
+    def __init__(self):
+        self.client = PaapiClient()
 
-        # If no ItemsResult, bail out
-        items = response.get("ItemsResult", {}).get("Items", [])
-        
-        if not items:
-            return None
+    def search(self, keywords, item_count=10):
+        key = f"paapi:search:{keywords}:{item_count}"
+        cached = cache.get(key)
+        if cached is not None:
+            return cached
 
-        item = items[0]
+        raw = self.client.search_items(keywords=keywords, item_count=item_count)
+        items = parse_search_response(raw)
+        cache.set(key, items, CACHE_TTL)
+        return items
 
-        # Safe lookups with .get()
-        title = item.get("ItemInfo", {}).get("Title", {}).get("DisplayValue")
-        image = (
-            item.get("Images", {})
-                .get("Primary", {})
-                .get("Large", {})
-                .get("URL")
-        )
-        price_info = (
-            item.get("Offers", {})
-                .get("Listings", [{}])[0]
-                .get("Price", {})
-        )
-        price = price_info.get("Amount")
-        currency = price_info.get("Currency")
-        features = item.get("ItemInfo", {}).get("Features", {}).get("DisplayValues", [])
+    def get_items(self, asins):
+        key = f"paapi:get:{','.join(asins)}"
+        cached = cache.get(key)
+        if cached is not None:
+            return cached
 
-        return {
-            "asin": asin,
-            "title": title,
-            "image": image,
-            "price": price,
-            "currency": currency,
-            "features": features,
-        }
-        
-    # def fetch_product(self, asin):
-    #     response = self.client.get_items([asin])
-        
-    #     if "ItemsResult" not in response:
-    #         return None
-        
-    #     item = response["ItemsResult"]["Items"][0]
-        
-    #     return {
-    #         "asin": asin,
-    #         "title": item["ItemInfo"]["Title"]["DisplayValue"],
-    #         "image": item["Images"]["Primary"]["Large"]["URL"],
-    #         "price": item["Offers"]["Listings"][0]["Price"]["Amount"],
-    #         "currency": item["Offers"]["Listings"][0]["Price"]["Currency"],
-    #         "features": item["ItemInfo"].get("Features", {}).get("DisplayValues", []),
-    #     }
+        raw = self.client.get_items(asins=asins)
+        items = parse_get_items_response(raw)
+        cache.set(key, items, CACHE_TTL)
+        return items
