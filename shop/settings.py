@@ -66,7 +66,6 @@ INSTALLED_APPS = [
     'catalog',
     'orders',
     'policies',
-    'compressor',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
@@ -350,9 +349,3 @@ STORAGES = {
 }
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "compressor.finders.CompressorFinder",
-]
