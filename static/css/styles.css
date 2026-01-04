@@ -765,12 +765,10 @@ h2.jumb {
   }
 }
 
-h1 { font-size: 2.5rem; line-height: 1.2; }
-
 @media (max-width: 768px) {
-  h1 { font-size: 2rem; }
+  .header-one { font-size: 2rem; }
 }
 
 @media (max-width: 480px) {
-  h1 { font-size: 1.6rem; }
+  .header-one { font-size: 1.6rem; }
 }
