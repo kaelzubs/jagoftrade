@@ -187,7 +187,7 @@ MIDDLEWARE = [
     'shop.middleware.ForceWWWMiddleware',
     'shop.middleware.HSTSMiddleware',
     'shop.middleware.SecurityHeadersMiddleware',
-    'shop.middleware.ContentSecurityPolicyMiddleware',
+    # 'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
