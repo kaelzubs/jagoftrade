@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'catalog',
     'orders',
     'policies',
+    'pipeline',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
@@ -358,7 +359,6 @@ STORAGES = {
 
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-INSTALLED_APPS += ["pipeline"]
 STATICFILES_STORAGE = "pipeline.storage.PipelineManifestStorage"
 PIPELINE = {
     "JS_COMPRESSOR": "pipeline.compressors.uglifyjs.UglifyJSCompressor",
