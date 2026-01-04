@@ -28,7 +28,7 @@
 
       <div class="col cookie-option">
         <div class="form-check my-green-checkbox">
-          <input type="checkbox" class="form-check-input custom-control-input" id="consentAnalytics">
+          <input type="checkbox" class="custom-control-input" id="consentAnalytics" {% if prefs.marketing %}checked{% endif %}>
           <label class="form-check-label custom-control-label" for="consentAnalytics">
             <span class="fw-bold">Analytics</span>
             <small class="d-block text-muted">Help us understand how you use our site</small>
@@ -38,7 +38,7 @@
 
       <div class="col cookie-option">
         <div class="form-check my-green-checkbox">
-          <input type="checkbox" class="form-check-input custom-control-input" id="consentMarketing">
+          <input type="checkbox" class="custom-control-input" id="consentMarketing" {% if prefs.marketing %}checked{% endif %}>
           <label class="form-check-label custom-control-label" for="consentMarketing">
             <span class="fw-bold">Marketing</span>
             <small class="d-block text-muted">Allow us to personalize ads and content</small>
