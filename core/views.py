@@ -51,7 +51,7 @@ def restricted_view(request):
     raise PermissionDenied
 
 def robots_txt(request):
-    if settings.DEBUG:
+    if settings.DEBUG == True:
         # Block all crawlers in development/staging
         content = "User-agent: *\nDisallow: /"
     else:
