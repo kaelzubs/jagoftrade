@@ -50,14 +50,6 @@ if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
-# ALLOWED_HOSTS = [
-#     'kael.pythonanywhere.com',
-#     '127.0.0.1',
-#     'localhost',
-#     'www.jagoftrade.com',
-#     'jagoftrade.com',
-#     'jagoftrade-8f54ce54f049.herokuapp.com',
-# ]
 
 # Application definition
 INSTALLED_APPS = [
@@ -189,8 +181,6 @@ MIDDLEWARE = [
     'shop.middleware.SecurityHeadersMiddleware',
     # 'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'shop.urls'
 
@@ -363,6 +353,23 @@ WHITENOISE_MAX_AGE = 31536000 # 1 year in seconds
 STORAGES = {
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+INSTALLED_APPS += ["pipeline"]
+STATICFILES_STORAGE = "pipeline.storage.PipelineManifestStorage"
+PIPELINE = {
+    "JS_COMPRESSOR": "pipeline.compressors.uglifyjs.UglifyJSCompressor",
+    "JAVASCRIPT": {
+        "app": {
+            "source_filenames": (
+                "js/app.js",
+                "js/extra.js",
+            ),
+            "output_filename": "js/app.min.js",
+        }
     },
 }
 
