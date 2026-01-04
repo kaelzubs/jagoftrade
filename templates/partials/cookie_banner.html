@@ -26,7 +26,7 @@
         </div>
       </div>
 
-      <div class="col cookie-option">
+      {% comment %} <div class="col cookie-option">
         <div class="form-check my-green-checkbox">
           <input type="checkbox" class="custom-control-input" id="consentAnalytics" {% if prefs.marketing %}checked{% endif %}>
           <label class="form-check-label custom-control-label" for="consentAnalytics">
@@ -44,8 +44,18 @@
             <small class="d-block text-muted">Allow us to personalize ads and content</small>
           </label>
         </div>
+      </div> {% endcomment %}
+      <div class="custom-control custom-checkbox mb-2 my-green-checkbox">
+          <input type="checkbox" class="custom-control-input" id="analytics" name="analytics"
+                  {% if prefs.analytics %}checked{% endif %}>
+          <label class="custom-control-label" for="analytics">Analytics cookies</label>
+        </div>
+        <div class="custom-control custom-checkbox mb-3 my-green-checkbox">
+          <input type="checkbox" class="custom-control-input" id="marketing" name="marketing"
+                  {% if prefs.marketing %}checked{% endif %}>
+          <label class="custom-control-label" for="marketing">Marketing cookies</label>
+        </div>
       </div>
-    </div>
 
     <div class="cookie-links">
       <a href="{% url 'core:cookie_settings' %}">Manage preferences</a>
