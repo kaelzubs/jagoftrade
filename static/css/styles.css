@@ -768,17 +768,9 @@ h2.jumb {
 h1 { font-size: 2.5rem; line-height: 1.2; }
 
 @media (max-width: 768px) {
-  .header-one { font-size: 2rem; }
-  /* Reset h2 to look like p */
-  .header-two {
-    font-size: 14px;       /* same as paragraph text */
-  }
+  h1 { font-size: 2rem; }
 }
 
 @media (max-width: 480px) {
-  .header-one { font-size: 1.6rem; }
-  /* Reset h2 to look like p */
-  .header-two {
-    font-size: 12px;       /* same as paragraph text */
-  }
+  h1 { font-size: 1.6rem; }
 }
