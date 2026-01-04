@@ -62,6 +62,6 @@ def robots_txt(request):
             "Disallow: /cart/\n"
             "Disallow: /checkout/\n"
             "Allow: /\n"
-            "Sitemap: https://kaelzubs.pythonanywhere.com/sitemap.xml\n"
+            "Sitemap: https://jagoftrade.com/sitemap.xml\n"
         )
     return HttpResponse(content, content_type="text/plain")

@@ -30,11 +30,11 @@ class StaticViewSitemap(Sitemap):
     def items(self):
         return [
             "core:home",
-            "suppliers:terms",
-            "suppliers:privacy",
-            "suppliers:shipping_returns",
-            "suppliers:faq",
-            "suppliers:about_us",
+            "policies:terms",
+            "policies:privacy",
+            "policies:shipping_returns",
+            "policies:faq",
+            "policies:about_us",
             "accounts:contact",  
         ]
 
