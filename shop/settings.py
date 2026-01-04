@@ -73,7 +73,6 @@ INSTALLED_APPS = [
     'catalog',
     'orders',
     'policies',
-    'paapi',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',

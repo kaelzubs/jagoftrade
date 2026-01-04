@@ -52,7 +52,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('catalog/', include('catalog.urls')),
-    path('paapi/', include('paapi.urls')),
     path('orders/', include('orders.urls')),
     path('policies/', include('policies.urls', namespace="policies")),
     path('accounts/', include('accounts.urls', namespace="accounts")),
