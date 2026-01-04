@@ -9,18 +9,9 @@ import time
 
 @login_required
 def category_list(request, category_slug=None):
-    parser = argparse.ArgumentParser(description="Fetch products from Amazon PAAPI")
-    parser.add_argument(
-        "--rate-limit",
-        type=float,
-        default=1.0,  # safer default for production
-        help="Seconds to sleep between product operations"
-    )
-    args = parser.parse_args()
     category = None
     products = Product.objects.prefetch_related('images').all()
     categories = Category.objects.prefetch_related('images').all()
-    time.sleep(args.rate_limit)  # slight delay to reduce load
     
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
@@ -47,19 +38,9 @@ def category_list(request, category_slug=None):
 
 @login_required
 def product_list(request, category_slug=None):
-    parser = argparse.ArgumentParser(description="Fetch products from Amazon PAAPI")
-    parser.add_argument(
-        "--rate-limit",
-        type=float,
-        default=1.0,  # safer default for production
-        help="Seconds to sleep between product operations"
-    )
-    args = parser.parse_args()
-
     category = None
     products = Product.objects.prefetch_related('images').all()
     categories = Category.objects.prefetch_related('images').all()
-    time.sleep(args.rate_limit)  # slight delay to reduce load
 
     
     if category_slug:
@@ -82,31 +63,13 @@ def product_list(request, category_slug=None):
 
 @login_required
 def product_detail(request, slug):
-    parser = argparse.ArgumentParser(description="Fetch products from Amazon PAAPI")
-    parser.add_argument(
-        "--rate-limit",
-        type=float,
-        default=1.0,  # safer default for production
-        help="Seconds to sleep between product operations"
-    )
-    args = parser.parse_args()
     product = get_object_or_404(Product.objects.prefetch_related('images'), slug=slug, is_active=True)
-    time.sleep(args.rate_limit)  # slight delay to reduce load
     return render(request, 'catalog/detail.html', {'product': product})
 
 @login_required
 def search_product(request):
-    parser = argparse.ArgumentParser(description="Fetch products from Amazon PAAPI")
-    parser.add_argument(
-        "--rate-limit",
-        type=float,
-        default=1.0,  # safer default for production
-        help="Seconds to sleep between product operations"
-    )
-    args = parser.parse_args()
     query = request.GET.get("q", "")
     products = Product.objects.prefetch_related('images').all()
-    time.sleep(args.rate_limit)  # slight delay to reduce load
 
     if query:
         products = products.filter(Q(title__icontains=query) |

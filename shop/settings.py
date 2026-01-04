@@ -42,8 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
-
+DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
 # Heroku and production hosts
 if DEBUG:
     ALLOWED_HOSTS = ['*']
