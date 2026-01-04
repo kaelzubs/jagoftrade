@@ -780,7 +780,7 @@ h2.jumb {
 
 @media (max-width: 576px) {
   .header-one { font-size: 1.6rem; }
-  .header-two {
+  .header-text {
     font-weight: bold;
     font-size: 1em; /* Default h2 font size */
     margin-top: 0.83em; /* Default h2 top margin */
