@@ -767,10 +767,10 @@ h2.jumb {
 
 @media (max-width: 768px) {
   .header-one { font-size: 2rem; }
-  .header-two { font-size: clamp(1.2rem, 4vw, 2rem); }
+  .header-two { font-size: 5vw; }
 }
 
 @media (max-width: 480px) {
   .header-one { font-size: 1.6rem; }
-  .header-two { font-size: clamp(1.2rem, 4vw, 2rem); }
+  .header-two { font-size: 5vw; }
 }
