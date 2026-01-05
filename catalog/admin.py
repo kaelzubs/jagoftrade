@@ -24,7 +24,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('description', 'affiliate_link')
         }),
         ('Status', {
-            'fields': ('is_active', 'created_at')
+            'fields': ('is_active',)
         }),
     )
     inlines = [ProductImageInline]
