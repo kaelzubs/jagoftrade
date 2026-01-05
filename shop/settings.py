@@ -43,7 +43,7 @@ if not SECRET_KEY:
     
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = os.getenv('DJANGO_DEBUG')
-DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
+DEBUG = os.getenv('DJANGO_DEBUG')
 
 # Heroku and production hosts
 if DEBUG:
@@ -329,7 +329,7 @@ AMAZON_PAAPI = {
     "PARTNER_TYPE": os.getenv('AMAZON_PARTNER_TYPE', 'Associates'),
 
     # Marketplace configuration
-    "MARKETPLACE": os.getenv('AMAZON_MARKETPLACE', 'www.amazon.com'),
+    "MARKETPLACE": os.getenv('AMAZON_MARKETPLACE', 'US'),
     "HOST": os.getenv('AMAZON_HOST', 'webservices.amazon.com'),
     "REGION": os.getenv('AMAZON_REGION', 'us-east-1'),
     "COUNTRY": os.getenv('AMAZON_COUNTRY', 'US'),
