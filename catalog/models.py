@@ -31,16 +31,12 @@ class Product(models.Model):
 
     category = models.ForeignKey("Category", on_delete=models.PROTECT,related_name="products",  help_text="Category this product belongs to.")
     title = models.CharField(max_length=200, help_text="Title of the product.")
-    asin = models.CharField(max_length=20, unique=True, help_text="Amazon Standard Identification Number (ASIN).")
     slug = models.SlugField(max_length=220, unique=True, blank=True, help_text="URL-friendly identifier generated from the title.")
-    brand = models.CharField(max_length=100, blank=True, null=True)
-    currency = models.CharField(max_length=10, default="USD")
     description = models.TextField(blank=True, help_text="Detailed description of the product.")
     price = models.DecimalField( max_digits=10, decimal_places=2, help_text="Price of the product.")
     affiliate_link = models.URLField(blank=True,  help_text="Affiliate purchase link.")
     is_active = models.BooleanField(default=True, help_text="Whether the product is active and visible.")
     created_at = models.DateTimeField(auto_now_add=True, help_text="Timestamp when the product was created.")
-    last_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         ordering = ["-created_at", "title"]
@@ -58,7 +54,7 @@ class Product(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.title} ({self.asin})"
+        return f"{self.title}"
 
 
 class ProductImage(models.Model):
@@ -68,7 +64,7 @@ class ProductImage(models.Model):
     """
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images", help_text="The product this image belongs to.")
-    image = models.ImageField(help_text="URL of the product image.",)
+    image = models.ImageField(help_text="File for the product image.",)
 
     class Meta:
         verbose_name = "Product Image"

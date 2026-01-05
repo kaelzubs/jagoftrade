@@ -14,12 +14,11 @@ class ProductImageInline(admin.TabularInline):  # or admin.StackedInline
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'affiliate_link', 'is_active')
     list_filter = ('is_active', 'category')
-    search_fields = ('title', 'slug', 'asin')
+    search_fields = ('title', 'slug')
     prepopulated_fields = {"slug": ("title",)}
-    readonly_fields = ('asin', 'created_at')
     fieldsets = (
         ('Product Info', {
-            'fields': ('title', 'asin', 'category', 'slug', 'price')
+            'fields': ('title', 'category', 'slug', 'price')
         }),
         ('Description & Links', {
             'fields': ('description', 'affiliate_link')
