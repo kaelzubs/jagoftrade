@@ -107,14 +107,13 @@ img {
 /* Containers with images */
 .image-container {
   width: 100%;
-  height: auto;
+  height: 500px;
   overflow: hidden;
 }
 
-.image-container,
 .image-container img {
   max-width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: contain;
   overflow: hidden;
 }
