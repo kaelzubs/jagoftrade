@@ -113,7 +113,7 @@ class ExpiredImageMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
         if request.path.startswith('/media/') or request.path.startswith('/static/'):
-            if response.get('Content-Type', '').startswith('image/'):
+            if response.get('Content-Type', '').startswith('images/', 'image/'):
                 response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
                 response['Expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
                 response['Pragma'] = 'no-cache'
