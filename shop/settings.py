@@ -179,6 +179,7 @@ MIDDLEWARE = [
     'shop.middleware.ForceWWWMiddleware',
     'shop.middleware.HSTSMiddleware',
     'shop.middleware.SecurityHeadersMiddleware',
+    'shop.middleware.ExpiredImageMiddleware',
     # 'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
 

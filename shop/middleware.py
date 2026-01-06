@@ -104,3 +104,17 @@ class ContentSecurityPolicyMiddleware:
         )
         response['Content-Security-Policy'] = csp_policy
         return response
+
+
+class ExpiredImageMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        if request.path.startswith('/media/') or request.path.startswith('/static/'):
+            if response.get('Content-Type', '').startswith('image/'):
+                response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+                response['Expires'] = 'Thu, 01 Jan 1970 00:00:00 GMT'
+                response['Pragma'] = 'no-cache'
+        return response
