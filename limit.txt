@@ -1,0 +1,7 @@
+# JagofTrade Limit File
+# This file is for internal reference only.
+
+Max crawl depth: 3
+Max page size: 2MB
+Restricted directories: /admin/, /private/
+Preferred sitemap: /sitemap.xml
