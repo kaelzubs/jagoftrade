@@ -266,14 +266,17 @@ AWS_DEFAULT_ACL = os.getenv('AWS_DEFAULT_ACL') # For public access if needed
 AWS_S3_SIGNATURE_VERSION = os.getenv('AWS_S3_SIGNATURE_VERSION')
 
 AWS_STATIC_LOCATION = 'static'
+AWS_MEDIA_LOCATION = 'media'
+
 # STATIC_URL = 'static/'
 STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{AWS_STATIC_LOCATION}/'
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{AWS_MEDIA_LOCATION}/'
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
-AWS_MEDIA_LOCATION = 'media'
+
 # MEDIA_URL = '/media/'
-MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{AWS_MEDIA_LOCATION}/'
+
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
