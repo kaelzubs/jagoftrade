@@ -265,18 +265,20 @@ AWS_S3_FILE_OVERWRITE = os.getenv('AWS_S3_FILE_OVERWRITE') # Optional: Prevents 
 AWS_DEFAULT_ACL = os.getenv('AWS_DEFAULT_ACL') # For public access if needed
 AWS_S3_SIGNATURE_VERSION = os.getenv('AWS_S3_SIGNATURE_VERSION')
 
+AWS_STATIC_LOCATION = 'static'
 # STATIC_URL = 'static/'
+STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{AWS_STATIC_LOCATION}/'
+
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_MEDIA_LOCATION = 'media'
 # MEDIA_URL = '/media/'
-
-STATIC_URL = f"https://{os.getenv('AWS_STORAGE_BUCKET_NAME')}.s3.{os.getenv('AWS_S3_REGION_NAME')}.amazonaws.com/static/"
-MEDIA_URL = f"https://{os.getenv('AWS_STORAGE_BUCKET_NAME')}.s3.{os.getenv('AWS_S3_REGION_NAME')}.amazonaws.com/media/"
-
-STATICFILES_DIRS = [BASE_DIR / 'static']
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{AWS_MEDIA_LOCATION}/'
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 LOGIN_REDIRECT_URL = 'core:home'
@@ -354,25 +356,3 @@ AMAZON_PAAPI = {
     "TIMEOUT": int(os.getenv('AMAZON_TIMEOUT', '10')),
     "MAX_RETRIES": int(os.getenv('AMAZON_MAX_RETRIES', '3')),
 }
-
-
-# WHITENOISE_MAX_AGE = 31536000 # 1 year in seconds
-
-# STORAGES = {
-#     "staticfiles": {
-#         "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
-#     },
-# }
-# settings.py
-
-# STORAGES = {
-#     "default": {
-#         "BACKEND": "django.core.files.storage.FileSystemStorage",
-#         "OPTIONS": {
-#             "location": BASE_DIR / "media",
-#         },
-#     },
-#     "staticfiles": {
-#         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-#     },
-# }
