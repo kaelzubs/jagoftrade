@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
+    'whitenoise',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'allauth',
@@ -265,21 +266,33 @@ AWS_S3_FILE_OVERWRITE = os.getenv('AWS_S3_FILE_OVERWRITE') # Optional: Prevents 
 AWS_DEFAULT_ACL = os.getenv('AWS_DEFAULT_ACL') # For public access if needed
 AWS_S3_SIGNATURE_VERSION = os.getenv('AWS_S3_SIGNATURE_VERSION')
 
-AWS_STATIC_LOCATION = 'static'
-STATIC_URL = 'static/'
-# STATIC_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{AWS_STATIC_LOCATION}/'
+# STATIC_URL = 'static/'
+STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
+# STATIC_URL=f'https://{STATIC_HOST}/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static/']
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-AWS_MEDIA_LOCATION = 'media'
-MEDIA_URL = '/media/'
-# MEDIA_URL = f'https://{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{AWS_MEDIA_LOCATION}/'
-
-STATICFILES_STORAGE = 'shop.storage_backends.StaticStorage'
-DEFAULT_FILE_STORAGE = 'shop.storage_backends.MediaStorage'
-
+# MEDIA_URL = '/media/'
 # MEDIA_ROOT = BASE_DIR / 'media'
+
+MEDIA_ROOT = 'media/'
+MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
+MEDIA_URL=f'https://{MEDIA_HOST}/'
+
+STORAGES = {
+    "default": {
+        "BACKEND": "shop.storages.PublicMediaStorage",
+    },
+    "staticfiles": {
+       "BACKEND": "shop.storages.PublicStaticStorage",
+    }
+}
+
+# STATICFILES_STORAGE = 'myapp.storage_backends.PublicStaticStorage'
+
+# DEFAULT_FILE_STORAGE = 'myapp.storage_backends.PrivateMediaStorage'
+
 
 LOGIN_REDIRECT_URL = 'core:home'
 LOGOUT_REDIRECT_URL = 'core:home'
