@@ -256,15 +256,20 @@ AWS_QUERYSTRING_AUTH = os.getenv('AWS_QUERYSTRING_AUTH')  # optional, disables q
 AWS_S3_FILE_OVERWRITE = os.getenv('AWS_S3_FILE_OVERWRITE') # Optional: Prevents overwriting files with same name
 AWS_DEFAULT_ACL = os.getenv('AWS_DEFAULT_ACL') # For public access if needed
 AWS_S3_SIGNATURE_VERSION = os.getenv('AWS_S3_SIGNATURE_VERSION')
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com" # Alternative to above URLs
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400', # Cache for 1 day
+}
 
 STATICFILES_DIRS = [BASE_DIR / 'static/']
-
+STATIC_LOCATION = 'static'
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
-STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
+STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATIC_LOCATION}'
 STATIC_URL = '/static/'
 
+PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_ROOT = 'media/'
-MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
+MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{PUBLIC_MEDIA_LOCATION}'
 MEDIA_URL=f'https://{MEDIA_HOST}/'
 
 STORAGES = {
