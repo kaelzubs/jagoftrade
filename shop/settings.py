@@ -70,7 +70,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
-    'whitenoise',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'allauth',
@@ -143,14 +142,7 @@ SOCIALACCOUNT_PROVIDERS = {
 LOGIN_REDIRECT_URL = "core:home"   # where users go after login
 LOGOUT_REDIRECT_URL = "core:home"  # where users go after logout
 
-# Django-allauth configuration
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'  # Allow login with email
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = 'optional'  # Can be 'mandatory', 'optional', or 'none'
-# ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-# ACCOUNT_USERNAME_REQUIRED = False  # Optional: require username
-# ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = False
+
 SOCIALACCOUNT_AUTO_SIGNUP = True  # Automatically create user on social signup
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'optional'
 SOCIALACCOUNT_EMAIL_REQUIRED = True
@@ -168,7 +160,6 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -182,7 +173,7 @@ MIDDLEWARE = [
     'shop.middleware.HSTSMiddleware',
     'shop.middleware.SecurityHeadersMiddleware',
     'shop.middleware.ExpiredImageMiddleware',
-    # 'shop.middleware.ContentSecurityPolicyMiddleware',
+    'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
 
 ROOT_URLCONF = 'shop.urls'
@@ -266,15 +257,11 @@ AWS_S3_FILE_OVERWRITE = os.getenv('AWS_S3_FILE_OVERWRITE') # Optional: Prevents 
 AWS_DEFAULT_ACL = os.getenv('AWS_DEFAULT_ACL') # For public access if needed
 AWS_S3_SIGNATURE_VERSION = os.getenv('AWS_S3_SIGNATURE_VERSION')
 
-# STATIC_URL = 'static/'
-STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
-# STATIC_URL=f'https://{STATIC_HOST}/'
-STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static/']
-STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = BASE_DIR / 'media'
+STATIC_ROOT = BASE_DIR / 'staticfiles/'
+STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
+STATIC_URL = '/static/'
 
 MEDIA_ROOT = 'media/'
 MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/'
@@ -289,9 +276,8 @@ STORAGES = {
     }
 }
 
-# STATICFILES_STORAGE = 'myapp.storage_backends.PublicStaticStorage'
-
-# DEFAULT_FILE_STORAGE = 'myapp.storage_backends.PrivateMediaStorage'
+STATICFILES_STORAGE = 'shop.storages.PublicStaticStorage'
+DEFAULT_FILE_STORAGE = 'shop.storages.PrivateMediaStorage'
 
 
 LOGIN_REDIRECT_URL = 'core:home'
