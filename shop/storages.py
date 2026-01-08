@@ -19,5 +19,5 @@ class PublicStaticStorage(S3Boto3Storage):
     access_key = settings.AWS_ACCESS_KEY_ID
     secret_key = settings.AWS_SECRET_ACCESS_KEY
     bucket_name = settings.AWS_STORAGE_BUCKET_NAME
-    custom_domain = settings.MEDIA_HOST
+    custom_domain = settings.STATIC_HOST
     querystring_auth = False
