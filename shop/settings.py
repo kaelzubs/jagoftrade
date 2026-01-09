@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'orders',
     'policies',
     'storages',
+    'compressor',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
@@ -174,7 +175,7 @@ MIDDLEWARE = [
     'shop.middleware.HSTSMiddleware',
     'shop.middleware.SecurityHeadersMiddleware',
     'shop.middleware.ExpiredImageMiddleware',
-    'shop.middleware.ContentSecurityPolicyMiddleware',
+    # 'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
 
 ROOT_URLCONF = 'shop.urls'
@@ -248,6 +249,21 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.cssmin.CSSMinFilter',
+]
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter',
+]
+
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
