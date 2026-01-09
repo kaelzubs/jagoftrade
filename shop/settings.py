@@ -264,7 +264,9 @@ AWS_S3_OBJECT_PARAMETERS = {
 STATIC_LOCATION = 'static'
 STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATIC_LOCATION}'
 # STATIC_URL = '/static/'
-STATIC_URL=f'https://{STATIC_HOST}/'
+# STATIC_URL=f'https://{STATIC_HOST}/'
+# Static files location inside the bucket
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
