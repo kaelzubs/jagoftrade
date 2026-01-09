@@ -267,7 +267,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 # STATIC_URL=f'https://{STATIC_HOST}/'
 STATIC_LOCATION = 'static'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
@@ -288,7 +288,7 @@ STORAGES = {
     }
 }
 
-# STATICFILES_STORAGE = 'shop.storages.PublicStaticStorage'
+STATICFILES_STORAGE = 'shop.storages.PublicStaticStorage'
 DEFAULT_FILE_STORAGE = 'shop.storages.PrivateMediaStorage'
 
 
