@@ -261,10 +261,10 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400', # Cache for 1 day
 }
 
-STATIC_LOCATION = 'static'
-STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATIC_LOCATION}'
-STATIC_URL = '/static/'
+# STATIC_LOCATION = 'static'
+# STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATIC_LOCATION}'
 # STATIC_URL=f'https://{STATIC_HOST}/'
+STATIC_URL = '/static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 
@@ -285,8 +285,8 @@ STORAGES = {
     }
 }
 
-STATICFILES_STORAGE = 'shop.storages.PublicStaticStorage'
-DEFAULT_FILE_STORAGE = 'shop.storages.PrivateMediaStorage'
+# STATICFILES_STORAGE = 'shop.storages.PublicStaticStorage'
+# DEFAULT_FILE_STORAGE = 'shop.storages.PrivateMediaStorage'
 
 
 LOGIN_REDIRECT_URL = 'core:home'
