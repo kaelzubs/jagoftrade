@@ -264,7 +264,6 @@ AWS_S3_OBJECT_PARAMETERS = {
 # STATIC_LOCATION = 'static'
 # STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATIC_LOCATION}'
 # STATIC_URL=f'https://{STATIC_HOST}/'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_LOCATION = 'static'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 
@@ -275,11 +274,7 @@ PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{PUBLIC_MEDIA_LOCATION}'
 MEDIA_URL=f'https://{MEDIA_HOST}/'
 MEDIA_ROOT = 'media/'
-# STORAGES = {
-#     "default": {
-#         "BACKEND": "shop.storages.PublicMediaStorage",
-#     }
-# }
+
 STORAGES = {
     "staticfiles": {
         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
@@ -294,8 +289,6 @@ STORAGES = {
         },
     },
 }
-
-# DEFAULT_FILE_STORAGE = 'shop.storages.PrivateMediaStorage'
 
 
 LOGIN_REDIRECT_URL = 'core:home'
