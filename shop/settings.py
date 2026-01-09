@@ -160,6 +160,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.gzip.GZipMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # add directly after SecurityMiddleware
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -266,6 +267,8 @@ STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATIC_LOCATION}'
 STATIC_URL = f'https://{STATIC_HOST}/'
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 STATICFILES_DIRS = [BASE_DIR / 'static/']
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{PUBLIC_MEDIA_LOCATION}'
