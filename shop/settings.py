@@ -275,12 +275,27 @@ PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{PUBLIC_MEDIA_LOCATION}'
 MEDIA_URL=f'https://{MEDIA_HOST}/'
 MEDIA_ROOT = 'media/'
+# STORAGES = {
+#     "default": {
+#         "BACKEND": "shop.storages.PublicMediaStorage",
+#     }
+# }
 STORAGES = {
+    "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        "OPTIONS": {
+            "location": STATIC_LOCATION,
+        },
+    },
     "default": {
-        "BACKEND": "shop.storages.PublicMediaStorage",
-    }
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "location": PUBLIC_MEDIA_LOCATION,
+        },
+    },
 }
-DEFAULT_FILE_STORAGE = 'shop.storages.PrivateMediaStorage'
+
+# DEFAULT_FILE_STORAGE = 'shop.storages.PrivateMediaStorage'
 
 
 LOGIN_REDIRECT_URL = 'core:home'
