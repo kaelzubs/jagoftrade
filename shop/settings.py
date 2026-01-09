@@ -261,12 +261,15 @@ AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400', # Cache for 1 day
 }
 
+# STATIC_LOCATION = 'static'
+# STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATIC_LOCATION}'
+# STATIC_URL=f'https://{STATIC_HOST}/'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATIC_LOCATION = 'static'
-STATIC_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{STATIC_LOCATION}'
-STATIC_URL=f'https://{STATIC_HOST}/'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 STATICFILES_DIRS = [BASE_DIR / 'static/']
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{PUBLIC_MEDIA_LOCATION}'
