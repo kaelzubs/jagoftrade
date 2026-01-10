@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'orders',
     'policies',
     'storages',
-    'compressor',
+    # 'compressor',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
@@ -139,10 +139,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-LOGIN_REDIRECT_URL = "core:home"   # where users go after login
-LOGOUT_REDIRECT_URL = "core:home"  # where users go after logout
-
-
 SOCIALACCOUNT_AUTO_SIGNUP = True  # Automatically create user on social signup
 SOCIALACCOUNT_EMAIL_VERIFICATION = 'optional'
 SOCIALACCOUNT_EMAIL_REQUIRED = True
@@ -174,7 +170,7 @@ MIDDLEWARE = [
     'shop.middleware.HSTSMiddleware',
     'shop.middleware.SecurityHeadersMiddleware',
     'shop.middleware.ExpiredImageMiddleware',
-    # 'shop.middleware.ContentSecurityPolicyMiddleware',
+    'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
 
 ROOT_URLCONF = 'shop.urls'
@@ -246,20 +242,18 @@ USE_I18N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
-)
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.cssmin.CSSMinFilter',
-]
-COMPRESS_JS_FILTERS = [
-    'compressor.filters.jsmin.JSMinFilter',
-]
-
-# COMPRESS_OFFLINE = True
+# # Static files (CSS, JavaScript, Images)
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     'compressor.finders.CompressorFinder',
+# )
+# COMPRESS_CSS_FILTERS = [
+#     'compressor.filters.cssmin.CSSMinFilter',
+# ]
+# COMPRESS_JS_FILTERS = [
+#     'compressor.filters.jsmin.JSMinFilter',
+# ]
 
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
@@ -303,9 +297,8 @@ STORAGES = {
     },
 }
 
-
-LOGIN_REDIRECT_URL = 'core:home'
-LOGOUT_REDIRECT_URL = 'core:home'
+LOGIN_REDIRECT_URL = "core:home"   # where users go after login
+LOGOUT_REDIRECT_URL = "core:home"  # where users go after logout
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
