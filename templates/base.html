@@ -27,12 +27,14 @@
   </title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap 4 CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="canonical" href="https://www.jagoftrade.com{{ request.path }}">
   <meta name="description" content="JagofTrade is your go‑to affiliate site for reviews, comparisons, and exclusive deals on fashion, electronics, and home essentials.">
-
+  <link rel="preload" href="all.css" as="style" onload="this.rel='stylesheet'">
+  
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="JagofTrade – Affiliate Marketplace for Smarter Choices">
   <meta property="og:description" content="JagofTrade.com delivers expert product reviews, smart comparisons, and curated affiliate deals for confident online shopping.">
@@ -263,7 +265,6 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- Font Awesome for icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script src="https://accounts.google.com/gsi/client" async></script>
   <script type='script/js' src="{% static 'js/script.js' %}"></script>
   <!-- Page Loader Script -->
@@ -368,6 +369,5 @@
     });
   }
   </script>
-  {}
 </body>
 </html>
