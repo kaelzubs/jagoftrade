@@ -15,7 +15,7 @@
               {% if c.images.all %}
                 {% for p in c.images.all|slice:":6" %}
                 <picture>
-                  <source type="image/webp" srcset="image.webp">
+                  <source type="image/jpeg" srcset="image.jpeg">
                   <img src="{{ p.image.url }}" alt="{{ c.name }}" class="grid-img" loading="lazy">
                 </picture>
                 {% endfor %}
