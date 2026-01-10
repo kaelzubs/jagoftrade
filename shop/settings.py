@@ -160,7 +160,7 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # add directly after SecurityMiddleware
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',  # add directly after SecurityMiddleware
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -261,7 +261,7 @@ COMPRESS_JS_FILTERS = [
 ]
 
 # COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = True
+# COMPRESS_OFFLINE = True
 
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
@@ -283,7 +283,7 @@ STATIC_URL = f'https://{STATIC_HOST}/'
 STATIC_ROOT = BASE_DIR / 'staticfiles/'
 STATICFILES_DIRS = [BASE_DIR / 'static/']
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{PUBLIC_MEDIA_LOCATION}'
