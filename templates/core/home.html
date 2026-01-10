@@ -56,7 +56,6 @@
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
             <picture>
-              <source type="image/webp" srcset="{{ first_image.image.url }}.webp">
               <img src="{{ first_image.image.url }}" class="card-img-top" alt="{{ product.title }}">
             </picture>
               {% else %}
