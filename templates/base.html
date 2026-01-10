@@ -28,9 +28,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Bootstrap 4 CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  {% compress css %}
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  {% endcompress %}
   <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
   <link rel="apple-touch-icon" href="{% static 'img/jagoftrade.png' %}" type="image/png" rel="icon">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
@@ -269,9 +267,7 @@
   <!-- Font Awesome for icons -->
   <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <script src="https://accounts.google.com/gsi/client" async></script>
-  {% compress js %}
   <script type='script/js' src="{% static 'js/script.js' %}"></script>
-  {% endcompress %}
   <!-- Page Loader Script -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
