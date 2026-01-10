@@ -54,7 +54,10 @@
         <div class='image-container'>
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
+            <picture>
+              <source type="image/webp" srcset="image.webp">
               <img src="{{ first_image.image.url }}" class="card-img-top" alt="{{ product.title }}">
+            </picture>
             {% else %}
               <div class="card-img-top img-fluid item-placeholder">No image</div>
             {% endif %}

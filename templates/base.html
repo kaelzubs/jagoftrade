@@ -227,7 +227,7 @@
             </div>
           </form>
           <div>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="text-light mr-2">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" rel='noreferrer' class="text-light mr-2">
               <i class="fab fa-facebook-f"></i>
             </a>
             <a href="{{ request.build_absolute_uri }}" class="text-light mr-2" onclick="copyShareLink();">
