@@ -261,9 +261,8 @@ COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
 ]
 
-# COMPRESS_ENABLED = True
+COMPRESS_ENABLED = True
 # COMPRESS_OFFLINE = True
-COMPRESS_ENABLED = False
 
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
