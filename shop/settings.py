@@ -260,7 +260,6 @@ COMPRESS_CSS_FILTERS = [
 COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
 ]
-
 COMPRESS_ENABLED = True
 # COMPRESS_OFFLINE = True
 
