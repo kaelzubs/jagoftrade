@@ -42,9 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = os.getenv('DJANGO_DEBUG')
 DEBUG = False
-# DEBUG = os.getenv('DJANGO_ALLOWED_DEBUG')
 
 # Heroku and production hosts
 if DEBUG:
@@ -261,8 +259,8 @@ COMPRESS_JS_FILTERS = [
     'compressor.filters.jsmin.JSMinFilter',
 ]
 
-# COMPRESS_ENABLED = True
-# COMPRESS_OFFLINE = True
+COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
 
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
