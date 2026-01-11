@@ -8,7 +8,9 @@
     <div class="card shadow category-item py-2 px-2 d-flex">
       {% with first_image=product.images.all.0 %}
         {% if first_image %}
+        <picture>
           <img id="mainImage" src="{{ first_image.image.url }}" class="cursor-pointer responsive" data-bs-toggle="modal" data-bs-target="#imageModal" alt="{{ product.title }}">
+        </picture>
         {% else %}
           <div class="card-img-top item-placeholder">No image</div>
         {% endif %}
@@ -22,7 +24,9 @@
         <div class="row">
           <div class="more-images d-flex">
             {% for image in product.images.all %}
+            <picture>
               <img id="otherImage" src="{{ image.image.url }}" class="shadow cursor-pointer responsive" onclick="updateMainImage(this)" alt="{{ product.title }}">
+            </picture>
             {% endfor %}
           </div>
         </div>
