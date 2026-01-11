@@ -11,11 +11,11 @@
     <div class="col-md-3 col-12 mb-4 p-1 main-div">
       <a href="{% url 'catalog:category_list_by_category' c.slug %}">
         <div class="card shadow category-item py-2 px-2">
-            <div class="image-grid category-gallery">
+            <div class="image-grid category-gallery img-fluid">
               {% if c.images.all %}
                 {% for p in c.images.all|slice:":6" %}
                 <picture>
-                <img src="{{ p.image.url }}" alt="{{ c.name }}" width="600" height="400" class="grid-img img-fluid responsive" loading="lazy">
+                <img src="{{ p.image.url }}" alt="{{ c.name }}" class="grid-img responsive" loading="lazy">
                 </picture>
                 {% endfor %}
               {% else %}

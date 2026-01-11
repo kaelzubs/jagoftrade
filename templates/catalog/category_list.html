@@ -9,14 +9,12 @@
     {% for product in page_obj %}
     <div class="col-md-3 mb-4 main-div">
         <div class="card shadow py-2 pl-2 d-flex">
-            <div class='image-container'>
+            <div class='image-container img-fluid'>
             {% with first_image=product.images.all.0 %}
                 {% if first_image %}
-                <picture>
-                    <img src="{{ first_image.image.url }}" width="600" height="400" class="card-img-top responsive" alt="{{ product.title }}">
-                </picture>
+                    <img src="{{ first_image.image.url }}" class="card-img-top responsive" alt="{{ product.title }}">
                 {% else %}
-                <div class="card-img-top img-fluid item-placeholder">No image</div>
+                <div class="card-img-top item-placeholder">No image</div>
                 {% endif %}
             {% endwith %}
             </div>

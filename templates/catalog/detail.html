@@ -5,12 +5,10 @@
 <div class="row">
   <div class="col-md-6">
     {% if product.images.all %}
-    <div class="card shadow category-item py-2 px-2 d-flex">
+    <div class="card shadow category-item py-2 px-2 d-flex img-fluid">
       {% with first_image=product.images.all.0 %}
         {% if first_image %}
-        <picture>
-          <img id="mainImage" width="600" height="400" src="{{ first_image.image.url }}" class="cursor-pointer img-fluid responsive" data-bs-toggle="modal" data-bs-target="#imageModal" alt="{{ product.title }}">
-        </picture>
+          <img id="mainImage" src="{{ first_image.image.url }}" class="cursor-pointer responsive" data-bs-toggle="modal" data-bs-target="#imageModal" alt="{{ product.title }}">
         {% else %}
           <div class="card-img-top item-placeholder">No image</div>
         {% endif %}
@@ -22,11 +20,9 @@
       <div class="col-12">
         <h3>More Images</h3>
         <div class="row">
-          <div class="more-images d-flex">
+          <div class="more-images d-flex img-fluid">
             {% for image in product.images.all %}
-            <picture>
-              <img id="otherImage" width="600" height="400" src="{{ image.image.url }}" class="shadow cursor-pointer img-fluid responsive" onclick="updateMainImage(this)" alt="{{ product.title }}">
-            </picture>
+              <img id="otherImage" src="{{ image.image.url }}" class="shadow cursor-pointer responsive" onclick="updateMainImage(this)" alt="{{ product.title }}">
             {% endfor %}
           </div>
         </div>
