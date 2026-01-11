@@ -13,7 +13,7 @@
             {% with first_image=product.images.all.0 %}
                 {% if first_image %}
                 <picture>
-                    <img src="{{ first_image.image.url }}" class="card-img-top responsive" alt="{{ product.title }}">
+                    <img src="{{ first_image.image.url }}" width="400" height="400" class="card-img-top responsive" alt="{{ product.title }}">
                 </picture>
                 {% else %}
                 <div class="card-img-top img-fluid item-placeholder">No image</div>
