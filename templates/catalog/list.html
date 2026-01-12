@@ -15,8 +15,8 @@
               {% if c.images.all %}
                 {% for p in c.images.all|slice:":6" %}
                 <picture>
-                <img src="{{ p.image.url }}" alt="{{ c.name }}" srcset="image-small.webp 600w, image-medium.webp 1200w, image-large.webp 1800w"
-                  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" class="grid-img responsive" loading="lazy">
+                  <img src="{{ first_image.image.url }}" srcset="{{ first_image.image.url }} 600w, {{ first_image.image.url }} 1200w, {{ first_image.image.url }} 1800w"
+                    sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" class="card-img-top responsive" alt="{{ product.title }}">
                 </picture>
                 {% endfor %}
               {% else %}
