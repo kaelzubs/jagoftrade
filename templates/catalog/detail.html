@@ -25,7 +25,7 @@
           <div class="more-images d-flex">
             {% for image in product.images.all %}
             <picture>
-              <img id="otherImage" src="{{ first_image.image.url }}" class="card-img-top responsive" alt="{{ product.title }}" loading="lazy">
+              <img id="otherImage" src="{{ image.image.url }}" class="card-img-top responsive" alt="{{ product.title }}" loading="lazy">
             </picture>
             {% endfor %}
           </div>
