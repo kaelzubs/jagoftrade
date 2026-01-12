@@ -42,7 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Heroku and production hosts
 if DEBUG:
@@ -282,6 +282,11 @@ PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{PUBLIC_MEDIA_LOCATION}'
 MEDIA_URL=f'https://{MEDIA_HOST}/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+
+PICTURES = {
+    "USE_PLACEHOLDERS": True,
+    # other settings...
+}
 
 STORAGES = {
     "staticfiles": {
