@@ -71,7 +71,6 @@ class ProductImage(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images", help_text="The product this image belongs to.")
     image = PictureField(
-        help_text="File for the product image.",
         upload_to="product_images/",
         width_field='picture_width',
         height_field='picture_height'
