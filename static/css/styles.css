@@ -649,6 +649,7 @@ h2.jumb {
     margin: 0 auto;  /* Center the image */
     padding-right: 8px;
     overflow: hidden;
+    display: block;
   }
   .image-container {
     width: 100%;  /* Set a fixed width */
@@ -673,6 +674,7 @@ h2.jumb {
     margin: 0 auto;  /* Center the image */ 
     padding-right: 8px;
     overflow: hidden;
+    display: block;
   }
   .image-container {
     width: 100%;  /* Set a fixed width */
