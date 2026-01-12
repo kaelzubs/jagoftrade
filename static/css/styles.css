@@ -649,7 +649,6 @@ h2.jumb {
     margin: 0 auto;  /* Center the image */
     padding-right: 8px;
     overflow: hidden;
-    display: block;
   }
   .image-container {
     width: 100%;  /* Set a fixed width */
@@ -663,7 +662,7 @@ h2.jumb {
   object-fit: contain;  /* Crop to fill div */
   margin: 0 auto;  /* Center the image */
   padding-right: 8px;
-  display: block;
+  display: flex;
 }
 
 @media (max-width: 576px) {
@@ -674,7 +673,6 @@ h2.jumb {
     margin: 0 auto;  /* Center the image */ 
     padding-right: 8px;
     overflow: hidden;
-    display: block;
   }
   .image-container {
     width: 100%;  /* Set a fixed width */
