@@ -16,7 +16,7 @@
   justify-content: center;
   text-align: center;
   position: relative;
-" srcset="image-small.webp 600w, image.webp 1200w, image-large.webp 1800w"
+" srcset="image-small.webp 600w, image-large.webp 1800w"
   sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
   <div class="jumbotron-content">
     <h1 class="display-4 jumb font-weight-bold header-one">JagofTrade — Where digital meets opportunity.</h1>
@@ -57,7 +57,7 @@
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
             <picture>
-              <img src="{{ first_image.image.url }}" srcset="image-small.webp 600w, image.webp 1200w, image-large.webp 1800w"
+              <img src="{{ first_image.image.url }}" srcset="image-small.webp 600w, image-large.webp 1800w"
                 sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" class="card-img-top responsive" alt="{{ product.title }}">
             </picture>
             {% else %}
