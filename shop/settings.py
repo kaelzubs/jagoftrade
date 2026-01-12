@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'orders',
     'policies',
     'storages',
+    'pictures',
     # 'compressor',
     'crispy_forms',
     'crispy_bootstrap4',
@@ -280,7 +281,7 @@ STATICFILES_DIRS = [BASE_DIR / 'static/']
 PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{PUBLIC_MEDIA_LOCATION}'
 MEDIA_URL=f'https://{MEDIA_HOST}/'
-MEDIA_ROOT = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media/'
 
 STORAGES = {
     "staticfiles": {
