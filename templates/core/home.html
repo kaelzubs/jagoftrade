@@ -55,7 +55,7 @@
         <div class='image-container'>
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
-              <!-- <img src="{{ first_image.image.url }}" class="card-img-top responsive" alt="{{ product.title }}" loading="lazy"> {% endcomment %}-->
+              <!-- <img src="{{ first_image.image.url }}" class="card-img-top responsive" alt="{{ product.title }}" loading="lazy">-->
               {% picture first_image.image.url alt=product.title %}
             {% else %}
               <div class="card-img-top item-placeholder">No image</div>
