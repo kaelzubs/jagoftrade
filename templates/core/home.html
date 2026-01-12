@@ -3,23 +3,21 @@
 {% load humanize %}
 {% block title %}JagofTrade – Affiliate Marketplace for Smarter Choices{% endblock %}
 {% block content %}
-<div class="jumbotron responsive"
-  srcset="image-small.webp 600w, image-medium.webp 1200w, image-large.webp 1800w"
-  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-  style="
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static "img/products_bg.png" %}');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    color: white;
-    min-height: 400px;
-    display: block;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-  ">
+<div class="jumbotron responsive" style="
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static "img/products_bg.png" %}');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: white;
+  min-height: 400px;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+" srcset="image-small.webp 600w, image.webp 1200w, image-large.webp 1800w"
+  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw">
   <div class="jumbotron-content">
     <h1 class="display-4 jumb font-weight-bold header-one">JagofTrade — Where digital meets opportunity.</h1>
     <h2 class="p font-weight-bold">
@@ -59,7 +57,7 @@
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
             <picture>
-              <img src="{{ first_image.image.url }}" srcset="image-small.webp 600w, image-medium.webp 1200w, image-large.webp 1800w"
+              <img src="{{ first_image.image.url }}" srcset="image-small.webp 600w, image.webp 1200w, image-large.webp 1800w"
                 sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" class="card-img-top responsive" alt="{{ product.title }}">
             </picture>
             {% else %}
