@@ -284,7 +284,7 @@ MEDIA_URL=f'https://{MEDIA_HOST}/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
 PICTURES = {
-    "USE_PLACEHOLDERS": True,
+    "USE_PLACEHOLDERS": False,
     # other settings...
 }
 
