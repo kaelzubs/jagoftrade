@@ -14,7 +14,9 @@
             <div class="image-grid category-gallery">
               {% if c.images.all %}
                 {% for p in c.images.all|slice:":6" %}
+                <picture>
                   <img src="{{ first_image.image.url }}" class="card-img-top responsive" alt="{{ product.title }}" loading="lazy">
+                </picture>
                 {% endfor %}
               {% else %}
                 <div class="grid-img item-placeholder">No image</div>
