@@ -23,10 +23,7 @@
                           <div class='image-container'>
                             {% with first_image=product.images.all.0 %}
                               {% if first_image %}
-                              <picture>
-                                <img src="{{ first_image.image.url }}" srcset="{{ first_image.image.url }} 600w, {{ first_image.image.url }} 1200w, {{ first_image.image.url }} 1800w"
-                                  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw" class="card-img-top responsive" alt="{{ product.title }}">
-                              </picture>
+                                <img src="{{ first_image.image.url }}" class="card-img-top responsive" alt="{{ product.title }}" loading="lazy">
                               {% else %}
                                 <div class="card-img-top item-placeholder">No image</div>
                               {% endif %}
