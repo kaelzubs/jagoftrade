@@ -682,11 +682,6 @@ h2.jumb {
   }
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
-
 /* Phone Number Widget Styling */
 .phone-widget-container {
   display: grid;
