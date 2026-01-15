@@ -197,14 +197,13 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-if DEBUG == True:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
+}
+if DEBUG == False:
     DATABASES = {
         'default': dj_database_url.config(
             default=os.getenv('DATABASE_URL'),
