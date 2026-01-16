@@ -42,7 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Heroku and production hosts
 if DEBUG:
@@ -196,31 +196,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'shop.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# if DEBUG == False:
-#     DATABASES = {
-#         'default': dj_database_url.config(
-#             default=os.getenv('DATABASE_URL'),
-#             conn_max_age=600,
-#             # ssl_require=True
-#         )
-#     }
-    
-DATABASES = {
-    "default": dj_database_url.config(
-        default="postgres://ubjlfm4ghp2u7h:pd73a1d8322b4c4a123631dffa5796d88a9bf7705dc9de575a0f952b2bfb1122c@c683rl2u9g20vq.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d9cjrdg0hraia6",
-        conn_max_age=600,
-        ssl_require=not DEBUG,
-    )
-}
-
-    
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Override with Heroku DATABASE_URL if present
+DATABASES["default"] = dj_database_url.config(
+    default=os.getenv("DATABASE_URL"),
+    conn_max_age=600,
+    ssl_require=True
+)
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -251,19 +241,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-# # Static files (CSS, JavaScript, Images)
-# STATICFILES_FINDERS = (
-#     'django.contrib.staticfiles.finders.FileSystemFinder',
-#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#     'compressor.finders.CompressorFinder',
-# )
-# COMPRESS_CSS_FILTERS = [
-#     'compressor.filters.cssmin.CSSMinFilter',
-# ]
-# COMPRESS_JS_FILTERS = [
-#     'compressor.filters.jsmin.JSMinFilter',
-# ]
 
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
@@ -330,32 +307,22 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('EMAIL_HOST_USER')
 ADMIN_EMAIL = os.getenv('ADMIN_EMAIL', os.getenv('EMAIL_HOST_USER'))  # Defaults to EMAIL_HOST_USER if not set
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Use SMTP in production
 
-# Paystack settings (set in your .env)
-PAYSTACK_PUBLIC_KEY = os.getenv('PAYSTACK_PUBLIC_KEY')
-PAYSTACK_SECRET_KEY = os.getenv('PAYSTACK_SECRET_KEY')
-PAYSTACK_CALLBACK_URL = os.getenv('PAYSTACK_CALLBACK_URL')
-PAYSTACK_PAYMENT_URL = os.getenv('PAYSTACK_PAYMENT_URL')
-# Shipping settings
-SHIPPING_FLAT_RATE = 500.00  # Flat rate shipping cost in your currency
-SHIPPING_FREE_THRESHOLD = 10000.00  # Free shipping for orders above this amount
-SHIPPING_ESTIMATED_DAYS = (5, 10)  # Estimated delivery time in days (min, max)
 # Mailchimp settings
 MAILCHIMP_API_KEY = os.getenv('MAILCHIMP_API_KEY')
 MAILCHIMP_EMAIL_LIST_ID = os.getenv('MAILCHIMP_EMAIL_LIST_ID')
 MAILCHIMP_DATA_CENTER = os.getenv('MAILCHIMP_DATA_CENTER')
 
 # # settings.py (production)
-# if DEBUG == False:
-#     SESSION_COOKIE_SECURE = True
-#     CSRF_COOKIE_SECURE = True
-#     SESSION_COOKIE_SAMESITE = "Lax"
-#     CSRF_COOKIE_SAMESITE = "Lax"
-#     SECURE_SSL_REDIRECT = True
-#     SECURE_HSTS_SECONDS = 31536000
-#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#     SECURE_HSTS_PRELOAD = True
+if DEBUG == False:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SAMESITE = "Lax"
+    CSRF_COOKIE_SAMESITE = "Lax"
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
@@ -368,25 +335,6 @@ LOGIN_REDIRECT_URL = 'core:home'
 
 ACCOUNT_LOGIN_METHODS = {'email'} # Or {'username', 'email'} if you allow both
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] # For email/password signup
-
-# AUTH_USER_MODEL = 'accounts.CustomUser'  # replace 'accounts' with your app nam
-AMAZON_PAAPI = {
-    # Required credentials
-    "ACCESS_KEY": os.getenv('AMAZON_ACCESS_KEY', ''),
-    "SECRET_KEY": os.getenv('AMAZON_SECRET_KEY', ''),
-    "PARTNER_TAG": os.getenv('AMAZON_PARTNER_TAG', ''),   # Your Associate Tag
-    "PARTNER_TYPE": os.getenv('AMAZON_PARTNER_TYPE', 'Associates'),
-
-    # Marketplace configuration
-    "MARKETPLACE": os.getenv('AMAZON_MARKETPLACE', 'US'),
-    "HOST": os.getenv('AMAZON_HOST', 'webservices.amazon.com'),
-    "REGION": os.getenv('AMAZON_REGION', 'us-east-1'),
-    "COUNTRY": os.getenv('AMAZON_COUNTRY', 'US'),
-
-    # Connection settings
-    "TIMEOUT": int(os.getenv('AMAZON_TIMEOUT', '10')),
-    "MAX_RETRIES": int(os.getenv('AMAZON_MAX_RETRIES', '3')),
-}
 
 # the following are defaults, but you can override them
 PICTURES = {
