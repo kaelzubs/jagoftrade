@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os, json, secrets, string
+import os, secrets, string
 from dotenv import load_dotenv
 import warnings
 from datetime import timedelta
