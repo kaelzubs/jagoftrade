@@ -42,7 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Heroku and production hosts
 if DEBUG:
@@ -197,14 +197,23 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-if DEBUG == False:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.getenv('DATABASE_URL'),
-            conn_max_age=600,
-            ssl_require=True
-        )
-    }
+# if DEBUG == False:
+#     DATABASES = {
+#         'default': dj_database_url.config(
+#             default=os.getenv('DATABASE_URL'),
+#             conn_max_age=600,
+#             # ssl_require=True
+#         )
+#     }
+    
+DATABASES = {
+    "default": dj_database_url.config(
+        default="postgres://ubjlfm4ghp2u7h:pd73a1d8322b4c4a123631dffa5796d88a9bf7705dc9de575a0f952b2bfb1122c@c683rl2u9g20vq.cluster-czrs8kj4isg7.us-east-1.rds.amazonaws.com:5432/d9cjrdg0hraia6",
+        conn_max_age=600,
+        ssl_require=not DEBUG,
+    )
+}
+
     
 DATABASES = {
     'default': {
@@ -338,15 +347,15 @@ MAILCHIMP_EMAIL_LIST_ID = os.getenv('MAILCHIMP_EMAIL_LIST_ID')
 MAILCHIMP_DATA_CENTER = os.getenv('MAILCHIMP_DATA_CENTER')
 
 # # settings.py (production)
-if DEBUG == False:
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SAMESITE = "Lax"
-    CSRF_COOKIE_SAMESITE = "Lax"
-    SECURE_SSL_REDIRECT = True
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
+# if DEBUG == False:
+#     SESSION_COOKIE_SECURE = True
+#     CSRF_COOKIE_SECURE = True
+#     SESSION_COOKIE_SAMESITE = "Lax"
+#     CSRF_COOKIE_SAMESITE = "Lax"
+#     SECURE_SSL_REDIRECT = True
+#     SECURE_HSTS_SECONDS = 31536000
+#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+#     SECURE_HSTS_PRELOAD = True
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
