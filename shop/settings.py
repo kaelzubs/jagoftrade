@@ -205,12 +205,14 @@ DATABASES = {
 }
 
 # Override with Heroku DATABASE_URL if present
-DATABASES["default"] = dj_database_url.config(
+db_from_env = dj_database_url.config(
     default=os.getenv("DATABASE_URL"),
     conn_max_age=600,
     ssl_require=True
 )
 
+if db_from_env:
+    DATABASES['default'] = db_from_env
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
