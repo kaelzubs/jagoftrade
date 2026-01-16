@@ -42,7 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+DEBUG = os.getenv('DJANGO_DEBUG')
 
 # Heroku and production hosts
 if DEBUG:
@@ -212,7 +212,7 @@ db_from_env = dj_database_url.config(
 )
 
 if db_from_env:
-    DATABASES['default'] = db_from_env
+    DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
