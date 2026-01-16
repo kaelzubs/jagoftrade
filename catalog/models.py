@@ -19,11 +19,14 @@ class Category(models.Model):
     
 class CategoryImage(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="images")
-    image = models.ImageField(upload_to="product_images/",
-                              width_field='picture_width',
-                              height_field='picture_height')
-    picture_width = models.PositiveIntegerField(null=True, editable=False)
-    picture_height = models.PositiveIntegerField(null=True, editable=False)
+    image = PictureField(
+        upload_to="avatars",
+        aspect_ratios=[None, "1/1", "3/2", "16/9"],
+        width_field="picture_width",
+        height_field="picture_height"
+    )
+    picture_width = models.PositiveIntegerField(editable=False)
+    picture_height = models.PositiveIntegerField(editable=False)
 
     def image_tag(self):
         if self.image:
@@ -76,11 +79,14 @@ class ProductImage(models.Model):
     """
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images", help_text="The product this image belongs to.")
-    image = models.ImageField(upload_to="product_images/",
-                              width_field='picture_width',
-                              height_field='picture_height')
-    picture_width = models.PositiveIntegerField(null=True, editable=False)
-    picture_height = models.PositiveIntegerField(null=True, editable=False)
+    image = PictureField(
+        upload_to="product_images/",
+        aspect_ratios=[None, "1/1", "3/2", "16/9"],
+        width_field="picture_width",
+        height_field="picture_height"
+    )
+    picture_width = models.PositiveIntegerField(editable=False)
+    picture_height = models.PositiveIntegerField(editable=False)
 
     def image_tag(self):
         if self.image:
@@ -88,8 +94,6 @@ class ProductImage(models.Model):
         return "No Image"
     
     image_tag.short_description = 'Image Preview'
-
-
 
     class Meta:
         verbose_name = "Product Image"
