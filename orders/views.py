@@ -60,6 +60,7 @@ def cart_remove(request, product_id):
     cart.remove(product_id)
     return redirect('orders:cart_detail')
 
+@login_required
 def checkout(request):
     cart = Cart(request)
     items = list(cart.items())
