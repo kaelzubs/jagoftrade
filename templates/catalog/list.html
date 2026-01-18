@@ -15,9 +15,10 @@
             <div class="image-grid category-gallery">
               {% if c.images.all %}
                 {% for p in c.images.all|slice:":6" %}
-                <picture>
-                  {% picture p.image title=product.title %}
-                </picture>
+                <figure>
+                  {% picture p.image %}
+                  <figcaption>{{ product.title }}</figcaption>
+                </figure>
                 {% endfor %}
               {% else %}
                 <div class="grid-img item-placeholder">No image</div>
