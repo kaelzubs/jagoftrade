@@ -202,6 +202,7 @@ DATABASES = {'default': dj_database_url.config(default='sqlite:///db.sqlite3')}
  
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+AUTH_USER_MODEL = 'accounts.CustomUser'  # if using custom user
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -283,8 +284,6 @@ LOGIN_URL = 'accounts:login'
 
 ACCOUNT_LOGIN_METHODS = {'email', 'username'} # Or {'username', 'email'} if you allow both
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] # For email/password signup
-
-AUTH_USER_MODEL = 'accounts.CustomUser'  # if using custom user
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
