@@ -42,8 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-# DEBUG = os.getenv('DJANGO_DEBUG')
+DEBUG = os.getenv('DJANGO_ALLOWED_DEBUG')
 
 # Heroku and production hosts
 if not DEBUG:
@@ -197,25 +196,6 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# # Override with Heroku DATABASE_URL if present
-# db_from_env = dj_database_url.config(
-#     default=os.getenv("DATABASE_URL"),
-#     conn_max_age=600,
-#     ssl_require=True
-# )
-
-# # db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
-
-# if db_from_env:
-#     DATABASES['default'].update(db_from_env)
-    
 DATABASES = {'default': dj_database_url.config(default='sqlite:///db.sqlite3')}
  
 # Password validation
