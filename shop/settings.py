@@ -215,13 +215,7 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # if db_from_env:
 #     DATABASES['default'].update(db_from_env)
     
-DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+DATABASES = {'default': dj_database_url.config(default='sqlite:///db.sqlite3')}
  
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
