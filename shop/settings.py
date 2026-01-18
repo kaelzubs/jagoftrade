@@ -42,7 +42,6 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 DEBUG = os.getenv('DJANGO_DEBUG')
 
 # Heroku and production hosts
@@ -297,7 +296,7 @@ PICTURES = {
 # Login settings - redirect to login with 'next' parameter
 LOGIN_REDIRECT_URL = "core:home"   # where users go after login
 LOGOUT_REDIRECT_URL = "core:home"  # where users go after logout
-# LOGIN_URL = 'accounts:login'
+LOGIN_URL = 'accounts:login'
 
 ACCOUNT_LOGIN_METHODS = {'email', 'username'} # Or {'username', 'email'} if you allow both
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] # For email/password signup
