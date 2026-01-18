@@ -16,7 +16,7 @@
               {% if c.images.all %}
                 {% for p in c.images.all|slice:":6" %}
                 <picture>
-                  {% picture p.image alt=product.title %}
+                  {% picture p.image title=product.title %}
                 </picture>
                 {% endfor %}
               {% else %}

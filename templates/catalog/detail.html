@@ -10,7 +10,7 @@
       {% with first_image=product.images.all.0 %}
         {% if first_image %}
         <picture>
-          {% picture first_image.image alt=product.title %}
+          {% picture first_image.image title=product.title %}
         </picture>
         {% else %}
           <div class="card-img-top item-placeholder">No image</div>
@@ -26,7 +26,7 @@
           <div class="more-images d-flex">
             {% for image in product.images.all %}
             <picture>
-              {% picture image.image alt=product.title onclick="updateMainImage(this)" %}
+              {% picture image.image title=product.title onclick="updateMainImage(this)" %}
             </picture>
             {% endfor %}
           </div>
