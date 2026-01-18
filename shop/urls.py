@@ -24,7 +24,6 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 from django.contrib.sitemaps.views import sitemap
 from shop.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
-# from pictures.conf import get_settings
 
 admin.site.site_header = "JagofTrade Administration"
 admin.site.site_title = "JagofTrade Portal"
@@ -56,6 +55,7 @@ urlpatterns = [
     path('orders/', include('orders.urls')),
     path('policies/', include('policies.urls', namespace="policies")),
     path('accounts/', include('accounts.urls', namespace="accounts")),
+    path('_pictures/', include('pictures.urls')),
     path('accounts/', include('allauth.urls')),  # Django-allauth social auth URLs
     path('favicon.ico/', RedirectView.as_view(url=staticfiles_storage.url('img/jagoftrade.png'))),
     path("sitemap.xml/", sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
@@ -63,8 +63,3 @@ urlpatterns = [
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-# if get_settings().USE_PLACEHOLDERS:
-#     urlpatterns += [
-#         path("_pictures/", include("pictures.urls")),
-#     ]
