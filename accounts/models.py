@@ -30,9 +30,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         related_query_name="user",
     )
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = []   # must exist, even if empty
+    REQUIRED_FIELDS = ['username', 'email']  # username still required when creating superuser
 
     objects = CustomUserManager()
 
