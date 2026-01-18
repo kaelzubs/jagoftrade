@@ -42,13 +42,15 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
+DEBUG=os.getenv('DEBUG', 'False') == 'False'
 
 # Heroku and production hosts
-if DEBUG:
+if DEBUG == True:
     ALLOWED_HOSTS = ['*']
-else:
-    ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',')
+
+# ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = ['www.jagoftrade.com', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
@@ -281,6 +283,8 @@ LOGIN_URL = 'accounts:login'
 
 ACCOUNT_LOGIN_METHODS = {'email', 'username'} # Or {'username', 'email'} if you allow both
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] # For email/password signup
+
+AUTH_USER_MODEL = 'accounts.CustomUser'  # if using custom user
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
