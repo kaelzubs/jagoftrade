@@ -15,7 +15,7 @@
               {% if c.images.all %}
                 {% for p in c.images.all|slice:":6" %}
                 <picture>
-                  {% picture first_image.image.url alt=product.title ratio="16/9" m=6 l=4 %}
+                  {% picture p.image.url alt=product.title ratio="16/9" m=6 l=4 %}
                 </picture>
                 {% endfor %}
               {% else %}
