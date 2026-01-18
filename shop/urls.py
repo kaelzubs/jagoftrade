@@ -24,6 +24,7 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 from django.contrib.sitemaps.views import sitemap
 from shop.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
+from pictures.conf import get_settings
 
 admin.site.site_header = "JagofTrade Administration"
 admin.site.site_title = "JagofTrade Portal"
@@ -50,16 +51,34 @@ handler500 = custom_server_error
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Core app at root
     path('', include('core.urls')),
+
+    # Pictures placeholders (better to mount under a prefix)
+    # path('pictures/', include('pictures.urls')),
+
+    # Other apps
     path('catalog/', include('catalog.urls')),
     path('orders/', include('orders.urls')),
-    path('policies/', include('policies.urls', namespace="policies")),
-    path('accounts/', include('accounts.urls', namespace="accounts")),
-    path('_pictures/', include('pictures.urls')),
-    path('accounts/', include('allauth.urls')),  # Django-allauth social auth URLs
-    path('favicon.ico/', RedirectView.as_view(url=staticfiles_storage.url('img/jagoftrade.png'))),
-    path("sitemap.xml/", sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
+    path('policies/', include(('policies.urls', 'policies'), namespace="policies")),
 
+    # Accounts (custom + allauth)
+    path('accounts/', include(('accounts.urls', 'accounts'), namespace="accounts")),
+    path('accounts/', include('allauth.urls')),
+
+    # Favicon
+    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/jagoftrade.png'))),
+
+    # Sitemap
+    path("sitemap.xml", sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+if get_settings().USE_PLACEHOLDERS:
+    urlpatterns += [
+        path("_pictures/", include("pictures.urls")),
+    ]

@@ -42,7 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Heroku and production hosts
 if DEBUG:
@@ -217,7 +217,11 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 #     DATABASES['default'].update(db_from_env)
     
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
  
 
@@ -278,11 +282,6 @@ MEDIA_HOST=f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com/{PUBLIC_MEDIA_LOCATION}'
 MEDIA_URL=f'https://{MEDIA_HOST}/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
-PICTURES = {
-    "USE_PLACEHOLDERS": False,
-    # other settings...
-}
-
 STORAGES = {
     "staticfiles": {
         "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
@@ -298,8 +297,13 @@ STORAGES = {
     },
 }
 
+# Login settings - redirect to login with 'next' parameter
 LOGIN_REDIRECT_URL = "core:home"   # where users go after login
 LOGOUT_REDIRECT_URL = "core:home"  # where users go after logout
+LOGIN_URL = 'accounts:login'
+
+ACCOUNT_LOGIN_METHODS = {'email'} # Or {'username', 'email'} if you allow both
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] # For email/password signup
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -337,13 +341,6 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "SIGNING_KEY": SECRET_KEY,
 }
-
-# Login settings - redirect to login with 'next' parameter
-LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'core:home'
-
-ACCOUNT_LOGIN_METHODS = {'email'} # Or {'username', 'email'} if you allow both
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] # For email/password signup
 
 # the following are defaults, but you can override them
 PICTURES = {

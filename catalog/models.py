@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
 from pictures.models import PictureField
+from django.utils.html import mark_safe
 
 class Category(models.Model):
     name = models.CharField(max_length=120, unique=True)
@@ -19,12 +20,19 @@ class Category(models.Model):
 class CategoryImage(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="images")
     image = PictureField(
-        upload_to="category_images/",
+        upload_to="category_image/",
         width_field="picture_width",
         height_field="picture_height"
     )
     picture_width = models.PositiveIntegerField(editable=False)
     picture_height = models.PositiveIntegerField(editable=False)
+
+    def image_tag(self):
+        if self.image:
+            return mark_safe(f'<img src="{self.image.url}" width="100"/>')
+        return "No Image"
+    
+    image_tag.short_description = 'Image Preview'
 
     def __str__(self):
         return f"Image for {self.category.name}"
@@ -77,6 +85,13 @@ class ProductImage(models.Model):
     )
     picture_width = models.PositiveIntegerField(editable=False)
     picture_height = models.PositiveIntegerField(editable=False)
+
+    def image_tag(self):
+        if self.image:
+            return mark_safe(f'<img src="{self.image.url}" width="100"/>')
+        return "No Image"
+    
+    image_tag.short_description = 'Image Preview'
 
     class Meta:
         verbose_name = "Product Image"
