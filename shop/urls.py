@@ -24,7 +24,6 @@ from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
 from django.contrib.sitemaps.views import sitemap
 from shop.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
-from pictures.conf import get_settings
 
 admin.site.site_header = "JagofTrade Administration"
 admin.site.site_title = "JagofTrade Portal"
@@ -56,7 +55,7 @@ urlpatterns = [
     path('', include('core.urls')),
 
     # Pictures placeholders (better to mount under a prefix)
-    # path('pictures/', include('pictures.urls')),
+    path('pictures/', include('pictures.urls')),
 
     # Other apps
     path('catalog/', include('catalog.urls')),
@@ -77,8 +76,3 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
-if get_settings().USE_PLACEHOLDERS:
-    urlpatterns += [
-        path("_pictures/", include("pictures.urls")),
-    ]

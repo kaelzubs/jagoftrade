@@ -42,10 +42,10 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Heroku and production hosts
-if DEBUG:
+if DEBUG == True:
     ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'policies',
     'storages',
     'pictures',
-    # 'compressor',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
