@@ -9,7 +9,7 @@
       {% with first_image=product.images.all.0 %}
         {% if first_image %}
         <picture>
-          <img id="mainImage" src="{{ first_image.image.url }}" class="card-img-top responsive" alt="{{ product.title }}" loading="lazy">
+          {% picture first_image.image.url alt=product.title ratio="16/9" m=6 l=4 %}
         </picture>
         {% else %}
           <div class="card-img-top item-placeholder">No image</div>
@@ -25,7 +25,7 @@
           <div class="more-images d-flex">
             {% for image in product.images.all %}
             <picture>
-              <img id="otherImage" src="{{ image.image.url }}" class="card-img-top responsive" onclick="updateMainImage(this)" alt="{{ product.title }}" loading="lazy">
+              {% picture image.image.url alt=product.title ratio="16/9" m=6 l=4 onclick="updateMainImage(this)" %}
             </picture>
             {% endfor %}
           </div>
