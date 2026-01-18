@@ -45,7 +45,7 @@ if not SECRET_KEY:
 DEBUG = False
 
 # Heroku and production hosts
-if DEBUG == True:
+if DEBUG:
     ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
@@ -223,7 +223,6 @@ DATABASES = {
     )
 }
  
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -301,7 +300,7 @@ LOGIN_REDIRECT_URL = "core:home"   # where users go after login
 LOGOUT_REDIRECT_URL = "core:home"  # where users go after logout
 LOGIN_URL = 'accounts:login'
 
-ACCOUNT_LOGIN_METHODS = {'email'} # Or {'username', 'email'} if you allow both
+ACCOUNT_LOGIN_METHODS = {'email', 'username'} # Or {'username', 'email'} if you allow both
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*'] # For email/password signup
 
 # Default primary key field type
@@ -326,7 +325,7 @@ MAILCHIMP_EMAIL_LIST_ID = os.getenv('MAILCHIMP_EMAIL_LIST_ID')
 MAILCHIMP_DATA_CENTER = os.getenv('MAILCHIMP_DATA_CENTER')
 
 # # settings.py (production)
-if DEBUG == False:
+if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SESSION_COOKIE_SAMESITE = "Lax"
@@ -340,22 +339,3 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "SIGNING_KEY": SECRET_KEY,
 }
-
-# the following are defaults, but you can override them
-# PICTURES = {
-#     "BREAKPOINTS": {
-#         "xs": 576,
-#         "s": 768,
-#         "m": 992,
-#         "l": 1200,
-#         "xl": 1400,
-#     },
-#     "GRID_COLUMNS": 12,
-#     "CONTAINER_WIDTH": 1200,
-#     "FILE_TYPES": ["AVIF"],
-#     "PIXEL_DENSITIES": [1, 2],
-#     "USE_PLACEHOLDERS": True,
-#     "QUEUE_NAME": "pictures",
-#     "BACKEND": "default",
-#     "PROCESSOR": "pictures.tasks.process_picture",
-# }
