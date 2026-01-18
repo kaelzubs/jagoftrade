@@ -289,6 +289,10 @@ STORAGES = {
     },
 }
 
+PICTURES = {
+    "USE_PLACEHOLDERS": False,
+}
+
 # Login settings - redirect to login with 'next' parameter
 LOGIN_REDIRECT_URL = "core:home"   # where users go after login
 LOGOUT_REDIRECT_URL = "core:home"  # where users go after logout
