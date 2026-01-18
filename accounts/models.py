@@ -30,7 +30,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         related_query_name="user",
     )
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'username'
+    EMAIL_FIELD = 'email'
     REQUIRED_FIELDS = []   # must exist, even if empty
 
     objects = CustomUserManager()
