@@ -55,7 +55,7 @@ urlpatterns = [
     path('', include('core.urls')),
 
     # Pictures placeholders (better to mount under a prefix)
-    path('pictures/', include('pictures.urls')),
+    # path('pictures/', include('pictures.urls')),
 
     # Other apps
     path('catalog/', include('catalog.urls')),
