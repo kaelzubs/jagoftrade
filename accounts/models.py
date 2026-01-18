@@ -32,7 +32,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'email']  # username still required when creating superuser
+    REQUIRED_FIELDS = ['username']  # username still required when creating superuser
 
     objects = CustomUserManager()
 

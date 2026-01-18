@@ -43,14 +43,14 @@ if not SECRET_KEY:
     
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = False
-DEBUG=os.getenv('DEBUG', 'False') == 'False'
+DEBUG=os.getenv('DJANGO_ALLOWED_DEBUG', 'False') == 'False'
 
 # Heroku and production hosts
 if DEBUG == True:
     ALLOWED_HOSTS = ['*']
 
-# ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',')
-ALLOWED_HOSTS = ['www.jagoftrade.com', '127.0.0.1']
+ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',')
+# ALLOWED_HOSTS = ['www.jagoftrade.com', '127.0.0.1']
 
 # Application definition
 INSTALLED_APPS = [
