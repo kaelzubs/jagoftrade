@@ -48,7 +48,7 @@ DEBUG = os.getenv('DJANGO_ALLOWED_DEBUG')
 if DEBUG == True:
     ALLOWED_HOSTS = ['*']
 else:
-    ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS')
+    ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '').split(',')
 
 # Application definition
 INSTALLED_APPS = [
