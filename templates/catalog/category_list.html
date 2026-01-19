@@ -15,6 +15,7 @@
                 {% if first_image %}
                 <figure>
                     {% picture first_image.image %}
+                    <img alt="{{ product.title }}" src="{{ img_url }}">
                 </figure>
                 {% else %}
                     <div class="card-img-top item-placeholder">No image</div>

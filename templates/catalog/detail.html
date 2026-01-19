@@ -11,6 +11,7 @@
         {% if first_image %}
           <figure>
             {% picture first_image.image %}
+            <img alt="{{ product.title }}" src="{{ img_url }}">
           </figure>
         {% else %}
           <div class="card-img-top item-placeholder">No image</div>
@@ -26,7 +27,8 @@
           <div class="more-images d-flex">
             {% for image in product.images.all %}
               <figure>
-                {% picture image.image attrs="{'id': 'otherImage', 'class': 'card-img-top', 'onclick': 'updateMainImage(this)'}" %}
+                {% picture image.image %}
+                <img onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
               </figure>
             {% endfor %}
           </div>
