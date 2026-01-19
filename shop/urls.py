@@ -49,7 +49,6 @@ handler404 = custom_page_not_found
 handler500 = custom_server_error
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
 
     # Core app at root
     path('', include('core.urls')),
@@ -68,6 +67,8 @@ urlpatterns = [
 
     # Sitemap
     path('sitemap.xml/', sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
+    
+    path('admin/', admin.site.urls),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

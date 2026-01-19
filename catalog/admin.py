@@ -12,6 +12,7 @@ class ProductImageInline(admin.TabularInline):  # or admin.StackedInline
     extra = 1   # how many empty forms to display by default
 
 
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'affiliate_link', 'is_active')
     list_filter = ('is_active', 'category')
@@ -31,13 +32,9 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline]
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')
-    search_fields = ('name', 'slug')
+    list_display = ('name', 'slug')   # ✅ show name & slug in admin list
+    search_fields = ('name', 'slug')  # ✅ allow searching categories
     prepopulated_fields = {"slug": ("name",)}
     inlines = [CategoryImageInline]
-
-
-# ✅ Register models with their admin classes
-admin.site.register(Product, ProductAdmin)
-admin.site.register(Category, CategoryAdmin)
