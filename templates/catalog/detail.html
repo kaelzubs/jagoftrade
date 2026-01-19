@@ -25,12 +25,12 @@
         <div class="row">
           <div class="more-images d-flex">
             {% for image in product.images.all %}
-            <div id="otherImage" class="card-img-top d-none">
               <figure>
                 {% picture image.image as img_url %}
-                <img src="{{ img_url }}" >
+                <div id="otherImage" class="card-img-top d-none" onclick="updateMainImage(this)">
+                  <img src="{{ img_url }}">
+                </div>
               </figure>
-            </div>
             {% endfor %}
           </div>
         </div>
