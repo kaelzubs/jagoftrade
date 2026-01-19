@@ -117,7 +117,12 @@ img {
   height: auto;
   object-fit: contain;
   overflow: hidden;
+  display: flex;
 }
+.child {
+  flex: 1; /* child takes all available space */
+}
+
 
 /* Product cards */
 .product-card {
