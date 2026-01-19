@@ -57,8 +57,8 @@
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
             <figure>
-              {% picture first_image.image %}
-              <figcaption>{{ product.title }}</figcaption>
+              {% picture first_image.image as img_url %}
+              <img src="{{ img_url }}" class="card-img-top">
             </figure>
             {% else %}
               <div class="card-img-top item-placeholder">No image</div>
