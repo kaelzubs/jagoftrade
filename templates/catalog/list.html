@@ -13,18 +13,18 @@
       <a href="{% url 'catalog:category_list_by_category' c.slug %}">
         <div class="card shadow category-item py-2 px-2">
             <div class="image-grid category-gallery">
-              <div class='image-container'>
-                {% if c.images.all %}
-                  {% for p in c.images.all|slice:":6" %}
+              {% if c.images.all %}
+                {% for p in c.images.all|slice:":6" %}
+                <div class='image-container'>
                   <figure>
                     {% picture p.image as img_url %}
                     <img alt="{{ c.name }}" src="{{ img_url }}">
                   </figure>
-                  {% endfor %}
-                {% else %}
-                  <div class="grid-img item-placeholder">No image</div>
-                {% endif %}
-              </div>
+                </div>
+                {% endfor %}
+              {% else %}
+                <div class="grid-img item-placeholder">No image</div>
+              {% endif %}
             </div>
             <div class="item-label">{{ c.name }}</div>
         </div>
