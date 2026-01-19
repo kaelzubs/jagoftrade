@@ -1,1 +1,1 @@
-web: gunicorn shop.wsgi --timeout 60 --workers 3
+web: gunicorn myproject.wsgi --workers 3 --timeout 60 --max-requests 500 --max-requests-jitter 50
