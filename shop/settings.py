@@ -42,7 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Heroku and production hosts
 if DEBUG == True:
@@ -327,3 +327,5 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "SIGNING_KEY": SECRET_KEY,
 }
+
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
