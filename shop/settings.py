@@ -195,7 +195,14 @@ TEMPLATES = [
 WSGI_APPLICATION = 'shop.wsgi.application'
 
 # Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases 
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+if DEBUG:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',   # Database backend
+        'NAME': BASE_DIR / 'db.sqlite3',          # Path to the database file
+    }
+} 
 DATABASES = {'default': dj_database_url.config(default='sqlite:///db.sqlite3')}
  
 # Password validation
