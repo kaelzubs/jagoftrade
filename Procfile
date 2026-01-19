@@ -1,1 +1,1 @@
-web: gunicorn shop.wsgi --log-file -
+web: gunicorn shop.wsgi --timeout 60 --workers 3

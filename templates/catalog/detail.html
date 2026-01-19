@@ -26,10 +26,7 @@
           <div class="more-images d-flex">
             {% for image in product.images.all %}
               <figure>
-                <div class='d-none'>
-                  {% picture image.image as img_url %}
-                </div>
-                <img id="otherImage" src="{{ img_url }}" class="card-img-top" onclick="updateMainImage(this)">
+                {% picture image.image attrs="{'id': 'otherImage', 'class': 'card-img-top', 'onclick': 'updateMainImage(this)'}" %}
               </figure>
             {% endfor %}
           </div>
