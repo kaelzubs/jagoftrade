@@ -58,7 +58,7 @@
             {% if first_image %}
             <figure>
               {% picture first_image.image as img_url %}
-              <img src="{{ img_url }}" class="card-img-top">
+              <img src="{{ img_url }}">
             </figure>
             {% else %}
               <div class="card-img-top item-placeholder">No image</div>
