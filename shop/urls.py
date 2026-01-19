@@ -61,15 +61,16 @@ urlpatterns = [
 
     # Accounts (custom + allauth)
     path('accounts/', include(('accounts.urls', 'accounts'), namespace="accounts")),
-    path('accounts/', include('allauth.urls')),
+    path('auth-accounts/', include('allauth.urls')),
 
     # Favicon
-    path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('img/jagoftrade.png'))),
+    path('favicon.ico/', RedirectView.as_view(url=staticfiles_storage.url('img/jagoftrade.png'))),
 
     # Sitemap
-    path("sitemap.xml", sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
+    path('sitemap.xml/', sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    
