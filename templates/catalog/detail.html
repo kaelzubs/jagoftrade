@@ -11,8 +11,7 @@
         {% if first_image %}
         <div class='image-container'>
           <figure>
-            {% picture first_image.image as img_url %}
-            <img src="{{ img_url }}" id="mainImage" class="card-img-top">
+            {% picture first_image.image %}
           </figure>
         </div>
         {% else %}
@@ -31,7 +30,7 @@
             <div class='image-container'>
               <figure>
                 {% picture image.image as img_url %}
-                <img src="{{ img_url }}" id="otherImage" class="card-img-top">
+                <img src="{{ img_url }}" id="otherImage" class="card-img-top d-none">
               </figure>
             </div>
             {% endfor %}
