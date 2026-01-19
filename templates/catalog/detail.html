@@ -11,7 +11,7 @@
         {% if first_image %}
           <figure>
             {% picture first_image.image as img_url %}
-            <img alt="{{ product.title }}" src="{{ img_url }}">
+            <img src="{{ img_url }}" alt="{{ product.title }}">
           </figure>
         {% else %}
           <div class="card-img-top item-placeholder">No image</div>
@@ -28,7 +28,7 @@
             {% for image in product.images.all %}
               <figure>
                 {% picture image.image as img_url %}
-                  <img onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
+                  <img src="{{ img_url }}" alt="{{ product.title }}" onclick="updateMainImage(this)">
               </figure>
             {% endfor %}
           </div>
