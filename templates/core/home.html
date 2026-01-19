@@ -51,14 +51,13 @@
 
 <div class="row">
   {% for product in products %}
-  <div class="col-md-3 mb-4 main-div">
-    <div class="card shadow d-flex">
+  <div class="col-md-3 mb-4">
+    <div class="card shadow d-block">
         <div class='image-container'>
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
             <figure>
               {% picture first_image.image as img_url %}
-              <img src="{{ img_url }}" class="card-img-top">
             </figure>
             {% else %}
               <div class="card-img-top item-placeholder">No image</div>
