@@ -10,7 +10,7 @@
       {% with first_image=product.images.all.0 %}
         {% if first_image %}
           <figure>
-            {% picture first_image.image %}
+            {% picture first_image.image as img_url %}
             <img alt="{{ product.title }}" src="{{ img_url }}">
           </figure>
         {% else %}
@@ -27,8 +27,9 @@
           <div class="more-images d-flex">
             {% for image in product.images.all %}
               <figure>
-                {% picture image.image %}
-                <img onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
+                {% picture image.image as img_url %}
+                  <img onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
+                {% endpictures %}
               </figure>
             {% endfor %}
           </div>

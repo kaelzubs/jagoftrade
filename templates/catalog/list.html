@@ -16,7 +16,7 @@
               {% if c.images.all %}
                 {% for p in c.images.all|slice:":6" %}
                 <figure>
-                  {% picture p.image %}
+                  {% picture p.image as img_url %}
                   <img alt="{{ c.name }}" src="{{ img_url }}">
                 </figure>
                 {% endfor %}

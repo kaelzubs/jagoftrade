@@ -14,7 +14,7 @@
             {% with first_image=product.images.all.0 %}
                 {% if first_image %}
                 <figure>
-                    {% picture first_image.image %}
+                    {% picture first_image.image as img_url %}
                     <img alt="{{ product.title }}" src="{{ img_url }}">
                 </figure>
                 {% else %}
