@@ -20,13 +20,12 @@
             <div class="row">
                 {% for product in page_obj %}
                     <div class="col-md-3 mb-4 main-div">
-                      <div class="card shadow py-2 pl-2 d-flex">
+                      <div class="card shadow py-2 py-2 d-flex">
                           <div class='image-container'>
                             {% with first_image=product.images.all.0 %}
                               {% if first_image %}
                               <figure>
                                 {% picture first_image.image %}
-                                <figcaption>{{ product.title }}</figcaption>
                               </figure>
                               {% else %}
                                 <div class="card-img-top item-placeholder">No image</div>
