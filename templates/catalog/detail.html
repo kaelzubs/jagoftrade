@@ -27,8 +27,7 @@
           <div class="more-images d-flex">
             {% for image in product.images.all %}
             <figure>
-              {% picture image.image %}
-              <figcaption>{{ product.title }}</figcaption>
+              {% picture image.image attrs="{'id': 'otherImage', 'class': 'card-img-top'}" %}
             </figure>
             {% endfor %}
           </div>
