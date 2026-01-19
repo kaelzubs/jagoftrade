@@ -25,12 +25,12 @@
         <div class="row">
           <div class="more-images d-flex">
             {% for image in product.images.all %}
+            <div id="otherImage" class="card-img-top d-none">
               <figure>
-                <div class='image-container'>
-                  {% picture image.image as img_url %}
-                  <img src="{{ img_url }}">
-                </div>
+                {% picture image.image as img_url %}
+                <img src="{{ img_url }}" >
               </figure>
+            </div>
             {% endfor %}
           </div>
         </div>
