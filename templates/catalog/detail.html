@@ -9,7 +9,7 @@
     <div class="card shadow category-item py-2 px-2 d-flex">
       {% with first_image=product.images.all.0 %}
         {% if first_image %}
-        <div>
+        <div class='image-container'>
           <figure>
             {% picture first_image.image as img_url %}
             <img src="{{ img_url }}" id="mainImage" class="card-img-top">
@@ -28,7 +28,7 @@
         <div class="row">
           <div class="more-images d-flex">
             {% for image in product.images.all %}
-            <div>
+            <div class='image-container'>
               <figure>
                 {% picture image.image as img_url %}
                 <img src="{{ img_url }}" id="otherImage" class="card-img-top">
