@@ -17,7 +17,7 @@
                 {% for p in c.images.all|slice:":6" %}
                 <figure>
                   {% picture p.image %}
-                  <img alt="{{ product.title }}" src="{{ img_url }}">
+                  <img alt="{{ c.name }}" src="{{ img_url }}">
                 </figure>
                 {% endfor %}
               {% else %}
