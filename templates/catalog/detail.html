@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col-md-6">
     {% if product.images.all %}
-    <div class="card shadow category-item d-flex">
+    <div class="card shadow category-item d-flex image-container">
       {% with first_image=product.images.all.0 %}
         {% if first_image %}
         <figure>
@@ -24,7 +24,7 @@
       <div class="col-12">
         <h3>More Images</h3>
         <div class="row">
-          <div class="more-images d-flex overflow-hidden">
+          <div class="more-images d-flex overflow-hidden image-container">
             {% for image in product.images.all %}
             <figure>
               {% picture image.image as img_url %}
