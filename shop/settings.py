@@ -42,7 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Heroku and production hosts
 if DEBUG == True:
@@ -198,8 +198,8 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 DATABASES = {
     'default': dj_database_url.config(
-        # default='sqlite:///db.sqlite3',
-        default='postgres://localhost:5432/jagoftrade',
+        default='sqlite:///db.sqlite3',
+        # default='postgres://localhost:5432/jagoftrade',
         conn_max_age=600,
         ssl_require=True
 
