@@ -50,27 +50,15 @@ handler500 = custom_server_error
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-    # Core app at root
     path('', include('core.urls')),
-
-    # Other apps
     path('catalog/', include('catalog.urls')),
     path('orders/', include('orders.urls')),
-    path('policies/', include(('policies.urls', 'policies'), namespace="policies")),
-
-    # Accounts (custom + allauth)
-    path('accounts/', include(('accounts.urls', 'accounts'), namespace="accounts")),
-    path('auth-accounts/', include('allauth.urls')),
-
-    # Favicon
+    path('policies/', include('policies.urls', namespace="policies")),
+    path('accounts/', include('accounts.urls', namespace="accounts")),
+    path('accounts/', include('allauth.urls')),  # Django-allauth social auth URLs
     path('favicon.ico/', RedirectView.as_view(url=staticfiles_storage.url('img/jagoftrade.png'))),
+    path("sitemap.xml/", sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
 
-    # Sitemap
-    path('sitemap.xml/', sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
-    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-    
