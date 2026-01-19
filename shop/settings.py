@@ -199,7 +199,6 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default='sqlite:///db.sqlite3',
-        # default='postgres://localhost:5432/jagoftrade',
         conn_max_age=600,
         ssl_require=True
 
