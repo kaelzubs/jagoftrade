@@ -611,18 +611,15 @@ h2.jumb {
 
 /* Containers with images */
 .image-container {
-  justify-content: center;
-  align-items: center;
   margin: 0;
   padding: 0;
 
 }
 
 .image-container img {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
+  object-fit: cover;
 }
 
 /* Make card-img-top fill its parent div on mobile */
