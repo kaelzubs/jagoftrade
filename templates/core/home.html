@@ -53,7 +53,7 @@
   {% for product in products %}
   <div class="col-md-3 mb-4 main-div">
     <div class="card shadow py-2 d-flex">
-        <div class='container-fluid image-container'>
+        <div class='container-fluid'>
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
             <figure>
