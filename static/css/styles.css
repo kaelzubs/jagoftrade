@@ -632,8 +632,6 @@ h2.jumb {
   .image-container {
     width: 100%;  /* Set a fixed width */
     height: auto; /* Set a fixed height */
-    width: 250px;  /* Set a fixed width */
-    height: 200px; /* Set a fixed height */
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -650,8 +648,6 @@ h2.jumb {
   .image-container {
     width: 100%;  /* Set a fixed width */
     height: auto; /* Set a fixed height */
-    width: 250px;  /* Set a fixed width */
-    height: 200px; /* Set a fixed height */
     overflow: hidden;
     display: flex;
     justify-content: center;
