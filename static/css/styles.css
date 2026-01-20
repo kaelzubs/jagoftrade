@@ -613,6 +613,7 @@ h2.jumb {
 .image-container {
   margin: 0;
   padding: 0;
+  display: flex;
 
 }
 
