@@ -52,7 +52,7 @@
 <div class="row">
   {% for product in products %}
   <div class="col-md-3 mb-4 main-div">
-    <div class="card shadow py-1 px-1 d-flex">
+    <div class="card shadow py-2 d-flex">
         <div class='container image-container'>
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
