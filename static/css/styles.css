@@ -611,6 +611,8 @@ h2.jumb {
 
 /* Containers with images */
 .image-container {
+  width: 250px;
+  height: 200px;
   margin: 0;
   padding: 0;
   display: flex;
@@ -618,6 +620,7 @@ h2.jumb {
 }
 
 .image-container img {
+
   margin: 0;
   padding: 0;
   object-fit: contain;
