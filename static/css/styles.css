@@ -619,7 +619,7 @@ h2.jumb {
 .image-container img {
   margin: 0;
   padding: 0;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* Make card-img-top fill its parent div on mobile */
