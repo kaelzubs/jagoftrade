@@ -639,7 +639,7 @@ h2.jumb {
   }
   .image-container img {
     width: 100%;  /* Set a fixed width */
-    height: auto; /* Set a fixed height */
+    height: 100%; /* Set a fixed height */
     object-fit: cover;
   }
 }
@@ -655,7 +655,7 @@ h2.jumb {
   }
   .image-container img {
     width: 100%;  /* Set a fixed width */
-    height: auto; /* Set a fixed height */
+    height: 100%; /* Set a fixed height */
     object-fit: cover;
   }
 }
