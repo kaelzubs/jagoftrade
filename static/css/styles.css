@@ -622,7 +622,7 @@ h2.jumb {
 .image-container {
   width: 250px;  /* Set a fixed width */
   height: 200px; /* Set a fixed height */
-  display: flex;
+  display: block;
   justify-content: center;
   align-items: center;
 
@@ -646,13 +646,13 @@ h2.jumb {
     overflow: hidden;
   }
   .image-container {
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
   }
   .image-container img {
-    width: 100%;  /* Set a fixed width */
-    height: 100%; /* Set a fixed height */
+    max-width: 100%;  /* Set a fixed width */
+    max-height: 100%; /* Set a fixed height */
     object-fit: cover;
     overflow: hidden;
   }
@@ -668,13 +668,13 @@ h2.jumb {
     overflow: hidden;
   }
   .image-container {
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
   }
   .image-container img {
-    width: 100%;  /* Set a fixed width */
-    height: 100%; /* Set a fixed height */
+    max-width: 100%;  /* Set a fixed width */
+    max-height: 100%; /* Set a fixed height */
     object-fit: cover;
     overflow: hidden;
   }
