@@ -632,14 +632,7 @@ h2.jumb {
 
 /* Make card-img-top fill its parent div on mobile */
 @media (max-width: 768px) {
-  .image-container {
-    width: 100%;  /* Set a fixed width */
-    height: auto; /* Set a fixed height */
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  
   .image-container img {
     width: 100%;  /* Set a fixed width */
     height: 100%; /* Set a fixed height */
@@ -648,14 +641,7 @@ h2.jumb {
 }
 
 @media (max-width: 576px) {
-  .image-container {
-    width: 100%;  /* Set a fixed width */
-    height: auto; /* Set a fixed height */
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  
   .image-container img {
     width: 100%;  /* Set a fixed width */
     height: 100%; /* Set a fixed height */
