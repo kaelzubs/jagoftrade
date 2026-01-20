@@ -17,7 +17,7 @@
   justify-content: center;
   text-align: center;
   position: relative;
-" loading="lazy">
+">
   <div class="jumbotron-content">
     <h1 class="display-4 jumb font-weight-bold header-one">JagofTrade — Where digital meets opportunity.</h1>
     <h2 class="p font-weight-bold">
@@ -53,7 +53,7 @@
   {% for product in products %}
   <div class="col-md-3 mb-4 main-div">
     <div class="card shadow py-2 px-2 d-flex">
-        <div class='image-container'>
+        <div class='container image-container'>
           {% with first_image=product.images.all.0 %}
             {% if first_image %}
             <figure>
