@@ -70,8 +70,8 @@ urlpatterns = [
     # Sitemap
     path('sitemap.xml/', sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
     
-    path("ads.txt", TemplateView.as_view(template_name="ads.txt/", content_type="text/plain")),
-    path("limit.txt/", TemplateView.as_view(template_name="limit.txt/", content_type="text/plain")),
+    path("ads.txt/", TemplateView.as_view(template_name="ads.txt", content_type="text/plain")),
+    path("limit.txt/", TemplateView.as_view(template_name="limit.txt", content_type="text/plain")),
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -92,11 +92,12 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         # Define your CSP policy here
         csp_policy = (
             "default-src 'self'; "
-            "script-src 'self' https://cdn.jsdelivr.net https://ajax.googleapis.com; "
-            "style-src 'self' https://fonts.googleapis.com; "
-            "font-src 'self' https://fonts.gstatic.com; "
-            "img-src 'self' https://d206r6ow6dfw0e.cloudfront.net data:; "
+            "script-src 'self' /static/ https://cdn.jsdelivr.net https://ajax.googleapis.com; "
+            "style-src 'self' /static/ https://fonts.googleapis.com; "
+            "font-src 'self' /static/ https://fonts.gstatic.com; "
+            "img-src 'self' /static/ https://d206r6ow6dfw0e.cloudfront.net data:; "
             "connect-src 'self'; "
+            "media-src 'self'; "
             "object-src 'none'; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
