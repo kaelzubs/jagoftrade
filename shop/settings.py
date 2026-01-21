@@ -42,7 +42,7 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Heroku and production hosts
 if DEBUG == True:
@@ -280,10 +280,6 @@ STORAGES = {
 
 PICTURES = {
     "USE_PLACEHOLDERS": False,
-}
-
-config = {
-    "cloudfront_domain": os.getenv('CLOUDFRONT_DOMAIN')
 }
 
 # Login settings - redirect to login with 'next' parameter

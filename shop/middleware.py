@@ -91,9 +91,8 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     """
 
     def process_response(self, request, response):
-        
-        cloudfront_domain = os.getenv('CLOUDFRONT_DOMAIN')
-        
+        cloudfront_domain = os.getenv('CLOUDFRONT_DOMAIN', '')
+
         # Define your CSP policy here
         csp_policy = (
             "default-src 'self' {cloudfront_domain}; "
@@ -107,11 +106,12 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             "frame-ancestors 'none' {cloudfront_domain}; "
             "base-uri 'self' {cloudfront_domain}; "
             "form-action 'self' {cloudfront_domain}; "
-        ).format(cloudfront_domain)
+        ).format(cloudfront_domain=cloudfront_domain)
 
         # Add CSP header
         response["Content-Security-Policy"] = csp_policy
         return response
+
 
 
 class ExpiredImageMiddleware:
