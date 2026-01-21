@@ -1,5 +1,6 @@
 from django.http import HttpResponsePermanentRedirect
 from django.utils.deprecation import MiddlewareMixin
+import os
 
 # myapp/middleware.py
 class CSPReportOnlyMiddleware:
@@ -91,7 +92,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
     def process_response(self, request, response):
         
-        cloudfront_domain = 'https://d206r6ow6dfw0e.cloudfront.net'
+        cloudfront_domain = os.getenv('CLOUDFRONT_DOMAIN')
         
         # Define your CSP policy here
         csp_policy = (
