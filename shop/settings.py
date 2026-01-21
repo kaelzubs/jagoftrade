@@ -15,6 +15,7 @@ import os, secrets, string
 from dotenv import load_dotenv
 import warnings
 from datetime import timedelta
+from django.utils.csp import CSP
 import dj_database_url
 
 # Generate a secure random secret key
@@ -68,6 +69,7 @@ INSTALLED_APPS = [
     'policies',
     'storages',
     'pictures',
+    'csp',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
@@ -164,6 +166,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csp.ContentSecurityPolicyMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'shop.middleware.CSPReportOnlyMiddleware',
     'shop.middleware.HTTPSRedirectMiddleware',
@@ -174,6 +177,12 @@ MIDDLEWARE = [
     'csp.middleware.CSPMiddleware',
     # 'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
+# SECURE_CSP = {
+#     "default-src": [CSP.SELF],  # Allows content from the same origin
+#     "script-src": [CSP.SELF, "https://apis.example.com"], # Allow specific script sources
+#     "img-src": [CSP.SELF, "data:"], # Allow images from self and data URIs
+#     # Add more directives as needed
+# }
 
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = (
