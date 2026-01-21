@@ -171,7 +171,7 @@ MIDDLEWARE = [
     'shop.middleware.HSTSMiddleware',
     'shop.middleware.SecurityHeadersMiddleware',
     'shop.middleware.ExpiredImageMiddleware',
-    # 'shop.middleware.ContentSecurityPolicyMiddleware',
+    'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
 
 ROOT_URLCONF = 'shop.urls'

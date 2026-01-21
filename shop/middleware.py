@@ -95,12 +95,12 @@ class ContentSecurityPolicyMiddleware:
         response = self.get_response(request)
         csp_policy = (
             "default-src 'self'; "
-            "script-src 'self' https://accounts.google.com/gsi/client; "
+            "script-src 'self' https://accounts.google.com/gsi/client https://pagead2.googlesyndication.com; "
             "style-src 'self' 'unsafe-inline'; "
-            "img-src 'self' data:; "
+            "img-src 'self' data: https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com; "
             "font-src 'self'; "
-            "connect-src 'self' https://accounts.google.com/gsi/; "
-            "frame-src https://accounts.google.com/gsi/; "
+            "connect-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net; "
+            "frame-src https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net; "
         )
         response['Content-Security-Policy'] = csp_policy
         return response
