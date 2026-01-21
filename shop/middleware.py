@@ -85,24 +85,28 @@ class SecurityHeadersMiddleware:
     
 class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     """
-    Middleware to add Content Security Policy (CSP) headers to responses.
+    Custom CSP middleware that sets Content-Security-Policy headers
+    to allow serving static/media files from Cloudfront (s3)
     """
 
     def process_response(self, request, response):
+        
+        cloudfront_domain = 'https://d206r6ow6dfw0e.cloudfront.net'
+        
         # Define your CSP policy here
         csp_policy = (
-            "default-src 'self'; "
-            "script-src 'self' /static/ https://cdn.jsdelivr.net https://ajax.googleapis.com; "
-            "style-src 'self' /static/ https://fonts.googleapis.com; "
-            "font-src 'self' /static/ https://fonts.gstatic.com; "
-            "img-src 'self' /static/ https://d206r6ow6dfw0e.cloudfront.net data:; "
+            "default-src 'self' {cloudfront_domain}; "
+            "script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com; "
+            "style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net; "
+            "font-src 'self' {cloudfront_domain} https://fonts.gstatic.com; "
+            "img-src 'self' {cloudfront_domain} data:; "
             "connect-src 'self'; "
             "media-src 'self'; "
             "object-src 'none'; "
             "frame-ancestors 'none'; "
             "base-uri 'self'; "
             "form-action 'self'; "
-        )
+        ).format(cloudfront=cloudfront_domain)
 
         # Add CSP header
         response["Content-Security-Policy"] = csp_policy
