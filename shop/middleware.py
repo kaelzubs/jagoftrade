@@ -107,7 +107,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             "frame-ancestors 'none' {cloudfront_domain}; "
             "base-uri 'self' {cloudfront_domain}; "
             "form-action 'self' {cloudfront_domain}; "
-        ).format(cloudfront=cloudfront_domain)
+        ).format(cloudfront_domain=cloudfront_domain)
 
         # Add CSP header
         response["Content-Security-Policy"] = csp_policy
