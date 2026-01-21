@@ -156,7 +156,6 @@ REST_FRAMEWORK = {
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',  # add directly after SecurityMiddleware
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -173,26 +172,6 @@ MIDDLEWARE = [
     'shop.middleware.ExpiredImageMiddleware',
     'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
-
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_SCRIPT_SRC = (
-    "'self'",
-    'cdn.jsdelivr.net',
-    'ajax.googleapis.com',
-)
-CSP_STYLE_SRC = (
-    "'self'",
-    'fonts.googleapis.com',
-    'cdn.jsdelivr.net',
-)
-CSP_FONT_SRC = (
-    "'self'",
-    'fonts.gstatic.com',
-)
-CSP_IMG_SRC = (
-    "'self'",
-    'data:',
-)
 
 ROOT_URLCONF = 'shop.urls'
 
