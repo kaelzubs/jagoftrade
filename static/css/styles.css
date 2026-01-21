@@ -614,6 +614,7 @@ h2.jumb {
   margin: 0;
   padding: 0;
   display: flex;
+  object-fit: cover;
 
 }
 
@@ -621,7 +622,7 @@ h2.jumb {
 
   margin: 0;
   padding: 0;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 /* Make card-img-top fill its parent div on mobile */
