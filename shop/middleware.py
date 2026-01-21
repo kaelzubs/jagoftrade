@@ -83,28 +83,27 @@ class SecurityHeadersMiddleware:
         response['Permissions-Policy'] = 'geolocation=(), microphone=()'
         return response
     
-class ContentSecurityPolicyMiddleware:
-    """
-    Middleware that adds Content Security Policy headers to responses.
-    """
+# class ContentSecurityPolicyMiddleware:
+#     """
+#     Middleware that adds Content Security Policy headers to responses.
+#     """
 
-    def __init__(self, get_response):
-        self.get_response = get_response
+#     def __init__(self, get_response):
+#         self.get_response = get_response
 
-    def __call__(self, request):
-        response = self.get_response(request)
-        csp_policy = (
-            "default-src 'self'; "
-            "script-src 'self' https://accounts.google.com/gsi/client https://pagead2.googlesyndication.com; "
-            "style-src 'self' 'unsafe-inline'; "
-            "img-src 'self' data: https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; "
-            "font-src 'self'; "
-            "connect-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google; "
-            "frame-src https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net; "
-        )
-        response['Content-Security-Policy'] = csp_policy
-        return response
-
+#     def __call__(self, request):
+#         response = self.get_response(request)
+#         csp_policy = (
+#             "default-src 'self'; "
+#             "script-src 'self' https://accounts.google.com/gsi/client https://pagead2.googlesyndication.com; "
+#             "style-src 'self' 'unsafe-inline'; "
+#             "img-src 'self' data: https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; "
+#             "font-src 'self'; "
+#             "connect-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google; "
+#             "frame-src https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net; "
+#         )
+#         response['Content-Security-Policy'] = csp_policy
+#         return response
 
 class ExpiredImageMiddleware:
     def __init__(self, get_response):
