@@ -100,12 +100,12 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             "style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net; "
             "font-src 'self' {cloudfront_domain} https://fonts.gstatic.com; "
             "img-src 'self' {cloudfront_domain} data:; "
-            "connect-src 'self' {cloudfront_domain}; "
-            "media-src 'self' {cloudfront_domain}; "
-            "object-src 'none' {cloudfront_domain}; "
-            "frame-ancestors 'none' {cloudfront_domain}; "
-            "base-uri 'self' {cloudfront_domain}; "
-            "form-action 'self' {cloudfront_domain}; "
+            "connect-src 'self'; "
+            "media-src 'self'; "
+            "object-src 'none'; "
+            "frame-ancestors 'none'; "
+            "base-uri 'self'; "
+            "form-action 'self'; "
         ).format(cloudfront_domain=cloudfront_domain)
 
         # Add CSP header
