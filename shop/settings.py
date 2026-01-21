@@ -68,7 +68,6 @@ INSTALLED_APPS = [
     'policies',
     'storages',
     'pictures',
-    'csp',
     'crispy_forms',
     'crispy_bootstrap4',
     'rest_framework',
