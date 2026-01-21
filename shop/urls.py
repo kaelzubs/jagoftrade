@@ -22,6 +22,7 @@ from django.shortcuts import render
 from django.conf.urls import handler404, handler500, handler403
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.views.generic.base import RedirectView
+from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap
 from shop.sitemaps import ProductSitemap, CategorySitemap, StaticViewSitemap
 
@@ -68,6 +69,10 @@ urlpatterns = [
 
     # Sitemap
     path('sitemap.xml/', sitemap, {"sitemaps": sitemaps_dict}, name="django_sitemap"),
+    
+    path("ads.txt", TemplateView.as_view(template_name="ads.txt/", content_type="text/plain")),
+    path("limit.txt/", TemplateView.as_view(template_name="limit.txt/", content_type="text/plain")),
+
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
