@@ -1,5 +1,5 @@
 from django.http import HttpResponsePermanentRedirect
-
+from django.utils.deprecation import MiddlewareMixin
 
 # myapp/middleware.py
 class CSPReportOnlyMiddleware:
@@ -83,27 +83,30 @@ class SecurityHeadersMiddleware:
         response['Permissions-Policy'] = 'geolocation=(), microphone=()'
         return response
     
-# class ContentSecurityPolicyMiddleware:
-#     """
-#     Middleware that adds Content Security Policy headers to responses.
-#     """
+class ContentSecurityPolicyMiddleware(MiddlewareMixin):
+    """
+    Middleware to add Content Security Policy (CSP) headers to responses.
+    """
 
-#     def __init__(self, get_response):
-#         self.get_response = get_response
+    def process_response(self, request, response):
+        # Define your CSP policy here
+        csp_policy = (
+            "default-src 'self'; "
+            "script-src 'self' https://cdn.jsdelivr.net https://ajax.googleapis.com; "
+            "style-src 'self' https://fonts.googleapis.com; "
+            "font-src 'self' https://fonts.gstatic.com; "
+            "img-src 'self' https://d206r6ow6dfw0e.cloudfront.net data:; "
+            "connect-src 'self'; "
+            "object-src 'none'; "
+            "frame-ancestors 'none'; "
+            "base-uri 'self'; "
+            "form-action 'self'; "
+        )
 
-#     def __call__(self, request):
-#         response = self.get_response(request)
-#         csp_policy = (
-#             "default-src 'self'; "
-#             "script-src 'self' https://accounts.google.com/gsi/client https://pagead2.googlesyndication.com; "
-#             "style-src 'self' 'unsafe-inline'; "
-#             "img-src 'self' data: https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; "
-#             "font-src 'self'; "
-#             "connect-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google; "
-#             "frame-src https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net; "
-#         )
-#         response['Content-Security-Policy'] = csp_policy
-#         return response
+        # Add CSP header
+        response["Content-Security-Policy"] = csp_policy
+        return response
+
 
 class ExpiredImageMiddleware:
     def __init__(self, get_response):
