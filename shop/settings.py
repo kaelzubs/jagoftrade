@@ -48,7 +48,8 @@ DEBUG = False
 if DEBUG == True:
     ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = ['www.jagoftrade.com', '127.0.0.1']
+ALLOWED_HOSTS = ['www.jagoftrade.com', 'jagoftrade.com', '127.0.0.1']
+PREPEND_WWW = True
 
 # Application definition
 INSTALLED_APPS = [
