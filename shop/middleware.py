@@ -99,7 +99,7 @@ class ContentSecurityPolicyMiddleware:
             "style-src 'self' 'unsafe-inline'; "
             "img-src 'self' data: https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://tpc.googlesyndication.com; "
             "font-src 'self'; "
-            "connect-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com; "
+            "connect-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google; "
             "frame-src https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net; "
         )
         response['Content-Security-Policy'] = csp_policy
