@@ -611,6 +611,9 @@ h2.jumb {
 
 /* Containers with images */
 .image-container {
+  position: relative; /* Container for absolute positioning */
+  width: 250px; /* Example size */
+  height: 200px; /* Example size */
   margin: 0;
   padding: 0;
   display: flex;
