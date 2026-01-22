@@ -92,25 +92,28 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     """
 
     def process_response(self, request, response):
-        # Read bucket URL from settings for flexibility
-        s3_bucket_url = os.getenv('CLOUDFRONT_DOMAIN')
+        s3_bucket_url = os.getenv('CLOUDFRONT_DOMAIN', '')
 
-        # Build CSP policy
+        # Ensure proper scheme
+        if s3_bucket_url and not s3_bucket_url.startswith("https://"):
+            s3_bucket_url = f"https://{s3_bucket_url}"
+
         csp_policy = (
             f"default-src 'self'; "
-            f"script-src 'self' {s3_bucket_url}; "
-            f"style-src 'self' {s3_bucket_url}; "
+            f"script-src 'self' {s3_bucket_url} 'unsafe-inline'; "
+            f"style-src 'self' {s3_bucket_url} 'unsafe-inline'; "
             f"img-src 'self' {s3_bucket_url} data:; "
             f"font-src 'self' {s3_bucket_url}; "
             f"media-src 'self' {s3_bucket_url}; "
             f"connect-src 'self' {s3_bucket_url}; "
             f"object-src 'none'; "
-            f"frame-ancestors 'none'; "
+            f"frame-ancestors 'self'; "
             f"base-uri 'self'; "
         )
 
         response["Content-Security-Policy"] = csp_policy
         return response
+
 
 class ExpiredImageMiddleware:
     def __init__(self, get_response):
