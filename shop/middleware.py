@@ -1,6 +1,5 @@
 from django.http import HttpResponsePermanentRedirect
 from django.utils.deprecation import MiddlewareMixin
-from django.conf import settings
 import os
 
 # myapp/middleware.py
@@ -87,32 +86,32 @@ class SecurityHeadersMiddleware:
     
 class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     """
-    Middleware to add Content-Security-Policy headers
-    allowing resources from your S3 bucket or CDN.
+    Custom CSP middleware that sets Content-Security-Policy headers
+    to allow serving static/media files from Cloudfront (s3)
     """
 
     def process_response(self, request, response):
-        s3_bucket_url = os.getenv('CLOUDFRONT_DOMAIN', '')
+        cloudfront_domain = os.getenv('CLOUDFRONT_DOMAIN', '')
 
-        # Ensure proper scheme
-        if s3_bucket_url and not s3_bucket_url.startswith("https://"):
-            s3_bucket_url = f"https://{s3_bucket_url}"
-
+        # Define your CSP policy here
         csp_policy = (
-            f"default-src 'self'; "
-            f"script-src 'self' {s3_bucket_url} 'unsafe-inline'; "
-            f"style-src 'self' {s3_bucket_url} 'unsafe-inline'; "
-            f"img-src 'self' {s3_bucket_url} data:; "
-            f"font-src 'self' {s3_bucket_url}; "
-            f"media-src 'self' {s3_bucket_url}; "
-            f"connect-src 'self' {s3_bucket_url}; "
-            f"object-src 'none'; "
-            f"frame-ancestors 'self'; "
-            f"base-uri 'self'; "
-        )
+            "default-src 'self' {cloudfront_domain}; "
+            "script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com; "
+            "style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net; "
+            "font-src 'self' {cloudfront_domain} https://fonts.gstatic.com; "
+            "img-src 'self' {cloudfront_domain} data:; "
+            "media-src 'self'; "
+            "connect-src 'self'; "
+            "object-src 'none'; "
+            "frame-ancestors 'none'; "
+            "base-uri 'self'; "
+            "form-action 'self'; "
+        ).format(cloudfront_domain=cloudfront_domain)
 
+        # Add CSP header
         response["Content-Security-Policy"] = csp_policy
         return response
+
 
 
 class ExpiredImageMiddleware:
