@@ -93,7 +93,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
     def process_response(self, request, response):
         # Read bucket URL from settings for flexibility
-        s3_bucket_url = getattr(settings, "S3_BUCKET_URL", "https://d1234567890.cloudfront.net")
+        s3_bucket_url = os.getenv('CLOUDFRONT_DOMAIN')
 
         # Build CSP policy
         csp_policy = (
@@ -111,9 +111,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
         response["Content-Security-Policy"] = csp_policy
         return response
-
-
-
 
 class ExpiredImageMiddleware:
     def __init__(self, get_response):
