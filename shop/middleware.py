@@ -129,7 +129,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
             # Frames (iframes for ads, GTM, Google)
             f"frame-src 'self' "
-            f"https://accounts.google.com/gsi/ "
             f"https://googleads.g.doubleclick.net "
             f"https://pagead2.googlesyndication.com "
             f"https://ep2.adtrafficquality.google "
