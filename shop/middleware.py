@@ -1,6 +1,6 @@
 from django.http import HttpResponsePermanentRedirect
 from django.utils.deprecation import MiddlewareMixin
-import secrets
+import os
 
 # myapp/middleware.py
 class CSPReportOnlyMiddleware:
@@ -86,65 +86,82 @@ class SecurityHeadersMiddleware:
     
 class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     """
-    CSP middleware with dynamic nonces.
-    No need to manually add nonce in templates if you avoid inline scripts/styles.
+    Custom CSP middleware that sets Content-Security-Policy headers
+    to allow serving static/media files from CloudFront (S3).
     """
-
-    def process_request(self, request):
-        # Generate a random nonce per request
-        request.csp_nonce = secrets.token_urlsafe(16)
 
     def process_response(self, request, response):
         cloudfront_domain = "https://d1234567890.cloudfront.net"
-        nonce = getattr(request, "csp_nonce", "")
-
+        
         csp_policy = (
             f"default-src 'self' {cloudfront_domain}; "
 
-            # Scripts: allow external + nonce
+            # Scripts: your domain, CloudFront, trusted CDNs, Google services
             f"script-src 'self' {cloudfront_domain} "
-            f"https://cdn.jsdelivr.net https://ajax.googleapis.com "
-            f"https://accounts.google.com/gsi/client https://www.googletagmanager.com "
-            f"https://pagead2.googlesyndication.com https://code.jquery.com "
-            f"https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google "
-            f"https://stackpath.bootstrapcdn.com 'nonce-{nonce}'; "
+            f"https://cdn.jsdelivr.net "
+            f"https://ajax.googleapis.com "
+            f"https://accounts.google.com/gsi/client "
+            f"https://www.googletagmanager.com "
+            f"https://pagead2.googlesyndication.com "
+            f"https://code.jquery.com "
+            f"https://ep1.adtrafficquality.google "
+            f"https://ep2.adtrafficquality.google "
+            f"https://stackpath.bootstrapcdn.com "
+            f"'unsafe-inline'; "
 
-            # Styles: allow external + nonce
-            f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com "
-            f"https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com "
-            f"https://cdnjs.cloudflare.com https://jagoftrade-bucket.s3.amazonaws.com "
-            f"'nonce-{nonce}'; "
+            # Styles: your domain, CloudFront, Google Fonts, Bootstrap, cdnjs, S3 bucket
+            f"style-src 'self' {cloudfront_domain} "
+            f"https://fonts.googleapis.com "
+            f"https://cdn.jsdelivr.net "
+            f"https://stackpath.bootstrapcdn.com "
+            f"https://cdnjs.cloudflare.com "
+            f"https://jagoftrade-bucket.s3.amazonaws.com "
+            f"'unsafe-inline'; "
 
-            # Fonts
-            f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
+            # Fonts: your domain, CloudFront, Google Fonts, cdnjs
+            f"font-src 'self' {cloudfront_domain} "
+            f"https://fonts.gstatic.com "
+            f"https://cdnjs.cloudflare.com; "
 
-            # Images
-            f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com data: https://pagead2.googlesyndication.com; "
+            # Images: your domain, CloudFront, S3 bucket, data URIs, Google Ads pixels
+            f"img-src 'self' {cloudfront_domain} "
+            f"https://jagoftrade-bucket.s3.amazonaws.com "
+            f"data: "
+            f"https://pagead2.googlesyndication.com; "
 
-            # Media
+            # Media: your domain, CloudFront, S3 bucket
             f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
 
-            # Connections
-            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net "
-            f"https://www.googletagmanager.com https://pagead2.googlesyndication.com "
-            f"https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google "
-            f"https://www.google-analytics.com https://stackpath.bootstrapcdn.com; "
+            # Connections: your domain, CloudFront, Google services, CDNs
+            f"connect-src 'self' {cloudfront_domain} "
+            f"https://accounts.google.com "
+            f"https://cdn.jsdelivr.net "
+            f"https://www.googletagmanager.com "
+            f"https://pagead2.googlesyndication.com "
+            f"https://ep1.adtrafficquality.google "
+            f"https://ep2.adtrafficquality.google "
+            f"https://www.google-analytics.com; "
+            f"https://stackpath.bootstrapcdn.com; "
 
-            # Frames
-            f"frame-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net "
-            f"https://pagead2.googlesyndication.com https://ep2.adtrafficquality.google "
-            f"https://stackpath.bootstrapcdn.com https://www.google.com; "
+            # Frames: allow Google Sign-In, Ads iframes
+            f"frame-src 'self' "
+            f"https://accounts.google.com/gsi/ "
+            f"https://googleads.g.doubleclick.net "
+            f"https://pagead2.googlesyndication.com; "
+            f"https://accounts.google.com/gsi/ "
+            f"https://ep2.adtrafficquality.google "
+            f"https://stackpath.bootstrapcdn.com "
+            f"https://www.google.com; "
 
             # Strong restrictions
-            f"object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; "
+            f"object-src 'none'; "
+            f"frame-ancestors 'self'; "
+            f"base-uri 'self'; "
+            f"form-action 'self'; "
         )
-
+    
         response["Content-Security-Policy"] = csp_policy
         return response
-
-
-
-
 
 class ExpiredImageMiddleware:
     def __init__(self, get_response):
