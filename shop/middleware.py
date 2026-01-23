@@ -96,17 +96,45 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         csp_policy = (
             f"default-src 'self' {cloudfront_domain}; "
             f"script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com https://accounts.google.com/gsi/client https://www.googletagmanager.com https://pagead2.googlesyndication.com https://code.jquery.com 'unsafe-inline'; "
+            f"https://accounts.google.com/gsi/client https://www.googletagmanager.com "
+            f"https://pagead2.googlesyndication.com https://code.jquery.com 'unsafe-inline'; "
             f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://jagoftrade-bucket.s3.amazonaws.com https://cdnjs.cloudflare.com 'unsafe-inline'; "
+            f"https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com 'unsafe-inline'; "
             f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
             f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com data: https://pagead2.googlesyndication.com; "
+            f"https://pagead2.googlesyndication.com; "
             f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
-            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://pagead2.googlesyndication.com; "
+            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://pagead2.googlesyndication.com https://accounts.google.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com; "
+            f"https://www.googletagmanager.com https://pagead2.googlesyndication.com "
+            f"https://ep1.adtrafficquality.google https://www.google-analytics.com; "
+            f"frame-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com; "
+            f"https://pagead2.googlesyndication.com; "
             f"object-src 'none'; "
             f"frame-ancestors 'self'; "
             f"base-uri 'self'; "
             f"form-action 'self'; "
         )
-
+        csp_policy = (
+    f"default-src 'self' {cloudfront_domain}; "
+    f"script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com "
+    f"https://accounts.google.com/gsi/client https://www.googletagmanager.com "
+    f"https://pagead2.googlesyndication.com https://code.jquery.com 'unsafe-inline'; "
+    f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net "
+    f"https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com 'unsafe-inline'; "
+    f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
+    f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com data: "
+    f"https://pagead2.googlesyndication.com; "
+    f"media-src 'self' {cloudfront_domain}; "
+    f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net https://www.google-analytics.com  "
+    f"https://www.googletagmanager.com https://pagead2.googlesyndication.com "
+    f"https://ep1.adtrafficquality.google https://www.google-analytics.com; "
+    f"frame-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net "
+    f"https://pagead2.googlesyndication.com; "
+    f"object-src 'none'; "
+    f"frame-ancestors 'self'; "
+    f"base-uri 'self'; "
+    f"form-action 'self'; "
+)
 
     
         response["Content-Security-Policy"] = csp_policy
