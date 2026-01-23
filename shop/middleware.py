@@ -140,12 +140,16 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://ep1.adtrafficquality.google "
             f"https://ep2.adtrafficquality.google "
             f"https://www.google-analytics.com; "
+            f"https://stackpath.bootstrapcdn.com; "
 
             # Frames: allow Google Sign-In, Ads iframes
             f"frame-src 'self' "
             f"https://accounts.google.com/gsi/ "
             f"https://googleads.g.doubleclick.net "
             f"https://pagead2.googlesyndication.com; "
+            f"https://accounts.google.com/gsi/ "
+            f"https://ep2.adtrafficquality.google "
+            f"https://www.google.com; "
 
             # Strong restrictions
             f"object-src 'none'; "
