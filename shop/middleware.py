@@ -91,12 +91,13 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         csp_policy = (
             f"default-src 'self' {cloudfront_domain}; "
 
-            # Scripts: allow GTM, Ads, jQuery, Popper, Bootstrap
+            # Scripts: GTM, Ads, jQuery, Popper, Bootstrap
             f"script-src 'self' {cloudfront_domain} "
             f"https://www.googletagmanager.com "
             f"https://pagead2.googlesyndication.com "
             f"https://code.jquery.com "
             f"https://cdn.jsdelivr.net "
+            f"https://ep2.adtrafficquality.google "
             f"'unsafe-inline'; "
 
             # Styles
@@ -135,6 +136,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
         response["Content-Security-Policy"] = csp_policy
         return response
+
 
 class ExpiredImageMiddleware:
     def __init__(self, get_response):
