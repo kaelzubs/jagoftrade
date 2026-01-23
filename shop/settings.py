@@ -282,8 +282,6 @@ PICTURES = {
     "USE_PLACEHOLDERS": False,
 }
 
-S3_BUCKET_URL = os.getenv('CLOUDFRONT_DOMAIN')
-
 # Login settings - redirect to login with 'next' parameter
 LOGIN_REDIRECT_URL = "core:home"   # where users go after login
 LOGOUT_REDIRECT_URL = "core:home"  # where users go after logout

@@ -91,12 +91,8 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     """
 
     def process_response(self, request, response):
-        cloudfront_domain = os.getenv('CLOUDFRONT_DOMAIN', '')
-
-        # Ensure proper scheme
-        if cloudfront_domain and not cloudfront_domain.startswith("https://"):
-            cloudfront_domain = f"https://{cloudfront_domain}"
-
+        cloudfront_domain = "https://d1234567890.cloudfront.net"
+        
         csp_policy = (
             f"default-src 'self' {cloudfront_domain}; "
             f"script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com 'unsafe-inline'; "
