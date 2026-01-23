@@ -1,6 +1,6 @@
 from django.http import HttpResponsePermanentRedirect
 from django.utils.deprecation import MiddlewareMixin
-import os, secrets
+import secrets
 
 # myapp/middleware.py
 class CSPReportOnlyMiddleware:
@@ -86,12 +86,12 @@ class SecurityHeadersMiddleware:
     
 class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     """
-    Custom CSP middleware that sets Content-Security-Policy headers
-    with nonces for inline scripts/styles.
+    CSP middleware with dynamic nonces.
+    No need to manually add nonce in templates if you avoid inline scripts/styles.
     """
 
     def process_request(self, request):
-        # Generate a random nonce for this request
+        # Generate a random nonce per request
         request.csp_nonce = secrets.token_urlsafe(16)
 
     def process_response(self, request, response):
@@ -101,26 +101,18 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         csp_policy = (
             f"default-src 'self' {cloudfront_domain}; "
 
-            # Scripts: allow nonce-based inline scripts
+            # Scripts: allow external + nonce
             f"script-src 'self' {cloudfront_domain} "
-            f"https://cdn.jsdelivr.net "
-            f"https://ajax.googleapis.com "
-            f"https://accounts.google.com/gsi/client "
-            f"https://www.googletagmanager.com "
-            f"https://pagead2.googlesyndication.com "
-            f"https://code.jquery.com "
-            f"https://ep1.adtrafficquality.google "
-            f"https://ep2.adtrafficquality.google "
-            f"https://stackpath.bootstrapcdn.com "
-            f"'nonce-{nonce}'; "
+            f"https://cdn.jsdelivr.net https://ajax.googleapis.com "
+            f"https://accounts.google.com/gsi/client https://www.googletagmanager.com "
+            f"https://pagead2.googlesyndication.com https://code.jquery.com "
+            f"https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google "
+            f"https://stackpath.bootstrapcdn.com 'nonce-{nonce}'; "
 
-            # Styles: allow nonce-based inline styles
-            f"style-src 'self' {cloudfront_domain} "
-            f"https://fonts.googleapis.com "
-            f"https://cdn.jsdelivr.net "
-            f"https://stackpath.bootstrapcdn.com "
-            f"https://cdnjs.cloudflare.com "
-            f"https://jagoftrade-bucket.s3.amazonaws.com "
+            # Styles: allow external + nonce
+            f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com "
+            f"https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com "
+            f"https://cdnjs.cloudflare.com https://jagoftrade-bucket.s3.amazonaws.com "
             f"'nonce-{nonce}'; "
 
             # Fonts
@@ -134,12 +126,14 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
             # Connections
             f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net "
-            f"https://www.googletagmanager.com https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google "
-            f"https://ep2.adtrafficquality.google https://www.google-analytics.com https://stackpath.bootstrapcdn.com; "
+            f"https://www.googletagmanager.com https://pagead2.googlesyndication.com "
+            f"https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google "
+            f"https://www.google-analytics.com https://stackpath.bootstrapcdn.com; "
 
             # Frames
             f"frame-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net "
-            f"https://pagead2.googlesyndication.com https://ep2.adtrafficquality.google https://stackpath.bootstrapcdn.com https://www.google.com; "
+            f"https://pagead2.googlesyndication.com https://ep2.adtrafficquality.google "
+            f"https://stackpath.bootstrapcdn.com https://www.google.com; "
 
             # Strong restrictions
             f"object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; "
@@ -147,6 +141,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
         response["Content-Security-Policy"] = csp_policy
         return response
+
 
 
 
