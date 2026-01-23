@@ -126,11 +126,11 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://ep2.adtrafficquality.google; "
 
             # Frames (iframes for ads, GTM, Google)
-            # Frames (add Google Ads domains here)
             f"frame-src 'self' "
             f"https://accounts.google.com/gsi/ "
             f"https://googleads.g.doubleclick.net "
             f"https://pagead2.googlesyndication.com "
+            f"https://ep2.adtrafficquality.google "
             f"https://www.google.com; "
 
             # Strong restrictions
@@ -139,7 +139,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
         response["Content-Security-Policy"] = csp_policy
         return response
-
 
 class ExpiredImageMiddleware:
     def __init__(self, get_response):
