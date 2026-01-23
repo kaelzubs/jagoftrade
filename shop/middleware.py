@@ -1,6 +1,6 @@
 from django.http import HttpResponsePermanentRedirect
 from django.utils.deprecation import MiddlewareMixin
-import os
+import secrets
 
 # myapp/middleware.py
 class CSPReportOnlyMiddleware:
@@ -85,152 +85,18 @@ class SecurityHeadersMiddleware:
         return response
     
 class ContentSecurityPolicyMiddleware(MiddlewareMixin):
-    """
-    Custom CSP middleware that sets Content-Security-Policy headers
-    to allow serving static/media files from CloudFront (S3).
-    """
+    def process_request(self, request):
+        request.csp_nonce = secrets.token_urlsafe(16)
 
     def process_response(self, request, response):
-        cloudfront_domain = "https://d1234567890.cloudfront.net"
-        
+        nonce = getattr(request, "csp_nonce", "")
+
         csp_policy = (
-            f"default-src 'self' {cloudfront_domain}; "
-
-            # Scripts: your domain, CloudFront, trusted CDNs, Google services
-            f"script-src 'self' {cloudfront_domain} "
-            f"https://cdn.jsdelivr.net "
-            f"https://ajax.googleapis.com "
-            f"https://accounts.google.com/gsi/client "
-            f"https://www.googletagmanager.com "
-            f"https://pagead2.googlesyndication.com "
-            f"https://code.jquery.com "
-            f"https://ep1.adtrafficquality.google "
-            f"https://ep2.adtrafficquality.google "
-            f"https://stackpath.bootstrapcdn.com "
-            f"https://www.googletagmanager.com/gtm.js?id=GTM-P97LQVH5	report-only	script-src-elem	(index):457 "
-            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37	report-only	script-src-elem	(index):0 "
-            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1000566373865046	report-only	script-src-elem	(index):0 "
-            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6411693288489882	report-only	script-src-elem	(index):0 "
-            f"https://code.jquery.com/jquery-3.5.1.slim.min.js	report-only	script-src-elem	(index):0"
-            f"https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202601200101/show_ads_impl_fy2021.js	report-only	script-src-elem	adsbygoogle.js?clien…6411693288489882:45 "
-            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37&cx=c&gtm=4e61m0	report-only	script-src-elem	gtm.js?id=GTM-P97LQVH5:98 "
-            f"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js	report-only	script-src-elem	(index):0 "
-            f"https://www.google-analytics.com/g/collect?v=2&tid=G-6L8TZYJD37&gtm=45je61m0v9239609278za200zb9239598399zd9239598399&_p=1769142958192&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=318251196.1769142959&ul=en-us&sr=360x740&uaa=&uab=64&uafvl=Google%2520Chrome%3B143.0.7499.193%7CChromium%3B143.0.7499.193%7CNot%2520A(Brand%3B24.0.0.0&uamb=1&uam=SM-G955U&uap=Android&uapv=8.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_s=1&tag_exp=103116026~103200004~104527906~104528500~104684208~104684211~105391253~115938466~115938468~116682875~116992598~117041588~117099529~117223566&sid=1769142959&sct=1&seg=0&dl=https%3A%2F%2Fwww.jagoftrade.com%2F&dr=https%3A%2F%2Fwww.jagoftrade.com%2F&dt=JagofTrade%20%E2%80%93%20Affiliate%20Marketplace%20for%20Smarter%20Choices&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=4945	report-only	connect-src	js?id=G-6L8TZYJD37:222 "
-            f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js	report-only	script-src-elem	(index):0 "
-            f"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css.map	blocked	connect-src	(unknown) "
-            f"https://googleads.g.doubleclick.net	report-only	frame-src	pagead2.googlesyndication.com/:0 "
-            f"https://ep1.adtrafficquality.google/getconfig/sodar?sv=200&tid=gda&tv=r20260121&st=env&sjk=3012886076675421	report-only	connect-src	show_ads_impl_fy2021.js:106 "
-            f"https://ep2.adtrafficquality.google/sodar/sodar2.js	report-only	script-src-elem	show_ads_impl_fy2021.js:105 "
-            f"https://ep2.adtrafficquality.google	report-only	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://ep2.adtrafficquality.google	blocked	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://www.google.com	report-only	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://www.googletagmanager.com/gtm.js?id=GTM-P97LQVH5	report-only	script-src-elem	(index):457 "
-            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37	report-only	script-src-elem	(index):0 "
-            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1000566373865046	report-only	script-src-elem	(index):0 "
-            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6411693288489882	report-only	script-src-elem	(index):0 "
-            f"https://code.jquery.com/jquery-3.5.1.slim.min.js	report-only	script-src-elem	(index):0 "
-            f"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js	report-only	script-src-elem	(index):0 "
-            f"https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202601200101/show_ads_impl_fy2021.js	report-only	script-src-elem	adsbygoogle.js?clien…1000566373865046:45 "
-            f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js	report-only	script-src-elem	(index):0 "
-            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37&cx=c&gtm=4e61m1h2	report-only	script-src-elem	gtm.js?id=GTM-P97LQVH5:98 "
-            f"https://googleads.g.doubleclick.net	report-only	frame-src	pagead2.googlesyndication.com/:0 "
-            f"https://ep1.adtrafficquality.google/getconfig/sodar?sv=200&tid=gda&tv=r20260121&st=env&sjk=1190765976292319	report-only	connect-src	show_ads_impl_fy2021.js:106 "
-            f"https://www.google-analytics.com/g/collect?v=2&tid=G-6L8TZYJD37&gtm=45je61m0v9239609278za200zb9239598399zd9239598399&_p=1769143972314&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=318251196.1769142959&ul=en-us&sr=360x740&uaa=&uab=64&uafvl=Google%2520Chrome%3B143.0.7499.193%7CChromium%3B143.0.7499.193%7CNot%2520A(Brand%3B24.0.0.0&uamb=1&uam=SM-G955U&uap=Android&uapv=8.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=AAAAAAQ&_s=1&tag_exp=102015666~103116026~103200004~104527906~104528500~104684208~104684211~105391252~115616985~115938466~115938469~116682875~116988315~117041587~117042506&sid=1769142959&sct=1&seg=1&dl=https%3A%2F%2Fwww.jagoftrade.com%2F&dr=https%3A%2F%2Fwww.jagoftrade.com%2F&dt=JagofTrade%20%E2%80%93%20Affiliate%20Marketplace%20for%20Smarter%20Choices&en=page_view&_ee=1&tfd=14525	report-only	connect-src	js?id=G-6L8TZYJD37:222 "
-            f"https://ep2.adtrafficquality.google/sodar/sodar2.js	report-only	script-src-elem	show_ads_impl_fy2021.js:105 "
-            f"https://ep2.adtrafficquality.google	report-only	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://www.google-analytics.com/g/collect?v=2&tid=G-6L8TZYJD37&gtm=45je61m0v9239609278za200zb9239598399zd9239598399&_p=1769144672645&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=318251196.1769142959&ul=en-us&sr=360x740&uaa=&uab=64&uafvl=Google%2520Chrome%3B143.0.7499.193%7CChromium%3B143.0.7499.193%7CNot%2520A(Brand%3B24.0.0.0&uamb=1&uam=SM-G955U&uap=Android&uapv=8.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_eu=AAAAAAQ&_s=1&tag_exp=103116026~103200004~104527906~104528501~104684208~104684211~105391252~115616985~115938466~115938468~116682875~117041587&sid=1769142959&sct=1&seg=1&dl=https%3A%2F%2Fwww.jagoftrade.com%2F&dr=https%3A%2F%2Fwww.jagoftrade.com%2F&dt=JagofTrade%20%E2%80%93%20Affiliate%20Marketplace%20for%20Smarter%20Choices&en=page_view&_ee=1&tfd=16487	report-only	connect-src	js?id=G-6L8TZYJD37:222 "
-            f"https://pagead2.googlesyndication.com/pagead/gen_204?id=plmetrics&cls=0.374&mls=0.372&nls=2&cas=0.000&nas=0&was=0.000&wls=0.374&tls=10572.200&lcp=14564&lcps=109480&cbt=269&mbt=112&nlt=6&nif=1&ifi=1&eid=95378428%2C95379902%2C95381114%2C95340253%2C95340255&top=1&pvsid=180798495893712 "
-            f"https://www.google.com "
-            f"https://www.google.com "
-            f"'unsafe-inline'; "
-
-            # Styles: your domain, CloudFront, Google Fonts, Bootstrap, cdnjs, S3 bucket
-            f"style-src 'self' {cloudfront_domain} "
-            f"https://fonts.googleapis.com "
-            f"https://cdn.jsdelivr.net "
-            f"https://stackpath.bootstrapcdn.com "
-            f"https://cdnjs.cloudflare.com "
-            f"https://jagoftrade-bucket.s3.amazonaws.com "
-            f"https://www.googletagmanager.com/gtm.js?id=GTM-P97LQVH5	report-only	script-src-elem	(index):457 "
-            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37	report-only	script-src-elem	(index):0 "
-            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1000566373865046	report-only	script-src-elem	(index):0 "
-            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6411693288489882	report-only	script-src-elem	(index):0 "
-            f"https://code.jquery.com/jquery-3.5.1.slim.min.js	report-only	script-src-elem	(index):0"
-            f"https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202601200101/show_ads_impl_fy2021.js	report-only	script-src-elem	adsbygoogle.js?clien…6411693288489882:45 "
-            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37&cx=c&gtm=4e61m0	report-only	script-src-elem	gtm.js?id=GTM-P97LQVH5:98 "
-            f"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js	report-only	script-src-elem	(index):0 "
-            f"https://www.google-analytics.com/g/collect?v=2&tid=G-6L8TZYJD37&gtm=45je61m0v9239609278za200zb9239598399zd9239598399&_p=1769142958192&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=318251196.1769142959&ul=en-us&sr=360x740&uaa=&uab=64&uafvl=Google%2520Chrome%3B143.0.7499.193%7CChromium%3B143.0.7499.193%7CNot%2520A(Brand%3B24.0.0.0&uamb=1&uam=SM-G955U&uap=Android&uapv=8.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_s=1&tag_exp=103116026~103200004~104527906~104528500~104684208~104684211~105391253~115938466~115938468~116682875~116992598~117041588~117099529~117223566&sid=1769142959&sct=1&seg=0&dl=https%3A%2F%2Fwww.jagoftrade.com%2F&dr=https%3A%2F%2Fwww.jagoftrade.com%2F&dt=JagofTrade%20%E2%80%93%20Affiliate%20Marketplace%20for%20Smarter%20Choices&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=4945	report-only	connect-src	js?id=G-6L8TZYJD37:222 "
-            f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js	report-only	script-src-elem	(index):0 "
-            f"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css.map	blocked	connect-src	(unknown) "
-            f"https://googleads.g.doubleclick.net	report-only	frame-src	pagead2.googlesyndication.com/:0 "
-            f"https://ep1.adtrafficquality.google/getconfig/sodar?sv=200&tid=gda&tv=r20260121&st=env&sjk=3012886076675421	report-only	connect-src	show_ads_impl_fy2021.js:106 "
-            f"https://ep2.adtrafficquality.google/sodar/sodar2.js	report-only	script-src-elem	show_ads_impl_fy2021.js:105 "
-            f"https://ep2.adtrafficquality.google	report-only	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://ep2.adtrafficquality.google	blocked	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://www.google.com	report-only	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://www.google.com "
-            f"'unsafe-inline'; "
-
-            # Fonts: your domain, CloudFront, Google Fonts, cdnjs
-            f"font-src 'self' {cloudfront_domain} "
-            f"https://fonts.gstatic.com "
-            f"https://cdnjs.cloudflare.com; "
-
-            # Images: your domain, CloudFront, S3 bucket, data URIs, Google Ads pixels
-            f"img-src 'self' {cloudfront_domain} "
-            f"https://jagoftrade-bucket.s3.amazonaws.com "
-            f"data: "
-            f"https://pagead2.googlesyndication.com; "
-
-            # Media: your domain, CloudFront, S3 bucket
-            f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
-
-            # Connections: your domain, CloudFront, Google services, CDNs
-            f"connect-src 'self' {cloudfront_domain} "
-            f"https://accounts.google.com "
-            f"https://cdn.jsdelivr.net "
-            f"https://www.googletagmanager.com "
-            f"https://pagead2.googlesyndication.com "
-            f"https://ep1.adtrafficquality.google "
-            f"https://ep2.adtrafficquality.google "
-            f"https://www.google-analytics.com; "
-            f"https://stackpath.bootstrapcdn.com; "
-            f"https://www.googletagmanager.com/gtm.js?id=GTM-P97LQVH5	report-only	script-src-elem	(index):457 "
-            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37	report-only	script-src-elem	(index):0 "
-            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1000566373865046	report-only	script-src-elem	(index):0 "
-            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6411693288489882	report-only	script-src-elem	(index):0 "
-            f"https://code.jquery.com/jquery-3.5.1.slim.min.js	report-only	script-src-elem	(index):0"
-            f"https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202601200101/show_ads_impl_fy2021.js	report-only	script-src-elem	adsbygoogle.js?clien…6411693288489882:45 "
-            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37&cx=c&gtm=4e61m0	report-only	script-src-elem	gtm.js?id=GTM-P97LQVH5:98 "
-            f"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js	report-only	script-src-elem	(index):0 "
-            f"https://www.google-analytics.com/g/collect?v=2&tid=G-6L8TZYJD37&gtm=45je61m0v9239609278za200zb9239598399zd9239598399&_p=1769142958192&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=318251196.1769142959&ul=en-us&sr=360x740&uaa=&uab=64&uafvl=Google%2520Chrome%3B143.0.7499.193%7CChromium%3B143.0.7499.193%7CNot%2520A(Brand%3B24.0.0.0&uamb=1&uam=SM-G955U&uap=Android&uapv=8.0.0&uaw=0&are=1&frm=0&pscdl=noapi&_s=1&tag_exp=103116026~103200004~104527906~104528500~104684208~104684211~105391253~115938466~115938468~116682875~116992598~117041588~117099529~117223566&sid=1769142959&sct=1&seg=0&dl=https%3A%2F%2Fwww.jagoftrade.com%2F&dr=https%3A%2F%2Fwww.jagoftrade.com%2F&dt=JagofTrade%20%E2%80%93%20Affiliate%20Marketplace%20for%20Smarter%20Choices&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=4945	report-only	connect-src	js?id=G-6L8TZYJD37:222 "
-            f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js	report-only	script-src-elem	(index):0 "
-            f"https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css.map	blocked	connect-src	(unknown) "
-            f"https://googleads.g.doubleclick.net	report-only	frame-src	pagead2.googlesyndication.com/:0 "
-            f"https://ep1.adtrafficquality.google/getconfig/sodar?sv=200&tid=gda&tv=r20260121&st=env&sjk=3012886076675421	report-only	connect-src	show_ads_impl_fy2021.js:106 "
-            f"https://ep2.adtrafficquality.google/sodar/sodar2.js	report-only	script-src-elem	show_ads_impl_fy2021.js:105 "
-            f"https://ep2.adtrafficquality.google	report-only	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://ep2.adtrafficquality.google	blocked	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://www.google.com	report-only	frame-src	ep2.adtrafficquality.google/:0 "
-            f"https://www.google.com "
-
-            # Frames: allow Google Sign-In, Ads iframes
-            f"frame-src 'self' "
-            f"https://accounts.google.com/gsi/ "
-            f"https://googleads.g.doubleclick.net "
-            f"https://pagead2.googlesyndication.com; "
-            f"https://accounts.google.com/gsi/ "
-            f"https://ep2.adtrafficquality.google "
-            f"https://stackpath.bootstrapcdn.com "
-            f"https://www.google.com; "
-
-            # Strong restrictions
+            f"script-src 'nonce-{nonce}' 'strict-dynamic'; "
             f"object-src 'none'; "
-            f"frame-ancestors 'self'; "
-            f"base-uri 'self'; "
-            f"form-action 'self'; "
+            f"base-uri 'none'; "
         )
-    
+
         response["Content-Security-Policy"] = csp_policy
         return response
 

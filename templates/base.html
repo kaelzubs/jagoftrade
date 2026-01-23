@@ -285,13 +285,13 @@
   <!-- Font Awesome for icons -->
   <script type='script/js' src="{% static 'js/script.js' %}"></script>
   <!-- Page Loader Script -->
-  <script>
+  <script nonce="{{ csp_nonce }}">
     document.addEventListener('DOMContentLoaded', function () {
       const overlay = document.getElementById('page-loader');
       if (overlay) overlay.classList.add('loader-hidden');
     })
   </script>
-  <script>
+  <script nonce="{{ csp_nonce }}">
     (function() {
       var CONSENT_COOKIE = "cookie_consent";
 
@@ -339,7 +339,7 @@
 
       showBannerIfNeeded();
     })();
-  </script>
+  </script nonce="{{ csp_nonce }}">
   <!-- Add to Cart AJAX Script -->  
   <script>
     document.querySelectorAll('.add-to-cart').forEach(btn => {
