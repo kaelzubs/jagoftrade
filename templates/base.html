@@ -155,7 +155,7 @@
       <form class="form-inline my-2 my-lg-0 mx-4" method="get" action="{% url 'catalog:search' %}">
         {% csrf_token %}
         <div class="input-group w-100">
-          <input type="search" name='q' class="form-control mr-sm-0" placeholder="Search products..." aria-label="Search">
+          <input type="search" name='q' class="form-control mr-sm-0" autocomplete="search products" placeholder="Search products..." aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-outline-light my-sm-0" type="submit">Search</button>
           </div>
@@ -237,7 +237,7 @@
           <form class="form-inline" method="post" action="{% url 'accounts:newsletter_subscribe' %}">
             {% csrf_token %}
             <div class="input-group w-100 mb-2">
-              <input type="email" name='email' class="form-control" placeholder="Your email">
+              <input type="email" name='email' autocomplete="email" class="form-control" placeholder="Your email">
               <div class="input-group-append">
                 <button class="btn btn-success" type="submit">Subscribe</button>
               </div>
