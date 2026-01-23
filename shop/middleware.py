@@ -92,8 +92,11 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
     def process_response(self, request, response):
         cloudfront_domain = "https://d1234567890.cloudfront.net"
+        
         csp_policy = (
             f"default-src 'self' {cloudfront_domain}; "
+
+            # Scripts: your domain, CloudFront, trusted CDNs, Google services
             f"script-src 'self' {cloudfront_domain} "
             f"https://cdn.jsdelivr.net "
             f"https://ajax.googleapis.com "
@@ -101,41 +104,55 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://www.googletagmanager.com "
             f"https://pagead2.googlesyndication.com "
             f"https://code.jquery.com "
+            f"https://ep1.adtrafficquality.google "
             f"https://ep2.adtrafficquality.google "
             f"'unsafe-inline'; "
-            f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com https://jagoftrade-bucket.s3.amazonaws.com 'unsafe-inline'; "
-            f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
-            f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com data: https://pagead2.googlesyndication.com https://jagoftrade-bucket.s3.amazonaws.com ; "
-            f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com ; "
-            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://www.google-analytics.com; "
-            f"frame-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com <URL>; "
+
+            # Styles: your domain, CloudFront, Google Fonts, Bootstrap, cdnjs, S3 bucket
+            f"style-src 'self' {cloudfront_domain} "
+            f"https://fonts.googleapis.com "
+            f"https://cdn.jsdelivr.net "
+            f"https://stackpath.bootstrapcdn.com "
+            f"https://cdnjs.cloudflare.com "
+            f"https://jagoftrade-bucket.s3.amazonaws.com "
+            f"'unsafe-inline'; "
+
+            # Fonts: your domain, CloudFront, Google Fonts, cdnjs
+            f"font-src 'self' {cloudfront_domain} "
+            f"https://fonts.gstatic.com "
+            f"https://cdnjs.cloudflare.com; "
+
+            # Images: your domain, CloudFront, S3 bucket, data URIs, Google Ads pixels
+            f"img-src 'self' {cloudfront_domain} "
+            f"https://jagoftrade-bucket.s3.amazonaws.com "
+            f"data: "
+            f"https://pagead2.googlesyndication.com; "
+
+            # Media: your domain, CloudFront, S3 bucket
+            f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
+
+            # Connections: your domain, CloudFront, Google services, CDNs
+            f"connect-src 'self' {cloudfront_domain} "
+            f"https://accounts.google.com "
+            f"https://cdn.jsdelivr.net "
+            f"https://www.googletagmanager.com "
+            f"https://pagead2.googlesyndication.com "
+            f"https://ep1.adtrafficquality.google "
+            f"https://ep2.adtrafficquality.google "
+            f"https://www.google-analytics.com; "
+
+            # Frames: allow Google Sign-In, Ads iframes
+            f"frame-src 'self' "
+            f"https://accounts.google.com/gsi/ "
+            f"https://googleads.g.doubleclick.net "
+            f"https://pagead2.googlesyndication.com; "
+
+            # Strong restrictions
             f"object-src 'none'; "
             f"frame-ancestors 'self'; "
             f"base-uri 'self'; "
             f"form-action 'self'; "
         )
-        
-        # csp_policy = (
-        #     f"default-src 'self' {cloudfront_domain}; "
-        #     f"script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com https://accounts.google.com/gsi/client https://www.googletagmanager.com https://pagead2.googlesyndication.com https://code.jquery.com 'unsafe-inline'; "
-        #     f"https://accounts.google.com/gsi/client https://www.googletagmanager.com "
-        #     f"https://pagead2.googlesyndication.com https://code.jquery.com 'unsafe-inline'; "
-        #     f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com https://jagoftrade-bucket.s3.amazonaws.com https://cdnjs.cloudflare.com 'unsafe-inline'; "
-        #     f"https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com 'unsafe-inline'; "
-        #     f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
-        #     f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com data: https://pagead2.googlesyndication.com; "
-        #     f"https://pagead2.googlesyndication.com; "
-        #     f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
-        #     f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://pagead2.googlesyndication.com https://accounts.google.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com; "
-        #     f"https://www.googletagmanager.com https://pagead2.googlesyndication.com "
-        #     f"https://ep1.adtrafficquality.google https://www.google-analytics.com; "
-        #     f"frame-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com; "
-        #     f"https://pagead2.googlesyndication.com; "
-        #     f"object-src 'none'; "
-        #     f"frame-ancestors 'self'; "
-        #     f"base-uri 'self'; "
-        #     f"form-action 'self'; "
-        # )
     
         response["Content-Security-Policy"] = csp_policy
         return response
