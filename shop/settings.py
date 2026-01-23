@@ -163,6 +163,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.csp.ContentSecurityPolicyMiddleware",
     'allauth.account.middleware.AccountMiddleware',
     'shop.middleware.CSPReportOnlyMiddleware',
     'shop.middleware.HTTPSRedirectMiddleware',
@@ -170,7 +171,7 @@ MIDDLEWARE = [
     'shop.middleware.HSTSMiddleware',
     'shop.middleware.SecurityHeadersMiddleware',
     'shop.middleware.ExpiredImageMiddleware',
-    'shop.middleware.ContentSecurityPolicyMiddleware',
+    # 'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
 
 ROOT_URLCONF = 'shop.urls'
@@ -328,3 +329,28 @@ SIMPLE_JWT = {
 }
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = (
+    "'self'",
+    "https://cdn.jsdelivr.net",
+    "https://www.googletagmanager.com",
+)
+CSP_STYLE_SRC = (
+    "'self'",
+    "https://fonts.googleapis.com",
+    "https://stackpath.bootstrapcdn.com",
+)
+CSP_FONT_SRC = ("'self'", "https://fonts.gstatic.com")
+CSP_IMG_SRC = ("'self'", "data:", "https://pagead2.googlesyndication.com")
+CSP_CONNECT_SRC = (
+    "'self'",
+    "https://www.google-analytics.com",
+    "https://ep1.adtrafficquality.google",
+    "https://ep2.adtrafficquality.google",
+)
+CSP_FRAME_SRC = (
+    "'self'",
+    "https://accounts.google.com/gsi/",
+    "https://googleads.g.doubleclick.net",
+)
