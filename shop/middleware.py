@@ -132,7 +132,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://googleads.g.doubleclick.net "
             f"https://pagead2.googlesyndication.com "
             f"https://www.google.com; "
-"
 
             # Strong restrictions
             f"object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; "
