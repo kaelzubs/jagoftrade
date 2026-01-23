@@ -25,9 +25,10 @@ class PhoneNumberWidget(forms.MultiWidget):
         widgets = (
             forms.Select(
                 choices=country_choices,
-                attrs={'class': 'form-control form-select', 'id': 'id_phone_country'}
+                attrs={'class': 'form-control form-select', 'id': 'id_phone_country', "autocomplete": "phone country"}
             ),
             forms.TextInput(attrs={
+                'autocomplete': 'phone number',
                 'class': 'form-control',
                 'placeholder': 'Phone Number',
                 'id': 'id_phone_number'
@@ -55,13 +56,13 @@ class CheckoutForm(forms.ModelForm):
         model = Address
         fields = ['full_name', 'line1', 'line2', 'city', 'state', 'postcode', 'country', 'phone']
         widgets = {
-            'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}),
-            'line1': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address Line 1'}),
-            'line2': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address Line 2'}),
-            'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City'}),
-            'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'State/Province'}),
-            'postcode': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Postal Code'}),
-            'country': forms.Select(attrs={'class': 'form-control form-select'}),
+            'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name', "autocomplete": "full name"}),
+            'line1': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address Line 1', "autocomplete": "line 1"}),
+            'line2': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Address Line 2', "autocomplete": "line 2"}),
+            'city': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'City', "autocomplete": "city"}),
+            'state': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'State/Province', "autocomplete": "state"}),
+            'postcode': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Postal Code', "autocomplete": "postal code"}),
+            'country': forms.Select(attrs={'class': 'form-control form-select', "autocomplete": "country"}),
         }
     
     def __init__(self, *args, **kwargs):
@@ -86,7 +87,7 @@ class CheckoutForm(forms.ModelForm):
         country_choices = [(country.alpha_2, country.name) for country in pycountry.countries]
         self.fields['country'] = forms.ChoiceField(
             choices=[('', 'Select Country')] + country_choices,
-            widget=forms.Select(attrs={'class': 'form-control'}),
+            widget=forms.Select(attrs={'class': 'form-control', 'autocomplete': 'country'}),
             help_text=self.fields['country'].help_text
         )
 

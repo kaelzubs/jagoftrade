@@ -152,7 +152,7 @@
       <ul class="navbar-nav mr-auto">
         <li class="nav-item"><a class="nav-link text-white font-weight-bold" href="{% url 'catalog:list' %}">Explore</a></li>
       </ul>
-      <form class="form-inline my-2 my-lg-0 mx-4" method="get" action="{% url 'catalog:search' %}" autocomplete="on">
+      <form class="form-inline my-2 my-lg-0 mx-4" method="get" action="{% url 'catalog:search' %}">
         {% csrf_token %}
         <div class="input-group w-100">
           <input type="search" name='q' class="form-control mr-sm-0" placeholder="Search products..." aria-label="Search">
@@ -234,7 +234,7 @@
         <!-- Newsletter & Social -->
         <div class="col-md-3 mb-4">
           <h6 class="font-weight-bold">Stay Connected</h6>
-          <form class="form-inline" method="post" action="{% url 'accounts:newsletter_subscribe' %}" autocomplete="on">
+          <form class="form-inline" method="post" action="{% url 'accounts:newsletter_subscribe' %}">
             {% csrf_token %}
             <div class="input-group w-100 mb-2">
               <input type="email" name='email' class="form-control" placeholder="Your email">
