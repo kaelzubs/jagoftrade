@@ -95,17 +95,26 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         
         csp_policy = (
             f"default-src 'self' {cloudfront_domain}; "
-            f"script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com https://accounts.google.com/gsi/client 'unsafe-inline'; "
-            f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'; "
+            f"script-src 'self' {cloudfront_domain} "
+            f"https://cdn.jsdelivr.net "
+            f"https://ajax.googleapis.com "
+            f"https://accounts.google.com/gsi/client "
+            f"https://www.googletagmanager.com "
+            f"https://pagead2.googlesyndication.com "
+            f"https://code.jquery.com "
+            f"'unsafe-inline'; "
+            f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com 'unsafe-inline'; "
             f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com; "
             f"img-src 'self' {cloudfront_domain} data:; "
             f"media-src 'self' {cloudfront_domain}; "
-            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net; "
+            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net https://www.googletagmanager.com https://pagead2.googlesyndication.com; "
             f"object-src 'none'; "
             f"frame-ancestors 'self'; "
             f"base-uri 'self'; "
             f"form-action 'self'; "
         )
+
+
     
         response["Content-Security-Policy"] = csp_policy
         return response
