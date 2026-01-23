@@ -83,9 +83,6 @@ class SecurityHeadersMiddleware:
         response['Referrer-Policy'] = 'same-origin'
         response['Permissions-Policy'] = 'geolocation=(), microphone=()'
         return response
-    
-# core/middleware.py
-from django.utils.deprecation import MiddlewareMixin
 
 class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
@@ -118,16 +115,19 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             # Media
             f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
 
-            # Connections
+            # Connections (XHR, fetch, analytics)
             f"connect-src 'self' {cloudfront_domain} "
             f"https://www.googletagmanager.com "
             f"https://pagead2.googlesyndication.com "
             f"https://cdn.jsdelivr.net "
-            f"https://www.google-analytics.com; "
+            f"https://www.google-analytics.com "
+            f"https://ep1.adtrafficquality.google "
+            f"https://ep2.adtrafficquality.google; "
 
-            # Frames
+            # Frames (iframes for ads, GTM, Google)
             f"frame-src 'self' https://googleads.g.doubleclick.net "
-            f"https://pagead2.googlesyndication.com https://www.google.com; "
+            f"https://pagead2.googlesyndication.com "
+            f"https://www.google.com; "
 
             # Strong restrictions
             f"object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; "
