@@ -87,30 +87,33 @@ class SecurityHeadersMiddleware:
 class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     """
     Custom CSP middleware that sets Content-Security-Policy headers
-    to allow serving static/media files from Cloudfront (s3)
+    to allow serving static/media files from CloudFront (S3).
     """
 
     def process_response(self, request, response):
         cloudfront_domain = os.getenv('CLOUDFRONT_DOMAIN', '')
 
-        # Define your CSP policy here
-        csp_policy = (
-            "default-src 'self' {cloudfront_domain}; "
-            "script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com; "
-            "style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net; "
-            "font-src 'self' {cloudfront_domain} https://fonts.gstatic.com; "
-            "img-src 'self' {cloudfront_domain} data:; "
-            "media-src 'self'; "
-            "connect-src 'self'; "
-            "object-src 'none'; "
-            "frame-ancestors 'none'; "
-            "base-uri 'self'; "
-            "form-action 'self'; "
-        ).format(cloudfront_domain=cloudfront_domain)
+        # Ensure proper scheme
+        if cloudfront_domain and not cloudfront_domain.startswith("https://"):
+            cloudfront_domain = f"https://{cloudfront_domain}"
 
-        # Add CSP header
+        csp_policy = (
+            f"default-src 'self' {cloudfront_domain}; "
+            f"script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com 'unsafe-inline'; "
+            f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'; "
+            f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com; "
+            f"img-src 'self' {cloudfront_domain} data:; "
+            f"media-src 'self' {cloudfront_domain}; "
+            f"connect-src 'self' {cloudfront_domain}; "
+            f"object-src 'none'; "
+            f"frame-ancestors 'self'; "
+            f"base-uri 'self'; "
+            f"form-action 'self'; "
+        )
+
         response["Content-Security-Policy"] = csp_policy
         return response
+
 
 
 
