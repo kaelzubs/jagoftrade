@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 import warnings
 from datetime import timedelta
 import dj_database_url
+from django.utils.csp import CSP
 
 # Generate a secure random secret key
 choices = string.ascii_letters + string.digits + "<>()[]*?@!#~,.;"
@@ -155,6 +156,7 @@ REST_FRAMEWORK = {
 }
 
 MIDDLEWARE = [
+    'django.middleware.csp.ContentSecurityPolicyMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.gzip.GZipMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -170,7 +172,6 @@ MIDDLEWARE = [
     'shop.middleware.HSTSMiddleware',
     'shop.middleware.SecurityHeadersMiddleware',
     'shop.middleware.ExpiredImageMiddleware',
-    'shop.middleware.ContentSecurityPolicyMiddleware',
 ]
 
 ROOT_URLCONF = 'shop.urls'
@@ -186,6 +187,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "django.template.context_processors.csp",
                 'orders.context_processors.cart_context',
             ],
         },
@@ -329,3 +331,10 @@ SIMPLE_JWT = {
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 
+SECURE_CSP = {
+    "default-src": [CSP.SELF],  # Default policy is only to allow same-origin resources
+    "script-src": [CSP.SELF, "https://example.com"], # Allow scripts from your domain and example.com
+    "style-src": [CSP.SELF, "https://fonts.googleapis.com"], # Allow styles from your domain and Google Fonts
+    "font-src": [CSP.SELF, "https://fonts.gstatic.com"], # Allow fonts from your domain and Google Fonts
+    # ... add more directives as needed (img-src, connect-src, etc.)
+}

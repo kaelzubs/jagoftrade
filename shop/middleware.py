@@ -83,58 +83,6 @@ class SecurityHeadersMiddleware:
         response['Referrer-Policy'] = 'same-origin'
         response['Permissions-Policy'] = 'geolocation=(), microphone=()'
         return response
-    
-# core/middleware.py
-from django.utils.deprecation import MiddlewareMixin
-
-class ContentSecurityPolicyMiddleware(MiddlewareMixin):
-    def process_response(self, request, response):
-        cloudfront_domain = "https://d1234567890.cloudfront.net"
-
-        csp_policy = (
-            f"default-src 'self' {cloudfront_domain}; "
-
-            # Scripts: allow GTM, Ads, jQuery, Popper, Bootstrap
-            f"script-src 'self' {cloudfront_domain} "
-            f"https://www.googletagmanager.com "
-            f"https://pagead2.googlesyndication.com "
-            f"https://code.jquery.com "
-            f"https://cdn.jsdelivr.net "
-            f"'unsafe-inline'; "
-
-            # Styles
-            f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com "
-            f"https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com "
-            f"https://cdnjs.cloudflare.com https://jagoftrade-bucket.s3.amazonaws.com "
-            f"'unsafe-inline'; "
-
-            # Fonts
-            f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
-
-            # Images
-            f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com "
-            f"data: https://pagead2.googlesyndication.com; "
-
-            # Media
-            f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
-
-            # Connections
-            f"connect-src 'self' {cloudfront_domain} "
-            f"https://www.googletagmanager.com "
-            f"https://pagead2.googlesyndication.com "
-            f"https://cdn.jsdelivr.net "
-            f"https://www.google-analytics.com; "
-
-            # Frames
-            f"frame-src 'self' https://googleads.g.doubleclick.net "
-            f"https://pagead2.googlesyndication.com https://www.google.com; "
-
-            # Strong restrictions
-            f"object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; "
-        )
-
-        response["Content-Security-Policy"] = csp_policy
-        return response
 
 class ExpiredImageMiddleware:
     def __init__(self, get_response):
