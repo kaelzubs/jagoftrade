@@ -1,6 +1,6 @@
 from django.http import HttpResponsePermanentRedirect
 from django.utils.deprecation import MiddlewareMixin
-import os
+import os, secrets
 
 # myapp/middleware.py
 class CSPReportOnlyMiddleware:
@@ -87,16 +87,21 @@ class SecurityHeadersMiddleware:
 class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     """
     Custom CSP middleware that sets Content-Security-Policy headers
-    to allow serving static/media files from CloudFront (S3).
+    with nonces for inline scripts/styles.
     """
+
+    def process_request(self, request):
+        # Generate a random nonce for this request
+        request.csp_nonce = secrets.token_urlsafe(16)
 
     def process_response(self, request, response):
         cloudfront_domain = "https://d1234567890.cloudfront.net"
-        
+        nonce = getattr(request, "csp_nonce", "")
+
         csp_policy = (
             f"default-src 'self' {cloudfront_domain}; "
 
-            # Scripts: your domain, CloudFront, trusted CDNs, Google services
+            # Scripts: allow nonce-based inline scripts
             f"script-src 'self' {cloudfront_domain} "
             f"https://cdn.jsdelivr.net "
             f"https://ajax.googleapis.com "
@@ -107,59 +112,39 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://ep1.adtrafficquality.google "
             f"https://ep2.adtrafficquality.google "
             f"https://stackpath.bootstrapcdn.com "
-            f"'unsafe-inline'; "
+            f"'nonce-{nonce}'; "
 
-            # Styles: your domain, CloudFront, Google Fonts, Bootstrap, cdnjs, S3 bucket
+            # Styles: allow nonce-based inline styles
             f"style-src 'self' {cloudfront_domain} "
             f"https://fonts.googleapis.com "
             f"https://cdn.jsdelivr.net "
             f"https://stackpath.bootstrapcdn.com "
             f"https://cdnjs.cloudflare.com "
             f"https://jagoftrade-bucket.s3.amazonaws.com "
-            f"'unsafe-inline'; "
+            f"'nonce-{nonce}'; "
 
-            # Fonts: your domain, CloudFront, Google Fonts, cdnjs
-            f"font-src 'self' {cloudfront_domain} "
-            f"https://fonts.gstatic.com "
-            f"https://cdnjs.cloudflare.com; "
+            # Fonts
+            f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
 
-            # Images: your domain, CloudFront, S3 bucket, data URIs, Google Ads pixels
-            f"img-src 'self' {cloudfront_domain} "
-            f"https://jagoftrade-bucket.s3.amazonaws.com "
-            f"data: "
-            f"https://pagead2.googlesyndication.com; "
+            # Images
+            f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com data: https://pagead2.googlesyndication.com; "
 
-            # Media: your domain, CloudFront, S3 bucket
+            # Media
             f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
 
-            # Connections: your domain, CloudFront, Google services, CDNs
-            f"connect-src 'self' {cloudfront_domain} "
-            f"https://accounts.google.com "
-            f"https://cdn.jsdelivr.net "
-            f"https://www.googletagmanager.com "
-            f"https://pagead2.googlesyndication.com "
-            f"https://ep1.adtrafficquality.google "
-            f"https://ep2.adtrafficquality.google "
-            f"https://www.google-analytics.com; "
-            f"https://stackpath.bootstrapcdn.com; "
+            # Connections
+            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net "
+            f"https://www.googletagmanager.com https://pagead2.googlesyndication.com https://ep1.adtrafficquality.google "
+            f"https://ep2.adtrafficquality.google https://www.google-analytics.com https://stackpath.bootstrapcdn.com; "
 
-            # Frames: allow Google Sign-In, Ads iframes
-            f"frame-src 'self' "
-            f"https://accounts.google.com/gsi/ "
-            f"https://googleads.g.doubleclick.net "
-            f"https://pagead2.googlesyndication.com; "
-            f"https://accounts.google.com/gsi/ "
-            f"https://ep2.adtrafficquality.google "
-            f"https://stackpath.bootstrapcdn.com "
-            f"https://www.google.com; "
+            # Frames
+            f"frame-src 'self' https://accounts.google.com/gsi/ https://googleads.g.doubleclick.net "
+            f"https://pagead2.googlesyndication.com https://ep2.adtrafficquality.google https://stackpath.bootstrapcdn.com https://www.google.com; "
 
             # Strong restrictions
-            f"object-src 'none'; "
-            f"frame-ancestors 'self'; "
-            f"base-uri 'self'; "
-            f"form-action 'self'; "
+            f"object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; "
         )
-    
+
         response["Content-Security-Policy"] = csp_policy
         return response
 
