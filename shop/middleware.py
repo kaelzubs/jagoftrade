@@ -133,7 +133,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
 
             # Connections: your domain, CloudFront, Google services, CDNs
-            f"connect-src 'self'{cloudfront_domain} "
+            f"connect-src 'self' {cloudfront_domain} "
             f"https://accounts.google.com "
             f"https://cdn.jsdelivr.net "
             f"https://www.googletagmanager.com "
