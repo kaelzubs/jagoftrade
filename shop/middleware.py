@@ -100,13 +100,13 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com; "
             f"img-src 'self' {cloudfront_domain} data:; "
             f"media-src 'self' {cloudfront_domain}; "
-            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com; "
+            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com https://cdn.jsdelivr.net; "
             f"object-src 'none'; "
             f"frame-ancestors 'self'; "
             f"base-uri 'self'; "
             f"form-action 'self'; "
         )
-
+    
         response["Content-Security-Policy"] = csp_policy
         return response
 
