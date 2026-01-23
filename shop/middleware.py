@@ -106,6 +106,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://code.jquery.com "
             f"https://ep1.adtrafficquality.google "
             f"https://ep2.adtrafficquality.google "
+            f"https://stackpath.bootstrapcdn.com "
             f"'unsafe-inline'; "
 
             # Styles: your domain, CloudFront, Google Fonts, Bootstrap, cdnjs, S3 bucket
@@ -132,7 +133,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
 
             # Connections: your domain, CloudFront, Google services, CDNs
-            f"connect-src 'self' {cloudfront_domain} "
+            f"connect-src 'self'{cloudfront_domain} "
             f"https://accounts.google.com "
             f"https://cdn.jsdelivr.net "
             f"https://www.googletagmanager.com "
@@ -149,6 +150,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://pagead2.googlesyndication.com; "
             f"https://accounts.google.com/gsi/ "
             f"https://ep2.adtrafficquality.google "
+            f"https://stackpath.bootstrapcdn.com "
             f"https://www.google.com; "
 
             # Strong restrictions
