@@ -98,6 +98,8 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://code.jquery.com "
             f"https://cdn.jsdelivr.net "
             f"https://ep2.adtrafficquality.google "
+            f"https://ep1.adtrafficquality.google "
+            f"https://www.google-analytics.com "
             f"'unsafe-inline'; "
 
             # Styles
