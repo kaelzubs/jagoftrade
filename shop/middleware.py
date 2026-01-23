@@ -95,12 +95,12 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
         
         csp_policy = (
             f"default-src 'self' {cloudfront_domain}; "
-            f"script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com 'unsafe-inline'; "
+            f"script-src 'self' {cloudfront_domain} https://cdn.jsdelivr.net https://ajax.googleapis.com https://accounts.google.com/gsi/client 'unsafe-inline'; "
             f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com https://cdn.jsdelivr.net 'unsafe-inline'; "
             f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com; "
             f"img-src 'self' {cloudfront_domain} data:; "
             f"media-src 'self' {cloudfront_domain}; "
-            f"connect-src 'self' {cloudfront_domain}; "
+            f"connect-src 'self' {cloudfront_domain} https://accounts.google.com; "
             f"object-src 'none'; "
             f"frame-ancestors 'self'; "
             f"base-uri 'self'; "
