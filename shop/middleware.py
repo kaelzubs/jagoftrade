@@ -126,9 +126,13 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://ep2.adtrafficquality.google; "
 
             # Frames (iframes for ads, GTM, Google)
-            f"frame-src 'self' https://googleads.g.doubleclick.net "
+            # Frames (add Google Ads domains here)
+            f"frame-src 'self' "
+            f"https://accounts.google.com/gsi/ "
+            f"https://googleads.g.doubleclick.net "
             f"https://pagead2.googlesyndication.com "
             f"https://www.google.com; "
+"
 
             # Strong restrictions
             f"object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; "
