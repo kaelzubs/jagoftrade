@@ -4,20 +4,23 @@
 {% load humanize %}
 {% block title %}JagofTrade – Affiliate Marketplace for Smarter Choices{% endblock %}
 {% block content %}
-<div class="jumbotron responsive" style="
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static "img/products_bg.png" %}');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  color: white;
-  min-height: 400px;
-  display: block;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-">
+<figure class="product-figure" style="display: none;">
+  <source type="image/webp" srcset="{% static "img/products_bg.webp" %}">
+  <div class="jumbotron responsive" style="
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static "img/products_bg.png" %}');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: white;
+    min-height: 400px;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+  ">
+</figure>
   <div class="jumbotron-content">
     <h1 class="display-4 jumb font-weight-bold header-one">JagofTrade — Where digital meets opportunity.</h1>
     <h2 class="p font-weight-bold">
