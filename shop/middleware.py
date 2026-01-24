@@ -112,7 +112,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
 
             # Images
-            f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com https://tpc.googlesyndication.com https://pagead2.googlesyndication.com "
+            f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com https://tpc.googlesyndication.com https://pagead2.googlesyndication.com; "
 
             # Media
             f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
@@ -121,10 +121,12 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"connect-src 'self' {cloudfront_domain} "
             f"https://www.googletagmanager.com "
             f"https://pagead2.googlesyndication.com "
+            f"https://googleads.g.doubleclick.net "
             f"https://cdn.jsdelivr.net "
             f"https://www.google-analytics.com "
             f"https://ep1.adtrafficquality.google "
-            f"https://ep2.adtrafficquality.google; "
+            f"https://ep2.adtrafficquality.google "
+            f"https://www.google.com; "
 
             # Frames (iframes for ads, GTM, Google)
             f"frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com "
