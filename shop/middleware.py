@@ -87,60 +87,120 @@ class SecurityHeadersMiddleware:
 class ContentSecurityPolicyMiddleware(MiddlewareMixin):
     def process_response(self, request, response):
         cloudfront_domain = "https://d1234567890.cloudfront.net"
+        s3_bucket = "https://jagoftrade-bucket.s3.amazonaws.com"
 
         csp_policy = (
+            # Default fallback
             f"default-src 'self' {cloudfront_domain}; "
 
-            # Scripts: GTM, Ads, jQuery, Popper, Bootstrap
-            f"script-src 'self' {cloudfront_domain} https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com strict-dynamic "
-            f"https://www.googletagmanager.com "
+            # Scripts: GTM, AdSense, Google Ads, Analytics, CDNs
+            f"script-src 'self' {cloudfront_domain} "
+            f"https://googleads.g.doubleclick.net "
             f"https://pagead2.googlesyndication.com "
+            f"https://www.googletagmanager.com "
+            f"https://www.google-analytics.com "
+            f"https://www.gstatic.com "
             f"https://code.jquery.com "
             f"https://cdn.jsdelivr.net "
-            f"https://ep2.adtrafficquality.google "
+            f"https://stackpath.bootstrapcdn.com "
+            f"https://cdnjs.cloudflare.com "
+            f"https://connect.facebook.net "
+            f"https://platform.twitter.com "
+            f"https://apis.google.com "
+            f"https://accounts.google.com/gsi/client "
             f"https://ep1.adtrafficquality.google "
-            f"https://www.google-analytics.com "
-            f"'unsafe-inline'; "
+            f"https://ep2.adtrafficquality.google "
+            f"'unsafe-inline' 'unsafe-eval' strict-dynamic; "
 
-            # Styles
-            f"style-src 'self' {cloudfront_domain} https://fonts.googleapis.com "
-            f"https://cdn.jsdelivr.net https://stackpath.bootstrapcdn.com "
-            f"https://cdnjs.cloudflare.com https://jagoftrade-bucket.s3.amazonaws.com "
+            # Styles: Fonts, CDNs, AdSense
+            f"style-src 'self' {cloudfront_domain} {s3_bucket} "
+            f"https://fonts.googleapis.com "
+            f"https://cdn.jsdelivr.net "
+            f"https://stackpath.bootstrapcdn.com "
+            f"https://cdnjs.cloudflare.com "
+            f"https://pagead2.googlesyndication.com "
             f"'unsafe-inline'; "
 
             # Fonts
-            f"font-src 'self' {cloudfront_domain} https://fonts.gstatic.com https://cdnjs.cloudflare.com; "
+            f"font-src 'self' {cloudfront_domain} {s3_bucket} "
+            f"https://fonts.gstatic.com "
+            f"https://cdnjs.cloudflare.com "
+            f"data:; "
 
-            # Images
-            f"img-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com https://tpc.googlesyndication.com https://pagead2.googlesyndication.com; "
+            # Images: AdSense, Analytics, S3, CloudFront
+            f"img-src 'self' {cloudfront_domain} {s3_bucket} "
+            f"https://tpc.googlesyndication.com "
+            f"https://pagead2.googlesyndication.com "
+            f"https://googleads.g.doubleclick.net "
+            f"https://www.googletagmanager.com "
+            f"https://www.google-analytics.com "
+            f"https://ssl.gstatic.com "
+            f"https://www.gstatic.com "
+            f"https://stats.g.doubleclick.net "
+            f"https://ad.doubleclick.net "
+            f"https://www.facebook.com "
+            f"https://platform.twitter.com "
+            f"data: blob:; "
 
             # Media
-            f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
+            f"media-src 'self' {cloudfront_domain} {s3_bucket} "
+            f"https://pagead2.googlesyndication.com; "
 
-            # Connections (XHR, fetch, analytics)
-            f"connect-src 'self' {cloudfront_domain} "
+            # Connections: XHR, fetch, WebSocket for ads, analytics, GTM
+            f"connect-src 'self' {cloudfront_domain} {s3_bucket} "
             f"https://www.googletagmanager.com "
             f"https://pagead2.googlesyndication.com "
             f"https://googleads.g.doubleclick.net "
-            f"https://cdn.jsdelivr.net "
             f"https://www.google-analytics.com "
+            f"https://analytics.google.com "
+            f"https://region1.analytics.google.com "
+            f"https://region2.analytics.google.com "
+            f"https://www.google.com "
+            f"https://accounts.google.com "
+            f"https://apis.google.com "
             f"https://ep1.adtrafficquality.google "
             f"https://ep2.adtrafficquality.google "
-            f"https://www.google.com; "
+            f"https://cdn.jsdelivr.net "
+            f"https://api.github.com "
+            f"https://connect.facebook.net "
+            f"https://graph.instagram.com "
+            f"wss: https:; "
 
-            # Frames (iframes for ads, GTM, Google)
-            f"frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com "
-            f"https://accounts.google.com/gsi "
+            # Frames: Ad iframes, Google Sign-In, GTM
+            f"frame-src 'self' "
             f"https://googleads.g.doubleclick.net "
+            f"https://tpc.googlesyndication.com "
             f"https://pagead2.googlesyndication.com "
-            f"https://ep2.adtrafficquality.google "
-            f"https://www.google.com; "
+            f"https://accounts.google.com/gsi "
+            f"https://www.google.com/recaptcha/ "
+            f"https://recaptcha.net/recaptcha/ "
+            f"https://www.youtube.com "
+            f"https://youtube.com "
+            f"https://www.facebook.com "
+            f"https://platform.twitter.com; "
 
-            # Strong restrictions
-            f"object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; "
+            # Strict restrictions
+            f"object-src 'none'; "
+            f"frame-ancestors 'self'; "
+            f"base-uri 'self'; "
+            f"form-action 'self'; "
+            f"upgrade-insecure-requests; "
         )
 
         response["Content-Security-Policy"] = csp_policy
+        response["Content-Security-Policy-Report-Only"] = csp_policy
+        
+        # Additional security headers
+        response['X-Content-Type-Options'] = 'nosniff'
+        response['X-Frame-Options'] = 'SAMEORIGIN'
+        response['X-XSS-Protection'] = '1; mode=block'
+        response['Referrer-Policy'] = 'strict-origin-when-cross-origin'
+        response['Permissions-Policy'] = (
+            'geolocation=(), microphone=(), camera=(), '
+            'payment=(), usb=(), magnetometer=(), gyroscope=(), '
+            'accelerometer=()'
+        )
+        
         return response
 
 class ExpiredImageMiddleware:
