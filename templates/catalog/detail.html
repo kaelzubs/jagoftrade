@@ -21,6 +21,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   .main-image-container figure {
     margin: 0;
@@ -250,14 +251,14 @@
                   <img id="mainImage" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy" width="600" height="600">
               </figure>
             {% else %}
-              <div class="text-muted text-center py-5">
+              <div class="text-muted text-center py-5" style="position: relative;">
                 <i class="fas fa-image fa-3x mb-2"></i>
                 <p>No image available</p>
               </div>
             {% endif %}
           {% endwith %}
         {% else %}
-          <div class="text-muted text-center py-5">
+          <div class="text-muted text-center py-5" style="position: relative;">
             <i class="fas fa-image fa-3x mb-2"></i>
             <p>No images available</p>
           </div>
@@ -269,7 +270,7 @@
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
             <div class="thumbnail-item {% if forloop.first %}selected{% endif %}" onclick="updateMainImage(this, '{{ image.image.url }}')">
-              <figure>
+              <figure style="position: relative;">
                 {% picture image.image as img_url %}
                   <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" width="80" height="80">
               </figure>
@@ -287,7 +288,7 @@
         <div class="row">
           {% for image in product.images.all %}
             <div class="col-6 col-sm-4 mb-3">
-              <div class="card shadow" onclick="updateMainImage(this, '{{ image.image.url }}')" style="cursor: pointer;">
+              <div class="card shadow" onclick="updateMainImage(this, '{{ image.image.url }}')" style="cursor: pointer; position: relative;">
                 <figure class="product-figure">
                   {% picture image.image as img_url %}
                     <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" width="400" height="300">
