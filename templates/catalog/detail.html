@@ -199,7 +199,6 @@
               <figure id="mainImageFigure">
                 {% picture first_image.image as img_url %}
                   <img id="mainImage" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
-                {% endpicture %}
               </figure>
             {% else %}
               <div class="text-muted text-center py-5">
