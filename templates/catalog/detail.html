@@ -34,6 +34,7 @@
     object-fit: contain;
     object-position: center;
     padding: 1rem;
+    position: relative; /* ensure relative positioning */
   }
   .thumbnail-gallery {
     display: flex;
@@ -69,6 +70,7 @@
     height: 100%;
     object-fit: cover;
     object-position: center;
+    position: relative; /* ensure relative positioning */
   }
   .thumbnail-item:hover {
     border-color: #28a745;
@@ -232,7 +234,6 @@
               <figure id="mainImageFigure">
                 {% picture first_image.image as img_url %}
                   <img id="mainImage" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
-                {% endpicture %}
               </figure>
             {% else %}
               <div class="text-muted text-center py-5">
@@ -252,6 +253,9 @@
       <!-- Thumbnail Gallery -->
       {% if product.images.all %}
       <div class="thumbnail-gallery">
+        <h5 class="more-images-title">
+          <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
+        </h5>
         {% for image in product.images.all %}
           {% picture image.image as img_url %}
             <div class="thumbnail-item {% if forloop.first %}selected{% endif %}" onclick="updateMainImage('{{ img_url }}', this)">
@@ -263,30 +267,7 @@
         {% endfor %}
       </div>
       {% endif %}
-
-      <!-- More Images Section -->
-      {% if product.images.all|length > 1 %}
-      <div class="more-images-section">
-        <h5 class="more-images-title">
-          <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
-        </h5>
-        <div class="row">
-          {% for image in product.images.all %}
-            <div class="col-6 col-sm-4 mb-3">
-              {% picture image.image as img_url %}
-                <div class="card shadow" onclick="updateMainImage('{{ img_url }}', this)" style="cursor:pointer;">
-                  <figure class="product-figure" style="aspect-ratio: 1 / 1; margin: 0;">
-                    <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
-                  </figure>
-                </div>
-              {% endpicture %}
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-      {% endif %}
     </div>
-
     <!-- Product Information -->
     <div class="col-md-6">
       <div class="product-info">
