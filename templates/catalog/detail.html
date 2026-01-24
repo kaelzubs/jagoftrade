@@ -276,7 +276,6 @@
               <figure id="mainImageFigure">
                 {% picture first_image.image as img_url %}
                   <img id="mainImage" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy" width="600" height="600">
-                {% endpicture %}
               </figure>
             {% else %}
               <div class="text-muted text-center py-5" style="position: relative;">
@@ -293,21 +292,6 @@
         {% endif %}
       </div>
 
-      <!-- Thumbnail Gallery -->
-      {% if product.images.all|length > 1 %}
-        <div class="thumbnail-gallery">
-          {% for image in product.images.all %}
-            <div class="thumbnail-item {% if forloop.first %}selected{% endif %}" onclick="updateMainImage(this, '{{ image.image.url }}')">
-              <figure style="position: relative;">
-                {% picture image.image as img_url %}
-                  <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" width="80" height="80">
-                {% endpicture %}
-              </figure>
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-
       <!-- More Images Section -->
       {% if product.images.all|length > 1 %}
       <div class="more-images-section">
@@ -321,7 +305,6 @@
                 <figure class="product-figure">
                   {% picture image.image as img_url %}
                     <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" width="400" height="300">
-                  {% endpicture %}
                 </figure>
               </div>
             </div>
