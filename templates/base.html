@@ -141,8 +141,11 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
     <a href="{% url 'core:home' %}">
       <figure>
-        {% picture 'img/mobile_logo.png' as img %}
-          <img class='mobile-logo responsive' src="{{ img }}" width="40" height="40" alt="JagofTrade Mobile Logo" loading="lazy">
+        <picture>
+          <source srcset="{% static 'img/mobile_logo.webp' %}" type="image/webp">
+          <source srcset="{% static 'img/mobile_logo.png' %}" type="image/png">
+          <img class='mobile-logo responsive' src="{% static 'img/mobile_logo.png' %}" width="40" height="40" alt="JagofTrade Mobile Logo" loading="lazy">
+        </picture>
       </figure>
     </a>
     <a class="navbar-brand text-white font-weight-bolder" href="{% url 'core:home' %}">JagofTrade</a>
@@ -203,8 +206,11 @@
           <h5 class="font-weight-bold">JagofTrade</h5>
           <p class="small">Your trusted online shopping store worldwide.</p>
           <figure>
-            {% picture 'img/jagoftrade.png' as img %}
-              <img class='logo responsive' src="{{ img }}" alt="JagofTrade Logo - Affiliate Marketplace for Smart Shopping" loading="lazy">
+            <picture>
+              <source srcset="{% static 'img/jagoftrade.webp' %}" type="image/webp">
+              <source srcset="{% static 'img/jagoftrade.png' %}" type="image/png">
+              <img class='logo responsive' src="{% static 'img/jagoftrade.png' %}" alt="JagofTrade Logo - Affiliate Marketplace for Smart Shopping" loading="lazy">
+            </picture>
           </figure>
         </div>
 
@@ -356,7 +362,7 @@
           body: JSON.stringify({ quantity: 1 }) // optional if your view expects POST data
         })
         .then(res => res.json())
-        .then(data => {
+        .then data => {
           // Update cart count
           const cartCountElem = document.getElementById('cart-count');
           cartCountElem.textContent = data.cart_item_count;
