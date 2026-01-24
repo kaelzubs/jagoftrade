@@ -141,7 +141,8 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
     <a href="{% url 'core:home' %}">
       <figure>
-        <img class='mobile-logo responsive' src="{% static 'img/mobile_logo.png' %}" width="40" height="40" alt="JagofTrade Logo">
+        {% picture 'img/mobile_logo.png' as img %}
+          <img class='mobile-logo responsive' src="{{ img }}" width="40" height="40" alt="JagofTrade Mobile Logo" loading="lazy">
       </figure>
     </a>
     <a class="navbar-brand text-white font-weight-bolder" href="{% url 'core:home' %}">JagofTrade</a>
@@ -202,7 +203,8 @@
           <h5 class="font-weight-bold">JagofTrade</h5>
           <p class="small">Your trusted online shopping store worldwide.</p>
           <figure>
-            <img class='logo responsive' src="{% static 'img/jagoftrade.png' %}" alt="JagofTrade Logo">
+            {% picture 'img/jagoftrade.png' as img %}
+              <img class='logo responsive' src="{{ img }}" alt="JagofTrade Logo - Affiliate Marketplace for Smart Shopping" loading="lazy">
           </figure>
         </div>
 
@@ -279,8 +281,6 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!--<script src="code.jquery.com" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
-  <!--<script src="cdn.jsdelivr.net" integrity="sha384-Fy6S3B9q64MXtf8C+8NLV/Kj1rX7FAT60hdy0LG2k+WSgUUzWqCHZwsz/JZjA" crossorigin="anonymous"></script>-->
 
   <!-- Font Awesome for icons -->
   <script type='script/js' src="{% static 'js/script.js' %}"></script>
@@ -339,7 +339,7 @@
 
       showBannerIfNeeded();
     })();
-  </script nonce="{{ csp_nonce }}">
+  </script>
   <!-- Add to Cart AJAX Script -->  
   <script>
     document.querySelectorAll('.add-to-cart').forEach(btn => {
@@ -351,21 +351,17 @@
             'X-CSRFToken': '{{ csrf_token }}',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ quantity: 1 }) // optional if your view expects POST data
+          body: JSON.stringify({ quantity: 1 })
         })
         .then(res => res.json())
         .then(data => {
-          // Update cart count
           const cartCountElem = document.getElementById('cart-count');
           cartCountElem.textContent = data.cart_item_count;
-
-          // Add bounce animation
           cartCountElem.classList.remove('bounce');
-          void cartCountElem.offsetWidth; // trigger reflow
+          void cartCountElem.offsetWidth;
           cartCountElem.classList.add('bounce');
         })
         .then(data => {
-          // Show toast/alert
           const toast = document.createElement('div');
           toast.className = "toast align-items-center text-bg-success border-0 show position-fixed bottom-0 end-0 m-3";
           toast.innerHTML = `<div class="d-flex">
