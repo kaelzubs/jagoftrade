@@ -91,8 +91,7 @@
       <figure class="product-figure">
         {% with first_image=product.images.first %}
           {% if first_image %}
-            {% picture first_image.image as img_url %}
-            <img alt="{{ product.title }}" src="{{ img_url }}">
+            <img alt="{{ product.title }}" src="{{ first_image.image.url }}">
           {% else %}
             <div class="item-placeholder">No image</div>
           {% endif %}
