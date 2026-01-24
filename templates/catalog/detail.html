@@ -254,6 +254,9 @@
           {% for image in product.images.all %}
             {% picture image.image as img_url %}
               <div class="thumbnail-item {% if forloop.first %}selected{% endif %}" onclick="updateMainImage(this, '{{ img_url }}')">
+                <h5 class="more-images-title">
+                  <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
+                </h5>
                 <figure>
                   <img alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
                 </figure>
