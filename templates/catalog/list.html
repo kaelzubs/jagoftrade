@@ -12,14 +12,16 @@
     <div class="col-md-3 col-12 mb-4 p-1 main-div">
       <a href="{% url 'catalog:category_list_by_category' c.slug %}">
         <div class="card shadow category-item py-2 px-2">
-          {% if c.images.all %}
-            {% for p in c.images.all|slice:":6" %}
-              <img alt="{{ c.name }}" src="{{ p.image }}" class="grid-img" loading="lazy">
-            {% endfor %}
-          {% else %}
-            <div class="grid-img item-placeholder">No image</div>
-          {% endif %}
-          <div class="item-label">{{ c.name }}</div>
+            <div class="image-grid category-gallery">
+              {% if c.images.all %}
+                {% for p in c.images.all|slice:":6" %}
+                <img src="{{ p.image.url }}" alt="{{ c.name }}" class="grid-img" loading="lazy">
+                {% endfor %}
+              {% else %}
+                <div class="grid-img item-placeholder">No image</div>
+              {% endif %}
+            </div>
+            <div class="item-label">{{ c.name }}</div>
         </div>
       </a>
     </div>
