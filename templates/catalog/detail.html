@@ -250,7 +250,7 @@
 
       <!-- Thumbnail Gallery -->
       {% if product.images.all %}
-      <div class="thumbnail-gallery">
+      <div class="col-md-6 thumbnail-gallery">
         {% for image in product.images.all %}
           <div class="thumbnail-item {% if forloop.first %}selected{% endif %}">
             <figure>
