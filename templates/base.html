@@ -141,9 +141,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
     <a href="{% url 'core:home' %}">
       <figure>
-        {% picture 'img/mobile_logo.png' as img %}
-          <img class='mobile-logo responsive' src="{{ img }}" width="40" height="40" alt="JagofTrade Logo">
-        {% endpicture %}
+        <img class='mobile-logo responsive' src="{% static 'img/mobile_logo.png' %}" width="40" height="40" alt="JagofTrade Logo">
       </figure>
     </a>
     <a class="navbar-brand text-white font-weight-bolder" href="{% url 'core:home' %}">JagofTrade</a>
@@ -204,9 +202,7 @@
           <h5 class="font-weight-bold">JagofTrade</h5>
           <p class="small">Your trusted online shopping store worldwide.</p>
           <figure>
-            {% picture 'img/jagoftrade.png' as img %}
-              <img class='logo responsive' src="{{ img }}" alt="JagofTrade Logo">
-            {% endpicture %}
+            <img class='logo responsive' src="{% static 'img/jagoftrade.png' %}" alt="JagofTrade Logo">
           </figure>
         </div>
 
@@ -343,7 +339,7 @@
 
       showBannerIfNeeded();
     })();
-  </script>
+  </script nonce="{{ csp_nonce }}">
   <!-- Add to Cart AJAX Script -->  
   <script>
     document.querySelectorAll('.add-to-cart').forEach(btn => {
@@ -355,17 +351,21 @@
             'X-CSRFToken': '{{ csrf_token }}',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ quantity: 1 })
+          body: JSON.stringify({ quantity: 1 }) // optional if your view expects POST data
         })
         .then(res => res.json())
         .then(data => {
+          // Update cart count
           const cartCountElem = document.getElementById('cart-count');
           cartCountElem.textContent = data.cart_item_count;
+
+          // Add bounce animation
           cartCountElem.classList.remove('bounce');
-          void cartCountElem.offsetWidth;
+          void cartCountElem.offsetWidth; // trigger reflow
           cartCountElem.classList.add('bounce');
         })
         .then(data => {
+          // Show toast/alert
           const toast = document.createElement('div');
           toast.className = "toast align-items-center text-bg-success border-0 show position-fixed bottom-0 end-0 m-3";
           toast.innerHTML = `<div class="d-flex">
