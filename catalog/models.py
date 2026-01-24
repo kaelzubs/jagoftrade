@@ -5,8 +5,8 @@ from pictures.models import PictureField
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=120, unique=True)
-    slug = models.SlugField(max_length=140, unique=True, blank=True)
+    name = models.CharField(max_length=120, unique=True, help_text="Category name of the product.")
+    slug = models.SlugField(max_length=140, unique=True, help_text="URL-friendly identifier generated from the name.")
     
     class Meta:
         verbose_name_plural = "categories"
@@ -38,7 +38,7 @@ class Product(models.Model):
 
     category = models.ForeignKey("Category", on_delete=models.PROTECT,related_name="products",  help_text="Category this product belongs to.")
     title = models.CharField(max_length=200, help_text="Title of the product.")
-    slug = models.SlugField(max_length=220, unique=True, blank=True, help_text="URL-friendly identifier generated from the title.")
+    slug = models.SlugField(unique=True, help_text="URL-friendly identifier generated from the title.")
     description = models.TextField(blank=True, help_text="Detailed description of the product.")
     price = models.DecimalField( max_digits=10, decimal_places=2, help_text="Price of the product.")
     affiliate_link = models.URLField(blank=True,  help_text="Affiliate purchase link.")
