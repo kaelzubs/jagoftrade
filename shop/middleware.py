@@ -116,7 +116,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"data: https://pagead2.googlesyndication.com; "
 
             # Media
-            f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; "
+            f"media-src 'self' {cloudfront_domain} https://jagoftrade-bucket.s3.amazonaws.com; https://pagead2.googlesyndication.com  'https://ep1.adtrafficquality.google "
 
             # Connections (XHR, fetch, analytics)
             f"connect-src 'self' {cloudfront_domain} "
@@ -129,9 +129,9 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
             # Frames (iframes for ads, GTM, Google)
             f"frame-src 'self' "
-            f"https://googleads.g.doubleclick.net "
-            f"https://pagead2.googlesyndication.com "
-            f"https://ep2.adtrafficquality.google "
+            f"https://googleads.g.doubleclick.net/ "
+            f"https://pagead2.googlesyndication.com/ "
+            f"https://ep2.adtrafficquality.google/ "
             f"https://www.google.com; "
 
             # Strong restrictions
