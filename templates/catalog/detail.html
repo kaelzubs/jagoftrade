@@ -12,7 +12,6 @@
   }
   .main-image-container {
     position: sticky;
-    top: 100px;
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -264,20 +263,6 @@
           </div>
         {% endif %}
       </div>
-
-      <!-- Thumbnail Gallery -->
-      {% if product.images.all|length > 1 %}
-        <div class="thumbnail-gallery">
-          {% for image in product.images.all %}
-            <div class="thumbnail-item {% if forloop.first %}selected{% endif %}" onclick="updateMainImage(this, '{{ image.image.url }}')">
-              <figure style="position: relative;">
-                {% picture image.image as img_url %}
-                  <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" width="80" height="80">
-              </figure>
-            </div>
-          {% endfor %}
-        </div>
-      {% endif %}
 
       <!-- More Images Section -->
       {% if product.images.all|length > 1 %}
