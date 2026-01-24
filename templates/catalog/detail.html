@@ -221,7 +221,7 @@
         {% for image in product.images.all %}
           <div class="thumbnail-item {% if forloop.first %}selected{% endif %}" onclick="updateMainImage(this, '{{ image.image.url }}')">
             {% picture image.image as img_url %}
-              <img onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
+              <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy">
           </div>
         {% endfor %}
       </div>
