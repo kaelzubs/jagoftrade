@@ -10,16 +10,6 @@
     margin-bottom: 3rem;
     padding: 0 1rem;
   }
-  .product-row {
-    display: flex;
-    gap: 2rem;
-  }
-  .product-images-col {
-    flex: 0 0 50%;
-  }
-  .product-info-col {
-    flex: 0 0 50%;
-  }
   .main-image-container {
     position: sticky;
     top: 100px;
@@ -32,7 +22,6 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    height: auto;
   }
   .main-image-container figure {
     margin: 0;
@@ -104,9 +93,6 @@
     background: #fff;
     border-radius: 0.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
   }
   .product-title {
     font-size: 2rem;
@@ -126,7 +112,6 @@
     color: #495057;
     line-height: 1.6;
     margin-bottom: 1.5rem;
-    flex-grow: 1;
   }
   .product-actions {
     display: flex;
@@ -191,7 +176,6 @@
   .alert-info {
     border-left: 4px solid #17a2b8;
     background: #f0f7fb;
-    margin-top: auto;
   }
   .more-images-section {
     margin-top: 3rem;
@@ -224,20 +208,9 @@
     display: block;
   }
   @media (max-width: 768px) {
-    .product-row {
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    .product-images-col,
-    .product-info-col {
-      flex: 0 0 100%;
-    }
     .main-image-container {
       position: static;
       aspect-ratio: 4 / 3;
-    }
-    .product-info {
-      height: auto;
     }
     .product-title {
       font-size: 1.5rem;
@@ -266,9 +239,9 @@
 </style>
 
 <div class="product-detail-container">
-  <div class="product-row">
+  <div class="row">
     <!-- Product Images -->
-    <div class="product-images-col">
+    <div class="col-md-6 mb-4 mb-md-0">
       <div class="main-image-container">
         {% if product.images.all %}
           {% with first_image=product.images.all.0 %}
@@ -291,6 +264,20 @@
           </div>
         {% endif %}
       </div>
+
+      <!-- Thumbnail Gallery -->
+      {% if product.images.all|length > 1 %}
+        <div class="thumbnail-gallery">
+          {% for image in product.images.all %}
+            <div class="thumbnail-item {% if forloop.first %}selected{% endif %}" onclick="updateMainImage(this, '{{ image.image.url }}')">
+              <figure style="position: relative;">
+                {% picture image.image as img_url %}
+                  <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" width="80" height="80">
+              </figure>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
 
       <!-- More Images Section -->
       {% if product.images.all|length > 1 %}
@@ -315,7 +302,7 @@
     </div>
 
     <!-- Product Information -->
-    <div class="product-info-col">
+    <div class="col-md-6">
       <div class="product-info">
         <h1 class="product-title">{{ product.title }}</h1>
         
