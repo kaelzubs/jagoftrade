@@ -1,198 +1,31 @@
 {% extends 'base.html' %}
 {% load pictures %}
 {% load humanize %}
-{% block title %}Shop Categories - JagofTrade{% endblock %}
+{% block title %}Categories{% endblock %}
 {% block content %}
-<style>
-  .categories-container {
-    margin-top: 2rem;
-    margin-bottom: 3rem;
-  }
-  .categories-header {
-    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-    color: white;
-    padding: 3rem 2rem;
-    border-radius: 0.5rem;
-    margin-bottom: 3rem;
-    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
-    text-align: center;
-  }
-  .categories-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-  .categories-header p {
-    font-size: 1.1rem;
-    margin-bottom: 0;
-    opacity: 0.95;
-  }
-  .category-card {
-    position: relative;
-    overflow: hidden;
-    border: none;
-    border-radius: 0.5rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-    height: 280px;
-    display: flex;
-    flex-direction: column;
-  }
-  .category-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  }
-  .category-images-grid {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    background: #f8f9fa;
-    overflow: hidden;
-    border-radius: 0.5rem 0.5rem 0 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 0;
-  }
-  .category-images-grid figure {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #e9ecef;
-  }
-  .category-images-grid img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: transform 0.3s ease;
-  }
-  .category-card:hover .category-images-grid img {
-    transform: scale(1.05);
-  }
-  .category-images-grid .item-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #aaa;
-    font-size: 2rem;
-    background: #e9ecef;
-  }
-  .category-label {
-    padding: 1rem;
-    background: white;
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-top: 1px solid #dee2e6;
-  }
-  .category-label h5 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #212529;
-    margin-bottom: 0;
-  }
-  .category-arrow {
-    color: #28a745;
-    font-size: 1.5rem;
-    transition: transform 0.3s ease;
-  }
-  .category-card:hover .category-arrow {
-    transform: translateX(4px);
-  }
-  .category-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    height: 100%;
-  }
-  .category-link:hover {
-    text-decoration: none;
-    color: inherit;
-  }
-  @media (max-width: 992px) {
-    .category-card {
-      height: 260px;
-    }
-    .category-images-grid {
-      height: 200px;
-    }
-  }
-  @media (max-width: 768px) {
-    .categories-header {
-      padding: 2rem 1.5rem;
-    }
-    .categories-header h1 {
-      font-size: 2rem;
-    }
-    .category-card {
-      height: 240px;
-    }
-    .category-images-grid {
-      height: 170px;
-    }
-    .category-label h5 {
-      font-size: 1.1rem;
-    }
-  }
-</style>
-
-<div class="categories-container">
-  <div class="categories-header">
-    <h1>
-      <i class="fas fa-th mr-2"></i>Shop by Category
-    </h1>
-    <p>Browse our curated collections of amazing deals</p>
-  </div>
-
-  <div class="row">
-    {% for category in categories %}
-      <div class="col-lg-4 col-md-6 mb-4">
-        <a href="{% url 'catalog:category_list_by_category' category.slug %}" class="category-link">
-          <div class="card category-card shadow">
-            <div class="category-images-grid">
-              {% if category.images.all %}
-                {% for image in category.images.all|slice:":6" %}
-                  <figure>
-                    {% picture image.image as img_url %}
-                      <img alt="{{ category.name }}" src="{{ img_url }}" loading="lazy">
-                  </figure>
-                {% endfor %}
-                {% if category.images.all|length|add:"-6"|divisibleby:"1" %}
-                  {% for i in "123456"|slice:category.images.all|length:"6" %}
-                    <div class="item-placeholder">
-                      <i class="fas fa-image"></i>
-                    </div>
-                  {% endfor %}
-                {% endif %}
-              {% else %}
-                <div class="item-placeholder">
-                  <i class="fas fa-image fa-2x"></i>
-                </div>
-              {% endif %}
-            </div>
-            <div class="category-label">
-              <h5>{{ category.name }}</h5>
-              <i class="fas fa-arrow-right category-arrow"></i>
-            </div>
-          </div>
-        </a>
-      </div>
-    {% empty %}
-      <div class="col-12">
-        <div class="alert alert-info text-center" role="alert">
-          <i class="fas fa-inbox mr-2"></i>
-          <strong>No categories available</strong>
-          <p>Check back soon for our product categories!</p>
+<div class="row mb-3">
+    <!-- Sidebar with categories -->
+    <div class="col-12">
+      <h3>Categories:</h3>
+    </div>
+    {% for c in categories %}
+    <div class="col-md-3 col-12 mb-4 p-1 main-div">
+      <a href="{% url 'catalog:category_list_by_category' c.slug %}">
+        <div class="card shadow category-item py-2 px-2">
+          {% if c.images.all %}
+            {% for p in c.images.all|slice:":6" %}
+            <figure>
+              {% picture p.image as img_url %}
+              <img alt="{{ c.name }}" src="{{ img_url }}">
+            </figure>
+            {% endfor %}
+          {% else %}
+            <div class="grid-img item-placeholder">No image</div>
+          {% endif %}
+          <div class="item-label">{{ c.name }}</div>
         </div>
-      </div>
+      </a>
+    </div>
     {% endfor %}
-  </div>
 </div>
 {% endblock %}
