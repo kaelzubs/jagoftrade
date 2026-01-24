@@ -15,8 +15,7 @@
           {% if c.images.all %}
             {% for p in c.images.all|slice:":6" %}
             <figure>
-              {% picture p.image as img_url %}
-              <img alt="{{ c.name }}" src="{{ img_url }}">
+              <img alt="{{ c.name }}" src="{{ p.image }}" class="grid-img" loading="lazy">
             </figure>
             {% endfor %}
           {% else %}
