@@ -1,88 +1,273 @@
 {% extends 'base.html' %}
 {% load pictures %}
 {% load humanize %}
-{% block title %}Products{% endblock %}
+{% block title %}{% if category %}{{ category.name }}{% else %}All Products{% endif %} - JagofTrade{% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-12">
-        <h3>{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h3>
+<style>
+  .category-container {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+  }
+  .category-header {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+    padding: 2.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2);
+  }
+  .category-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .category-header p {
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    opacity: 0.95;
+  }
+  .products-info {
+    font-size: 1rem;
+    color: #495057;
+    margin-bottom: 2rem;
+  }
+  .products-info strong {
+    color: #28a745;
+  }
+  .product-figure {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    position: relative;
+  }
+  .product-figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  .product-figure .item-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #aaa;
+    font-size: 1rem;
+    background: #e9ecef;
+  }
+  .product-card {
+    border: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    height: 100%;
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+  .product-card .card-body {
+    padding: 1.25rem;
+  }
+  .product-card .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    min-height: 2.8rem;
+  }
+  .product-card .card-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 1rem;
+  }
+  .product-card .btn {
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-right: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+  .product-card .btn-success {
+    background: #28a745;
+    border-color: #28a745;
+    color: white;
+  }
+  .product-card .btn-success:hover {
+    background: #218838;
+    border-color: #218838;
+  }
+  .product-card .btn-primary {
+    background: #007bff;
+    border-color: #007bff;
+    color: white;
+  }
+  .product-card .btn-primary:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+  }
+  .no-products {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    color: #6c757d;
+  }
+  .no-products i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #dee2e6;
+  }
+  .pagination {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+  .pagination .page-link {
+    color: #28a745;
+    border-color: #dee2e6;
+  }
+  .pagination .page-link:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  .pagination .page-item.active .page-link {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  @media (max-width: 768px) {
+    .category-header {
+      padding: 1.5rem;
+    }
+    .category-header h1 {
+      font-size: 1.75rem;
+    }
+    .product-figure {
+      aspect-ratio: 1 / 1;
+    }
+  }
+</style>
+
+<div class="category-container">
+  <div class="category-header">
+    <h1>
+      {% if category %}
+        <i class="fas fa-tag mr-2"></i>{{ category.name }}
+      {% else %}
+        <i class="fas fa-th mr-2"></i>All Products
+      {% endif %}
+    </h1>
+    <p>Discover amazing deals and expert reviews</p>
+  </div>
+
+  {% if page_obj %}
+    <div class="products-info">
+      <i class="fas fa-info-circle mr-2"></i>Showing 
+      <strong>{{ page_obj.start_index|add:1 }}-{{ page_obj.end_index }}</strong> 
+      of <strong>{{ page_obj.paginator.count }}</strong> products
     </div>
-    {% for product in page_obj %}
-    <div class="col-md-3 mb-4 main-div">
-        <div class="card shadow">
-            {% with first_image=product.images.all.0 %}
+
+    <div class="row">
+      {% for product in page_obj %}
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+          <div class="card product-card shadow">
+            <figure class="product-figure">
+              {% with first_image=product.images.first %}
                 {% if first_image %}
-                <figure>
-                    {% picture first_image.image as img_url %}
-                    <img alt="{{ product.title }}" src="{{ img_url }}">
-                </figure>
+                  {% picture first_image.image as img_url %}
+                    <img alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
                 {% else %}
-                    <div class="card-img-top item-placeholder">No image</div>
+                  <div class="item-placeholder">
+                    <i class="fas fa-image"></i>
+                  </div>
                 {% endif %}
-            {% endwith %}
+              {% endwith %}
+            </figure>
             <div class="card-body">
-                <div class="title-container desktop-only">
-                    <h5 class="card-title">{{ product.title|truncatechars:60 }}</h5>
-                </div>
-                <div class="title-container mobile-only">
-                    <h5 class="card-title">{{ product.title }}</h5>
-                </div>
-                <p class="card-text">${{ product.price|floatformat:2|intcomma }}</p>
-                <a href="{% url 'catalog:detail' product.slug %}" class="btn btn-sm btn-success">View</a>
-                {% if product.affiliate_link %}<a href="{{ product.affiliate_link }}" class="btn btn-sm btn-primary" target="_blank">Buy Now</a>{% endif %}
+              <h5 class="card-title">{{ product.title|truncatechars:50 }}</h5>
+              <p class="card-text">${{ product.price|floatformat:2|intcomma }}</p>
+              <div class="btn-group w-100" role="group">
+                <a href="{% url 'catalog:detail' product.slug %}" class="btn btn-sm btn-success flex-fill">
+                  <i class="fas fa-eye mr-1"></i>View
+                </a>
+                {% if product.affiliate_link %}
+                  <a href="{{ product.affiliate_link }}" class="btn btn-sm btn-primary flex-fill" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-shopping-cart mr-1"></i>Buy
+                  </a>
+                {% endif %}
+              </div>
             </div>
+          </div>
         </div>
+      {% endfor %}
     </div>
-    {% empty %}
-        <div class="col-12 text-center text-muted">
-            <p>No products available.</p>
-        </div>
-    {% endfor %}
-</div>
+  {% else %}
+    <div class="no-products">
+      <i class="fas fa-inbox"></i>
+      <h4>No Products Available</h4>
+      <p>{% if category %}This category doesn't have any products yet.{% else %}No products found.{% endif %}</p>
+      <a href="{% url 'catalog:list' %}" class="btn btn-success mt-3">Browse All Categories</a>
+    </div>
+  {% endif %}
 
-{% if page_obj.has_other_pages %}
-<nav aria-label="Page navigation">
+  {% if page_obj.has_other_pages %}
+  <nav aria-label="Product pagination">
     <ul class="pagination justify-content-center">
-
-        {# Previous button #}
-        {% if page_obj.has_previous %}
+      {# Previous button #}
+      {% if page_obj.has_previous %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-            </a>
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+            <i class="fas fa-chevron-left"></i>
+          </a>
         </li>
-        {% else %}
+      {% else %}
         <li class="page-item disabled">
-            <span class="page-link">&laquo;</span>
+          <span class="page-link"><i class="fas fa-chevron-left"></i></span>
         </li>
-        {% endif %}
+      {% endif %}
 
-        {# Page numbers #}
-        {% for num in page_obj.paginator.page_range %}
+      {# Page numbers #}
+      {% for num in page_obj.paginator.page_range %}
         {% if page_obj.number == num %}
-            <li class="page-item active">
-            <span class="page-link">{{ num }}</span>
-            </li>
+          <li class="page-item active">
+            <span class="page-link">{{ num }}<span class="sr-only">(current)</span></span>
+          </li>
         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <li class="page-item">
+          <li class="page-item">
             <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-            </li>
+          </li>
         {% endif %}
-        {% endfor %}
+      {% endfor %}
 
-        {# Next button #}
-        {% if page_obj.has_next %}
+      {# Next button #}
+      {% if page_obj.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-            </a>
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+            <i class="fas fa-chevron-right"></i>
+          </a>
         </li>
-        {% else %}
+      {% else %}
         <li class="page-item disabled">
-            <span class="page-link">&raquo;</span>
+          <span class="page-link"><i class="fas fa-chevron-right"></i></span>
         </li>
-        {% endif %}
+      {% endif %}
     </ul>
-</nav>
-{% endif %}
+  </nav>
+  {% endif %}
+</div>
 {% endblock %}
