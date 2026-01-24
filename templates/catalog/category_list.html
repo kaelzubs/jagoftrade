@@ -10,7 +10,6 @@
     {% for product in page_obj %}
     <div class="col-md-3 mb-4 main-div">
         <div class="card shadow">
-            <div class='image-container'>
             {% with first_image=product.images.all.0 %}
                 {% if first_image %}
                 <figure>
@@ -21,7 +20,6 @@
                     <div class="card-img-top item-placeholder">No image</div>
                 {% endif %}
             {% endwith %}
-            </div>
             <div class="card-body">
                 <div class="title-container desktop-only">
                     <h5 class="card-title">{{ product.title|truncatechars:60 }}</h5>
