@@ -252,11 +252,11 @@
       {% if product.images.all %}
       <div class="thumbnail-gallery">
         {% for image in product.images.all %}
-          <h5 class="more-images-title">
-              <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
-            </h5>
           <div class="thumbnail-item {% if forloop.first %}selected{% endif %}">
             <figure>
+              <h5 class="more-images-title">
+                <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
+              </h5>
               {% picture image.image as img_url %}
                 <img alt="{{ product.title }} - Image {{ forloop.counter }}" onclick="updateMainImage(this)" src="{{ img_url }}" loading="lazy">
             </figure>
