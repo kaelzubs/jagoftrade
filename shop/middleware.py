@@ -92,7 +92,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"default-src 'self' {cloudfront_domain}; "
 
             # Scripts: GTM, Ads, jQuery, Popper, Bootstrap
-            f"script-src 'self' {cloudfront_domain} https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com "
+            f"script-src 'self' {cloudfront_domain} https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com strict-dynamic "
             f"https://www.googletagmanager.com "
             f"https://pagead2.googlesyndication.com "
             f"https://code.jquery.com "
