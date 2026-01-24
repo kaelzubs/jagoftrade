@@ -22,7 +22,6 @@ class ForceWWWMiddleware:
 
     def __call__(self, request):
         host = request.get_host()
-        # If request comes without www, redirect to www
         if not host.startswith("www."):
             new_url = request.build_absolute_uri().replace("://", "://www.", 1)
             return HttpResponsePermanentRedirect(new_url)
@@ -95,10 +94,10 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
             # Scripts: GTM, AdSense, Google Ads, Analytics, CDNs
             f"script-src 'self' {cloudfront_domain} "
-            f"https://googleads.g.doubleclick.net "
-            f"https://pagead2.googlesyndication.com "
             f"https://www.googletagmanager.com "
             f"https://www.google-analytics.com "
+            f"https://pagead2.googlesyndication.com "
+            f"https://googleads.g.doubleclick.net "
             f"https://www.gstatic.com "
             f"https://code.jquery.com "
             f"https://cdn.jsdelivr.net "
@@ -106,11 +105,20 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://cdnjs.cloudflare.com "
             f"https://connect.facebook.net "
             f"https://platform.twitter.com "
-            f"https://apis.google.com "
             f"https://accounts.google.com/gsi/client "
-            f"https://ep1.adtrafficquality.google "
             f"https://ep2.adtrafficquality.google "
             f"'unsafe-inline' 'unsafe-eval' strict-dynamic; "
+
+            # Script src elem (inline scripts)
+            f"script-src-elem 'self' {cloudfront_domain} "
+            f"https://www.googletagmanager.com/gtm.js "
+            f"https://www.googletagmanager.com/gtag/js "
+            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js "
+            f"https://code.jquery.com/jquery-3.5.1.slim.min.js "
+            f"https://cdn.jsdelivr.net/npm/popper.js "
+            f"https://cdn.jsdelivr.net/npm/bootstrap "
+            f"https://ep2.adtrafficquality.google/sodar/sodar2.js "
+            f"'unsafe-inline'; "
 
             # Styles: Fonts, CDNs, AdSense
             f"style-src 'self' {cloudfront_domain} {s3_bucket} "
@@ -152,11 +160,13 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://pagead2.googlesyndication.com "
             f"https://googleads.g.doubleclick.net "
             f"https://www.google-analytics.com "
+            f"https://www.google-analytics.com/g/collect "
             f"https://analytics.google.com "
             f"https://region1.analytics.google.com "
             f"https://region2.analytics.google.com "
             f"https://www.google.com "
             f"https://accounts.google.com "
+            f"https://accounts.google.com/gsi/client "
             f"https://apis.google.com "
             f"https://ep1.adtrafficquality.google "
             f"https://ep2.adtrafficquality.google "
@@ -172,12 +182,14 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://tpc.googlesyndication.com "
             f"https://pagead2.googlesyndication.com "
             f"https://accounts.google.com/gsi "
+            f"https://accounts.google.com "
             f"https://www.google.com/recaptcha/ "
             f"https://recaptcha.net/recaptcha/ "
             f"https://www.youtube.com "
             f"https://youtube.com "
             f"https://www.facebook.com "
-            f"https://platform.twitter.com; "
+            f"https://platform.twitter.com "
+            f"https://ep2.adtrafficquality.google; "
 
             # Strict restrictions
             f"object-src 'none'; "
