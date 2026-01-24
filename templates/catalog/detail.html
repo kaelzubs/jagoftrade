@@ -10,8 +10,19 @@
     margin-bottom: 3rem;
     padding: 0 1rem;
   }
+  .product-row {
+    display: flex;
+    gap: 2rem;
+  }
+  .product-images-col {
+    flex: 0 0 50%;
+  }
+  .product-info-col {
+    flex: 0 0 50%;
+  }
   .main-image-container {
     position: sticky;
+    top: 100px;
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -92,6 +103,9 @@
     background: #fff;
     border-radius: 0.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
   .product-title {
     font-size: 2rem;
@@ -111,6 +125,7 @@
     color: #495057;
     line-height: 1.6;
     margin-bottom: 1.5rem;
+    flex-grow: 1;
   }
   .product-actions {
     display: flex;
@@ -175,6 +190,7 @@
   .alert-info {
     border-left: 4px solid #17a2b8;
     background: #f0f7fb;
+    margin-top: auto;
   }
   .more-images-section {
     margin-top: 3rem;
@@ -206,10 +222,30 @@
     position: relative;
     display: block;
   }
+  .image-card {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .image-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+  }
   @media (max-width: 768px) {
+    .product-row {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .product-images-col,
+    .product-info-col {
+      flex: 0 0 100%;
+    }
     .main-image-container {
       position: static;
       aspect-ratio: 4 / 3;
+    }
+    .product-info {
+      height: auto;
     }
     .product-title {
       font-size: 1.5rem;
@@ -238,9 +274,9 @@
 </style>
 
 <div class="product-detail-container">
-  <div class="row">
+  <div class="product-row">
     <!-- Product Images -->
-    <div class="col-md-6 mb-4 mb-md-0">
+    <div class="product-images-col">
       <div class="main-image-container">
         {% if product.images.all %}
           {% with first_image=product.images.all.0 %}
@@ -264,6 +300,20 @@
         {% endif %}
       </div>
 
+      <!-- Thumbnail Gallery -->
+      {% if product.images.all|length > 1 %}
+        <div class="thumbnail-gallery">
+          {% for image in product.images.all %}
+            <div class="thumbnail-item {% if forloop.first %}selected{% endif %}" onclick="updateMainImage(event, '{{ image.image.url }}')">
+              <figure style="position: relative;">
+                {% picture image.image as img_url %}
+                  <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" width="80" height="80">
+              </figure>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
       <!-- More Images Section -->
       {% if product.images.all|length > 1 %}
       <div class="more-images-section">
@@ -273,10 +323,11 @@
         <div class="row">
           {% for image in product.images.all %}
             <div class="col-6 col-sm-4 mb-3">
-              <div class="card shadow" onclick="updateMainImage(this, '{{ image.image.url }}')" style="cursor: pointer; position: relative;">
+              <div class="card shadow image-card" onclick="updateMainImage(event, '{{ image.image.url }}')">
                 <figure class="product-figure">
                   {% picture image.image as img_url %}
                     <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" width="400" height="300">
+                  {% endpicture %}
                 </figure>
               </div>
             </div>
@@ -287,7 +338,7 @@
     </div>
 
     <!-- Product Information -->
-    <div class="col-md-6">
+    <div class="product-info-col">
       <div class="product-info">
         <h1 class="product-title">{{ product.title }}</h1>
         
@@ -332,18 +383,28 @@
 </div>
 
 <script>
-  function updateMainImage(element, imageSrc) {
+  function updateMainImage(event, imageSrc) {
+    event.preventDefault();
+    event.stopPropagation();
+    
     const mainImg = document.getElementById('mainImage');
     if (!mainImg) return;
+    
     mainImg.src = imageSrc;
     
+    // Remove selected class from all thumbnails
     document.querySelectorAll('.thumbnail-item').forEach(item => {
       item.classList.remove('selected');
     });
     
-    if (element && element.classList && element.classList.contains('thumbnail-item')) {
-      element.classList.add('selected');
+    // Add selected class to clicked thumbnail
+    const clickedElement = event.currentTarget;
+    if (clickedElement && clickedElement.classList.contains('thumbnail-item')) {
+      clickedElement.classList.add('selected');
     }
+    
+    // Scroll main image into view
+    document.getElementById('mainImageFigure')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 </script>
 {% endblock %}
