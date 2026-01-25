@@ -128,6 +128,8 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js "
             f"https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202601200101/show_ads_impl_fy2021.js?bust=31096378 "
             f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1000566373865046"
+            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6411693288489882"
+            f"https://www.jagoftrade.com "
             f"'unsafe-inline'; "
 
             # Styles: Fonts, CDNs, AdSense
