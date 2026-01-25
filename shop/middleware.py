@@ -126,6 +126,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202601200101/show_ads_impl_fy2021.js "
             f"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js "
             f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js "
+            f"https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202601200101/show_ads_impl_fy2021.js?bust=31096378 "
             f"'unsafe-inline'; "
 
             # Styles: Fonts, CDNs, AdSense
