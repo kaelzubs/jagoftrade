@@ -589,7 +589,6 @@ h2.jumb {
 }
 
 .logo {
-  display: flex;
   max-width: 100px;
   height: auto;
   margin-top: -70px;
@@ -748,7 +747,6 @@ h2.jumb {
 }
 
 .mobile-logo {
-  display: flex;
   margin-right: 10px;
   margin-top: -5px;
   max-width: 40px;
