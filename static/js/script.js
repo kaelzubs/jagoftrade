@@ -47,15 +47,16 @@ if (consent) {
     if (consent.marketing) loadMarketing();
 }
 
-function updateMainImage(clickedImg) {
-  // Update the main image source
-  document.getElementById('mainImage').src = clickedImg.src;
+function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+}
 
-  // Remove highlight from all thumbnails
-  document.querySelectorAll('.thumbnail-gallery img').forEach(img => {
-    img.classList.remove('selected-image');
-  });
-
-  // Highlight the clicked thumbnail
-  clickedImg.classList.add('selected-image');
+function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+    // Remove border from all other images
+    document.querySelectorAll('#otherImage').forEach(img => {
+        img.classList.remove('selected-image');
+    });
+    // Add border to clicked image
+    src.classList.add('selected-image');
 }
