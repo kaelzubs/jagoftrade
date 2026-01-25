@@ -313,50 +313,51 @@
             </div>
           {% endfor %}
         </div>
-        <h5 class="more-images-title">
+        <p class="more-images-title">
           <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
-        </h5>
+        </p>
       {% endif %}
 
-    <!-- Product Information -->
-    <div class="product-info-col">
-      <div class="product-info">
-        <h1 class="product-title">{{ product.title }}</h1>
-        
-        <div class="product-price">${{ product.price|floatformat:2|intcomma }}</div>
+      <!-- Product Information -->
+      <div class="product-info-col">
+        <div class="product-info">
+          <h1 class="product-title">{{ product.title }}</h1>
+          
+          <div class="product-price">${{ product.price|floatformat:2|intcomma }}</div>
 
-        <div class="product-meta">
-          <div class="meta-item">
-            <div class="meta-label">Category</div>
-            <div class="meta-value">{{ product.category.name }}</div>
-          </div>
-          <div class="meta-item">
-            <div class="meta-label">Availability</div>
-            <div class="meta-value">
-              <span class="badge badge-success">In Stock</span>
+          <div class="product-meta">
+            <div class="meta-item">
+              <div class="meta-label">Category</div>
+              <div class="meta-value">{{ product.category.name }}</div>
+            </div>
+            <div class="meta-item">
+              <div class="meta-label">Availability</div>
+              <div class="meta-value">
+                <span class="badge badge-success">In Stock</span>
+              </div>
             </div>
           </div>
-        </div>
 
-        <p class="product-description">{{ product.description }}</p>
+          <p class="product-description">{{ product.description }}</p>
 
-        <form method="post" action="{% url 'orders:cart_add' product.id %}" class="product-form">
-          {% csrf_token %}
-          <div class="product-actions">
-            <button type="submit" class="btn btn-success add-to-cart" data-id="{{ product.id }}">
-              <i class="fas fa-heart mr-2"></i>Add to Wishlist
-            </button>
-            {% if product.affiliate_link %}
-              <a class="btn btn-primary" href="{{ product.affiliate_link }}" target="_blank" rel="noopener noreferrer">
-                <i class="fas fa-shopping-cart mr-2"></i>Buy Now
-              </a>
-            {% endif %}
+          <form method="post" action="{% url 'orders:cart_add' product.id %}" class="product-form">
+            {% csrf_token %}
+            <div class="product-actions">
+              <button type="submit" class="btn btn-success add-to-cart" data-id="{{ product.id }}">
+                <i class="fas fa-heart mr-2"></i>Add to Wishlist
+              </button>
+              {% if product.affiliate_link %}
+                <a class="btn btn-primary" href="{{ product.affiliate_link }}" target="_blank" rel="noopener noreferrer">
+                  <i class="fas fa-shopping-cart mr-2"></i>Buy Now
+                </a>
+              {% endif %}
+            </div>
+          </form>
+
+          <div class="alert alert-info" role="alert">
+            <i class="fas fa-info-circle mr-2"></i>
+            <strong>Affiliate Link:</strong> When you click "Buy Now", you'll be directed to our trusted partner. We may earn a commission at no extra cost to you.
           </div>
-        </form>
-
-        <div class="alert alert-info" role="alert">
-          <i class="fas fa-info-circle mr-2"></i>
-          <strong>Affiliate Link:</strong> When you click "Buy Now", you'll be directed to our trusted partner. We may earn a commission at no extra cost to you.
         </div>
       </div>
     </div>
