@@ -741,11 +741,14 @@ h2.jumb {
 }
 
 .mobile-logo {
+  max-width: 40px;
+  height: auto;
+}
+
+.mobile-logo {
   display: block;
   margin-right: 10px;
   margin-top: -5px;
-  max-width: 40px;
-  height: auto;
 }
 
 @media screen and (max-width: 767px) {
