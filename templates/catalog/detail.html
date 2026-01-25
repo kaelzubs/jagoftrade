@@ -283,7 +283,7 @@
           {% with first_image=product.images.first %}
             {% if first_image %}
               {% picture first_image.image as img_url %}
-              <img alt="{{ product.title }}" src="{{ img_url }}">
+              <img alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
             {% else %}
               <div class="text-muted text-center py-5" style="position: relative;">
                 <i class="fas fa-image fa-3x mb-2"></i>
@@ -308,7 +308,7 @@
                  onclick="updateMainImage(event, '{% picture image.image as img_url %}{{ img_url }}')">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
-                  <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy">
+                  <img alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
