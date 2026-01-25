@@ -120,7 +120,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://ep2.adtrafficquality.google/sodar/sodar2.js "
             f"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js "
             f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js "
-            f"https://www.jagoftrade.com/ "
+            f"https://www.jagoftrade.com "
             f"'unsafe-inline'; "
 
             # Styles: Fonts, CDNs, AdSense
@@ -151,9 +151,9 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://ad.doubleclick.net "
             f"https://www.facebook.com "
             f"https://platform.twitter.com "
-            f"data: blob:; "
             f"https://ep1.adtrafficquality.google "
-            f"https://www.jagoftrade.com/ "
+            f"https://www.jagoftrade.com "
+            f"data: blob:; "
 
             # Media
             f"media-src 'self' {cloudfront_domain} {s3_bucket} "
