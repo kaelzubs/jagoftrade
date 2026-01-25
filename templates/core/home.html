@@ -1,25 +1,35 @@
 {% extends 'base.html' %}
+{% load pictures %}
 {% load static %}
 {% load humanize %}
 {% block title %}JagofTrade – Affiliate Marketplace for Smarter Choices{% endblock %}
 {% block content %}
+<div class="jumbotron responsive" style="
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static "img/products_bg.webp" %}');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: white;
+  min-height: 400px;
+  display: block;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+">
+  <div class="jumbotron-content">
+    <h1 class="display-4 jumb font-weight-bold header-one">JagofTrade — Where digital meets opportunity.</h1>
+    <h2 class="p font-weight-bold">
+      <small>
+        Your trusted source for affiliate deals, reviews, and smart shopping insights.
+      </small>
+    </h2>
+    <a href="{% url 'catalog:list' %}" class="btn btn-success btn-lg font-weight-bolder">Explore Deals</a>
+  </div>
+</div>
+
 <style>
-  .jumbotron {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-  }
-  @supports (background-image: url("data:image/webp;base64,")) {
-    .jumbotron {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static "img/products_bg.webp" %}');
-    }
-  }
-  @supports not (background-image: url("data:image/webp;base64,")) {
-    .jumbotron {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static "img/products_bg.png" %}');
-    }
-  }
   .product-figure {
     margin: 0;
     padding: 0;
@@ -27,19 +37,12 @@
     aspect-ratio: 4 / 3;
     background: #f8f9fa;
     display: flex;
-    align-items: center;
+    display
     justify-content: center;
     overflow: hidden;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     position: relative;
-  }
-  .product-figure picture {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   .product-figure img {
     width: 100%;
@@ -47,7 +50,6 @@
     object-fit: cover;
     object-position: center;
     display: block;
-    position: relative;
   }
   .product-figure .item-placeholder {
     width: 100%;
@@ -66,10 +68,10 @@
       min-height: 300px !important;
       padding: 2rem 1rem !important;
     }
-    .jumbotron h1 {
+    .jumbotron h2 {
       font-size: 1.75rem !important;
     }
-    .jumbotron h2 {
+    .jumbotron p {
       font-size: 1rem !important;
     }
     .jumbotron .btn {
@@ -82,68 +84,37 @@
   }
 </style>
 
-<div class="jumbotron responsive" style="color: white; min-height: 400px; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; padding: 2rem 1rem;">
-  <div class="jumbotron-content">
-    <h1 class="display-4 jumb font-weight-bold header-one">JagofTrade — Where digital meets opportunity.</h1>
-    <h2 class="p font-weight-bold">
-      <small>Your trusted source for affiliate deals, reviews, and smart shopping insights.</small>
-    </h2>
-    <a href="{% url 'catalog:list' %}" class="btn btn-success btn-lg font-weight-bolder">Explore Deals</a>
-  </div>
-</div>
-
-<div class="container-fluid px-3 px-md-5 py-4">
-  <div class="row g-3">
-    {% for product in products %}
-    <div class="col-6 col-sm-6 col-md-4 col-lg-3 main-div">
-      <div class="card shadow h-100">
-        <figure class="product-figure">
-          {% with first_image=product.images.first %}
-            {% if first_image %}
-              <picture>
-                <!-- Mobile: 360px wide -->
-                <source media="(max-width: 576px)" srcset="{% static first_image.image.url %}?w=360&h=270&fit=crop&q=75" type="image/jpeg">
-                <!-- Tablet: 480px wide -->
-                <source media="(max-width: 768px)" srcset="{% static first_image.image.url %}?w=480&h=360&fit=crop&q=75" type="image/jpeg">
-                <!-- Desktop: 400px wide -->
-                <source media="(min-width: 769px)" srcset="{% static first_image.image.url %}?w=400&h=300&fit=crop&q=80" type="image/jpeg">
-                <!-- WebP versions -->
-                <source media="(max-width: 576px)" srcset="{% static first_image.image.url %}.webp?w=360&h=270&fit=crop&q=75" type="image/webp">
-                <source media="(max-width: 768px)" srcset="{% static first_image.image.url %}.webp?w=480&h=360&fit=crop&q=75" type="image/webp">
-                <source media="(min-width: 769px)" srcset="{% static first_image.image.url %}.webp?w=400&h=300&fit=crop&q=80" type="image/webp">
-                <!-- Fallback -->
-                <img 
-                  alt="{{ product.title }}" 
-                  src="{% static first_image.image.url %}?w=400&h=300&fit=crop&q=80"
-                  loading="lazy" 
-                  width="400" 
-                  height="300" 
-                  decoding="async"
-                  style="position: relative;">
-              </picture>
-            {% else %}
-              <div class="item-placeholder">
-                <i class="fas fa-image"></i>
-              </div>
-            {% endif %}
-          {% endwith %}
-        </figure>
-        <div class="card-body d-flex flex-column">
-          <div class="title-container">
-            <h5 class="card-title">{{ product.title|truncatechars:50 }}</h5>
-          </div>
-          <p class="card-text">${{ product.price|floatformat:2|intcomma }}</p>
-          <a href="{% url 'catalog:detail' product.slug %}" class="btn btn-sm btn-success mt-auto">
-            <i class="fas fa-eye mr-1"></i>View
-          </a>
+<div class="row">
+  {% for product in products %}
+  <div class="col-md-3 mb-4 main-div">
+    <div class="card shadow">
+      <figure class="product-figure">
+        {% with first_image=product.images.first %}
+          {% if first_image %}
+            <img alt="{{ product.title }}" src="{{ first_image.image.url }}">
+          {% else %}
+            <div class="item-placeholder">No image</div>
+          {% endif %}
+        {% endwith %}
+      </figure>
+      <div class="card-body">
+        <div class="title-container desktop-only">
+          <h5 class="card-title">{{ product.title|truncatechars:60 }}</h5>
         </div>
+        <div class="title-container mobile-only">
+          <h5 class="card-title">{{ product.title }}</h5>
+        </div>
+        <p class="card-text">${{ product.price|floatformat:2|intcomma }}</p>
+        <a href="{% url 'catalog:detail' product.slug %}" class="btn btn-sm btn-success">
+          <i class="fas fa-eye mr-1"></i>View
+        </a>
       </div>
     </div>
-    {% empty %}
-      <div class="col-12 text-center text-muted">
-        <p>No products available.</p>
-      </div>
-    {% endfor %}
   </div>
+  {% empty %}
+    <div class="col-12 text-center text-muted">
+      <p>No products available.</p>
+    </div>
+  {% endfor %}
 </div>
 {% endblock %}
