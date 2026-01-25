@@ -162,6 +162,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://platform.twitter.com "
             f"data: blob:; "
             f"https://ep1.adtrafficquality.google/pagead/sodar?id=sodar2&v=237&t=2&li=gda_r20260121&jk=8464741990216248&bg=!zM-lz4DNAAZjEgz9QxI7ADQBe5WfONZNPgUCaIGgo-GKme1uweZNGTO2k8CMrDJUQO94RiW66qs32EUQPx6TLNWsXTBfAgAABFtSAAAAEGgBB34ANoPj9tQiFGvZV6yTifFEgD9iE8yhkGRy_uQa7hcvOJyl-2pm9mV0WEUVyTHGfNlFiovG66nf2JkCm2UBaVNAPx9WBqT4P7k9i8pQG94j18oL2fkwO_9BpJLvfZHEiZprDbm0xbzyoI1oUAqQo8nBZUXODB-nSEq10zH83Z2CmzggI9gWbai_E1iwnyhH0xJFOeKqjRiSx-us6rGBrdok6aFYQzVa5gIDEfDCa57dcfY-48zJ5cQRRTt3U878Hkqr3VpPntX7FZFO4ZzCaJtgVnsiZ3tH3WyvG_foPjzo73VJ_63Rl7ry2lK2VjSLTfF4NkoIiKMq6ke-vvVnBzf6OBgONKPlBrAnvmlzqGGF2G2D5MxkoOMr-IfVhmrzWZCoe6ic613sM91BJ4zGx-qse-ua6iN1Jt1srNLnqknqMHkwj22Ss4x6N9mF9hxeeebWC3s_YVQRKCYhVCiLpRX9V5MlFsBuVOHTOwHa9UWGXUmJr__hLl1jt7bJ94GODsbF58fH_g0swHTMnZKn0rtRQFKGhgEO1zEQOG-OGvIUxP-KRUofjA4LY6h_LpGTh4QITX9Qi8W6nB0QfynAdGwwqNAZEiOOZmJdWwNwDAYNUGYCKCivRlbHHMkGPQkPoJfrLgLvMllApJAe5zLer7hxT5Pt0I9JdoadY68F1MC0fzlkYJCu1JdGyWL3kPhm7-QTRPg3wESf2MmHTFC-YtvzMQGJWT_j9C9idABvzjWuVTXezcB8cj2nBU7OJdn_9QqMy7woSfs8rO8r8CnNIYkSxRa16JDv9VYshxrOATyTCnjgMLcf-bPbnN--iIO6cKdBg8DBNyh2pKSWpIYhz8wVnluCzqbmhmYjyNSRtuiS51t9Mj5YG6qUAoRHUw7VDGyYpLQflXhgMCYyqp9DuN7zB_y-zRcr5rDSUTLSsG_el4dRJ6gGIRx_K6yBlEMsiLXWgy43XIo "
+            f"https://www.jagoftrade.com "
 
             # Media
             f"media-src 'self' {cloudfront_domain} {s3_bucket} "
