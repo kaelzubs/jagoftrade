@@ -118,6 +118,14 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://cdn.jsdelivr.net/npm/popper.js "
             f"https://cdn.jsdelivr.net/npm/bootstrap "
             f"https://ep2.adtrafficquality.google/sodar/sodar2.js "
+            f"https://www.googletagmanager.com/gtm.js?id=GTM-P97LQVH5 "
+            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37 "
+            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1000566373865046 "
+            f"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6411693288489882 "
+            f"https://code.jquery.com/jquery-3.5.1.slim.min.js "
+            f"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js "
+            f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js "
+            f"https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202601200101/show_ads_impl_fy2021.js "
             f"'unsafe-inline'; "
 
             # Styles: Fonts, CDNs, AdSense
