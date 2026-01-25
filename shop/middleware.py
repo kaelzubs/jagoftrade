@@ -199,11 +199,11 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://ep2.adtrafficquality.google; "    
 
             # Strict restrictions
-            # f"object-src 'none'; "
-            # f"frame-ancestors 'self'; "
-            # f"base-uri 'self'; "
-            # f"form-action 'self'; "
-            # f"upgrade-insecure-requests; "
+            f"object-src 'none'; "
+            f"frame-ancestors 'self'; "
+            f"base-uri 'self'; "
+            f"form-action 'self'; "
+            f"upgrade-insecure-requests; "
         )
 
         response["Content-Security-Policy"] = csp_policy
