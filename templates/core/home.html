@@ -62,11 +62,6 @@
     font-size: 1rem;
     background: #e9ecef;
   }
-  .product-image {
-    max-width: 400px;
-    height: auto;
-    transition: transform 0.3s ease;
-  }
   @media (max-width: 768px) {
     .jumbotron {
       background-attachment: scroll !important;
@@ -97,7 +92,7 @@
         {% with first_image=product.images.first %}
           {% if first_image %}
             {% picture first_image.image as img_url %}
-            <img class="img-fluid product-image" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
+            <img alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
           {% else %}
             <div class="item-placeholder">No image</div>
           {% endif %}
