@@ -304,8 +304,7 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item thumbnail-item{% if forloop.first %} selected{% endif %}" 
-                 onclick="updateMainImage(event, '{% picture image.image as img_url %}{{ img_url }}')">
+            <div class="thumbnail-item{% if forloop.first %} selected{% endif %}">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
                   <img alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
@@ -364,28 +363,44 @@
 </div>
 
 <script>
-  function updateMainImage(event, imageSrc) {
+function updateMainImage(event, imageSrc) {
     event.preventDefault();
     event.stopPropagation();
-    
+
     const mainImg = document.getElementById('mainImage');
     if (!mainImg) return;
-    
+
+    // Update main image
     mainImg.src = imageSrc;
-    
+
     // Remove selected class from all thumbnails
     document.querySelectorAll('.thumbnail-item').forEach(item => {
-      item.classList.remove('selected');
+        item.classList.remove('selected');
     });
-    
+
     // Add selected class to clicked thumbnail
     const clickedElement = event.currentTarget;
     if (clickedElement && clickedElement.classList.contains('thumbnail-item')) {
-      clickedElement.classList.add('selected');
+        clickedElement.classList.add('selected');
     }
-    
+
     // Scroll main image into view
-    document.getElementById('mainImageFigure')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
+    document.getElementById('mainImageFigure')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+    });
+}
+
+// Attach listeners after DOM loads
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".thumbnail-item").forEach(item => {
+        const img = item.querySelector("img");
+        if (img) {
+            item.addEventListener("click", (event) => {
+                updateMainImage(event, img.src);
+            });
+        }
+    });
+});
 </script>
 {% endblock %}
