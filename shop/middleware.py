@@ -196,8 +196,8 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://youtube.com "
             f"https://www.facebook.com "
             f"https://platform.twitter.com "
-            f"https://pagead2.googlesyndication.com "
-            f"https://ep2.adtrafficquality.google; "
+            f"https://ep2.adtrafficquality.google "
+            f"frame-ancestors 'self'; "
             
 
             # Strict restrictions
