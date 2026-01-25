@@ -4,8 +4,9 @@
 {% load humanize %}
 {% block title %}JagofTrade – Affiliate Marketplace for Smarter Choices{% endblock %}
 {% block content %}
-<figure class="product-figure">
-  <source type="image/webp" srcset="{% static "img/products_bg.webp" %}">
+<figure>
+  <source srcset="{% static 'img/products_bg.webp' %}" type="image/webp">
+  <source srcset="{% static 'img/products_bg.png' %}" type="image/png">
   <div class="jumbotron responsive" style="
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('{% static "img/products_bg.png" %}');
     background-size: cover;
