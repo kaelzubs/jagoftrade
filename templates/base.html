@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
   <!-- Google Tag Manager -->
-  <script async>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
@@ -14,72 +14,136 @@
   <!-- End Google Tag Manager -->
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37"></script>
-  <script async>
+  <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
+
     gtag('config', 'G-6L8TZYJD37');
   </script>
-  
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
-  
-  <!-- Preload critical resources -->
-  <link rel="preload" as="script" href="https://code.jquery.com/jquery-3.5.1.slim.min.js">
-  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js">
-  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js">
-  
-  <!-- DNS Prefetch for external domains -->
-  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
-  <link rel="dns-prefetch" href="https://code.jquery.com">
-  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-  <link rel="dns-prefetch" href="https://www.google-analytics.com">
-  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com">
-  
-  <!-- Preconnect to critical third-party domains -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <link rel="preconnect" href="https://code.jquery.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  
-  <!-- Bootstrap CSS (async with fallback) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{% static 'css/bootstrap-fallback.min.css' %}">
-  
-  <!-- Font Awesome CSS (async) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  
+  <link rel="icon" href="{% static 'img/favicon-32x32.png' %}" sizes="32x32" type="image/x-icon" rel="icon">
+  <link rel="icon" href="{% static 'img/favicon-16x16.png' %}" sizes="16x16" type="image/x-icon" rel="icon">
+  <link rel="manifest" href="{% static 'site.webmanifest' %}">
+  <title>
+    {% block title %}JagofTrade - Your Trusted Affiliate Marketplace for Smart Shopping{% endblock %}
+  </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 4 CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" type='text/css' href="{% static 'css/styles.css' %}" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel="canonical" href="https://www.jagoftrade.com{{ request.path }}">
+  <meta name="description" content="JagofTrade is your ultimate affiliate destination for trusted reviews, product comparisons, and exclusive online deals across fashion, electronics, and home essentials.">  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="JagofTrade – Affiliate Marketplace for Smarter Choices">
+  <meta property="og:description" content="JagofTrade.com delivers expert product reviews, smart comparisons, and curated affiliate deals for confident online shopping.">
+  <meta property="og:image" content="https://www.jagoftrade.com/og-image.png">
+  <meta property="og:url" content="https://www.jagoftrade.com">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="JagofTrade">
   <style>
-    /* Critical inline styles to prevent render blocking */
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+    /* Critical CSS here */
+    body { 
+      margin: 0; font-family: sans-serif; 
     }
-    .navbar {
-      background-color: #28a745;
-      padding: 0.5rem 1rem;
+    /* Full-screen overlay */
+    .loader-overlay {
+      position: fixed; inset: 0; background: #ffffff; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
     }
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.5rem;
+    /* Spinner */
+    .spinner {
+      width: 56px; height: 56px; border: 4px solid #e5e7eb; border-top-color: #28a745;;
+      border-radius: 50%; animation: spin .9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    /* Hide overlay once ready */
+    .loader-hidden { opacity: 0; visibility: hidden; transition: opacity .2s ease; }
+  </style>
+  <style>
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      30% { transform: scale(1.3); }
+      50% { transform: scale(0.9); }
+      70% { transform: scale(1.1); }
+    }
+
+    .badge.bounce {
+      animation: bounce 0.5s ease;
+    }
+
+    /* Flash effect */
+    @keyframes flash {
+      0%, 100% { background-color: #dc3545; } /* Bootstrap red */
+      50% { background-color: #ffc107; }      /* Bootstrap yellow */
+    }
+
+    .badge.flash {
+      animation: flash 0.6s ease;
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "JagofTrade",
+    "url": "https://www.jagoftrade.com",
+    "description": "JagofTrade delivers expert product reviews, comparisons, and curated affiliate deals for smarter shopping.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "JagofTrade",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.jagoftrade.com/og-image.png"
+      }
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.jagoftrade.com/search?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Wireless Headphones",
+    "image": "https://www.jagoftrade.com/images/headphones.png",
+    "description": "High-quality wireless headphones with noise cancellation.",
+    "brand": {
+      "@type": "Brand",
+      "name": "JagofTrade"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://www.jagoftrade.com/deals/headphones",
+      "priceCurrency": "USD",
+      "price": "99.99",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+  </script>
+  <!--Kaelzubs Adsense-->
+  <meta name="google-adsense-account" content="ca-pub-1000566373865046">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1000566373865046" crossorigin="anonymous"></script>
+  <!--Donmartins Adsense-->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6411693288489882" crossorigin="anonymous"></script>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P97LQVH5" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P97LQVH5"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
   <nav class="navbar navbar-expand-lg navbar-light bg-success fixed-top">
     <a href="{% url 'core:home' %}">
       <figure>
         <source srcset="{% static 'img/mobile_logo.webp' %}" type="image/webp">
         <source srcset="{% static 'img/mobile_logo.png' %}" type="image/png">
-        <img class='mobile-logo responsive' src="{% static 'img/mobile_logo.png' %}" width="40" height="40" alt="JagofTrade Mobile Logo" loading="lazy">
+        <img class='mobile-logo responsive' src="{% static 'img/mobile_logo.png' %}" width="40" height="40" alt="JagofTrade Logo">
       </figure>
     </a>
     <a class="navbar-brand text-white font-weight-bolder" href="{% url 'core:home' %}">JagofTrade</a>
@@ -142,7 +206,7 @@
           <figure>
             <source srcset="{% static 'img/jagoftrade.webp' %}" type="image/webp">
             <source srcset="{% static 'img/jagoftrade.png' %}" type="image/png">
-            <img class='logo responsive' src="{% static 'img/jagoftrade.png' %}" alt="JagofTrade Logo - Affiliate Marketplace for Smart Shopping" loading="lazy">
+            <img class='logo responsive' src="{% static 'img/jagoftrade.png' %}" alt="JagofTrade Logo">
           </figure>
         </div>
 
@@ -216,25 +280,115 @@
   </footer>
 
   <!-- Bootstrap 4 JS -->
-  <script defer src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <!-- Font Awesome (async) -->
-  <script async src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-  
-  <!-- AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1000566373865046"></script>
-  
-  <!-- Custom inline initialization script (placed after deferred scripts) -->
-  <script>
-    // Wait for DOM to be ready before using Bootstrap/jQuery
-    document.addEventListener('DOMContentLoaded', function() {
-      // Initialize any Bootstrap components
-      if (typeof $ !== 'undefined') {
-        // jQuery is loaded
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!--<script src="code.jquery.com" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
+  <!--<script src="cdn.jsdelivr.net" integrity="sha384-Fy6S3B9q64MXtf8C+8NLV/Kj1rX7FAT60hdy0LG2k+WSgUUzWqCHZwsz/JZjA" crossorigin="anonymous"></script>-->
+
+  <!-- Font Awesome for icons -->
+  <script type='script/js' src="{% static 'js/script.js' %}"></script>
+  <!-- Page Loader Script -->
+  <script nonce="{{ csp_nonce }}">
+    document.addEventListener('DOMContentLoaded', function () {
+      const overlay = document.getElementById('page-loader');
+      if (overlay) overlay.classList.add('loader-hidden');
+    })
+  </script>
+  <script nonce="{{ csp_nonce }}">
+    (function() {
+      var CONSENT_COOKIE = "cookie_consent";
+
+      function getConsent() {
+        var m = document.cookie.match(new RegExp('(^| )' + CONSENT_COOKIE + '=([^;]+)'));
+        if (!m) return null;
+        try { return JSON.parse(decodeURIComponent(m[2])); } catch(e) { return null; }
       }
+
+      function setConsent(prefs) {
+        var value = encodeURIComponent(JSON.stringify(prefs));
+        var maxAge = 365*24*60*60;
+        var secure = location.protocol === "https:" ? "; Secure" : "";
+        document.cookie = CONSENT_COOKIE + "=" + value + "; Max-Age=" + maxAge + "; Path=/; SameSite=Lax" + secure;
+      }
+
+      function showBannerIfNeeded() {
+        var c = getConsent();
+        if (!c) {
+          document.getElementById("cookieBanner").classList.remove("d-none");
+        } else {
+          window.dispatchEvent(new CustomEvent("cookie-consent-ready", { detail: c }));
+        }
+      }
+
+      document.getElementById("acceptAll")?.addEventListener("click", function() {
+        var prefs = { essential: true, analytics: true, marketing: true, version: 1, timestamp: new Date().toISOString() };
+        setConsent(prefs);
+        document.getElementById("cookieBanner").classList.add("d-none");
+        window.dispatchEvent(new CustomEvent("cookie-consent-ready", { detail: prefs }));
+      });
+
+      document.getElementById("acceptSelected")?.addEventListener("click", function() {
+        var prefs = {
+          essential: true,
+          analytics: document.getElementById("consentAnalytics").checked,
+          marketing: document.getElementById("consentMarketing").checked,
+          version: 1,
+          timestamp: new Date().toISOString()
+        };
+        setConsent(prefs);
+        document.getElementById("cookieBanner").classList.add("d-none");
+        window.dispatchEvent(new CustomEvent("cookie-consent-ready", { detail: prefs }));
+      });
+
+      showBannerIfNeeded();
+    })();
+  </script nonce="{{ csp_nonce }}">
+  <!-- Add to Cart AJAX Script -->  
+  <script>
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const productId = this.dataset.id;
+        fetch(`/cart/add/${productId}/`, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ quantity: 1 }) // optional if your view expects POST data
+        })
+        .then(res => res.json())
+        .then(data => {
+          // Update cart count
+          const cartCountElem = document.getElementById('cart-count');
+          cartCountElem.textContent = data.cart_item_count;
+
+          // Add bounce animation
+          cartCountElem.classList.remove('bounce');
+          void cartCountElem.offsetWidth; // trigger reflow
+          cartCountElem.classList.add('bounce');
+        })
+        .then(data => {
+          // Show toast/alert
+          const toast = document.createElement('div');
+          toast.className = "toast align-items-center text-bg-success border-0 show position-fixed bottom-0 end-0 m-3";
+          toast.innerHTML = `<div class="d-flex">
+              <div class="toast-body">${data.message}</div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+            </div>`;
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3000);
+        });
+      });
     });
+  </script>
+  <script>
+  function copyShareLink() {
+    const link = "{{ request.build_absolute_uri }}";
+    navigator.clipboard.writeText(link).then(() => {
+      alert("Product link copied! Paste it into Instagram or TikTok.");
+    });
+  }
   </script>
 </body>
 </html>
