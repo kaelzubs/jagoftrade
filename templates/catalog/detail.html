@@ -304,17 +304,18 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item {% if forloop.first %}selected{% endif %}" onclick="updateMainImage(event, '{{ image.image.url }}')">
+            <div class="thumbnail-item thumbnail-item{% if forloop.first %} selected{% endif %}" 
+                 onclick="updateMainImage(event, '{% picture image.image as img_url %}{{ img_url }}')">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
-                  <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy" width="80" height="80">
+                  <img alt="{{ product.title }} - Image {{ forloop.counter }}" src="{{ img_url }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
-           <h5 class="more-images-title">
-              <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
-            </h5>
         </div>
+        <h5 class="more-images-title">
+          <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
+        </h5>
       {% endif %}
 
     <!-- Product Information -->
