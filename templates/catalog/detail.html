@@ -305,7 +305,7 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item{% if forloop.first %} selected{% endif %}">
+            <div class="thumbnail-item">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
                   <img onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
