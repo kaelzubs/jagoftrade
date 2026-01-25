@@ -120,6 +120,8 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://ep2.adtrafficquality.google/sodar/sodar2.js "
             f"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js "
             f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js "
+            f"https://pagead2.googlesyndication.com "
+            f"https://googleads.g.doubleclick.net "
             f"https://www.jagoftrade.com "
             f"'unsafe-inline'; "
 
