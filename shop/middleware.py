@@ -118,8 +118,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://cdn.jsdelivr.net/npm/popper.js "
             f"https://cdn.jsdelivr.net/npm/bootstrap "
             f"https://ep2.adtrafficquality.google/sodar/sodar2.js "
-            f"https://www.googletagmanager.com/gtm.js?id=GTM-P97LQVH5 "
-            f"https://www.googletagmanager.com/gtag/js?id=G-6L8TZYJD37 "
             f"https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js "
             f"https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js "
             f"https://www.jagoftrade.com/ "
