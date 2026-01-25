@@ -84,11 +84,11 @@
   }
 </style>
 
-<div class="row">
+<div class="container mt-4">
   {% for product in products %}
   <div class="col-md-3 mb-4 main-div">
     <div class="card shadow">
-      <figure class="product-figure">
+      <figure class="product-figure img-fluid">
         {% with first_image=product.images.first %}
           {% if first_image %}
             {% picture first_image.image as img_url %}
