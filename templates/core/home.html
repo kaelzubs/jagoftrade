@@ -92,11 +92,7 @@
         {% with first_image=product.images.first %}
           {% if first_image %}
             {% picture first_image.image as img_url %}
-            <img alt="{{ product.title }}"
-              src="{{ img_url }}"
-              srcset="{{ img_url|resize:'400x400' }} 400w, {{ img_url|resize:'800x800' }} 800w" 
-              sizes="(max-width: 600px) 400px, 800px"
-              loading="lazy">
+            <img alt="{{ product.title }}" src="{{ img_url }}" width="400" height="400" loading="lazy">
           {% else %}
             <div class="item-placeholder">No image</div>
           {% endif %}
