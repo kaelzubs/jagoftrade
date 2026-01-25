@@ -305,16 +305,21 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            {% if not forloop.first %}  {# skip the first image, since it's already mainImage #}
+            {% if not forloop.first %}
               <div class="thumbnail-item">
                 <figure style="position: relative;">
                   {% picture image.image as img_url %}
-                    <img onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
+                    <img 
+                      onclick="updateMainImage(this)" 
+                      alt="{{ product.title }}" 
+                      src="{{ img_url }}" 
+                      class="thumbnail-img">
                 </figure>
               </div>
             {% endif %}
           {% endfor %}
         </div>
+
         <h5 class="more-images-title">
           <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
         </h5>
@@ -364,25 +369,4 @@
     </div>
   </div>
 </div>
-<script>
-  function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
-  }
-</script>
-<style>
-  .selected-image {
-    border: 2px solid #007bff;
-  }
-</style>
-<script>
-  function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
-    // Remove border from all other images
-    document.querySelectorAll('#otherImage').forEach(img => {
-      img.classList.remove('selected-image');
-    });
-    // Add border to clicked image
-    src.classList.add('selected-image');
-  }
-</script>
 {% endblock %}

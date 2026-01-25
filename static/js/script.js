@@ -46,3 +46,16 @@ if (consent) {
     if (consent.analytics) loadAnalytics();
     if (consent.marketing) loadMarketing();
 }
+
+function updateMainImage(clickedImg) {
+  // Update the main image source
+  document.getElementById('mainImage').src = clickedImg.src;
+
+  // Remove highlight from all thumbnails
+  document.querySelectorAll('.thumbnail-gallery img').forEach(img => {
+    img.classList.remove('selected-image');
+  });
+
+  // Highlight the clicked thumbnail
+  clickedImg.classList.add('selected-image');
+}
