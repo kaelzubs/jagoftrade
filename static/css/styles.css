@@ -582,6 +582,13 @@ h2.jumb {
     display: none;
 }
 
+.img-class {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
 .logo {
   display: block;
   width: 200px;
