@@ -597,10 +597,6 @@ h2.jumb {
   margin-bottom: -30px;
 }
 
-.thumbnail-gallery img.selected-image {
-  border: 2px solid #007bff;
-}
-
 /* Media query for screens larger than 767px (Desktop/Tablet view) */
 @media screen and (min-width: 768px) {
     .mobile-only {

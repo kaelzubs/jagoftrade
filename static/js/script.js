@@ -46,17 +46,3 @@ if (consent) {
     if (consent.analytics) loadAnalytics();
     if (consent.marketing) loadMarketing();
 }
-
-function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
-}
-
-function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
-    // Remove border from all other images
-    document.querySelectorAll('#otherImage').forEach(img => {
-        img.classList.remove('selected-image');
-    });
-    // Add border to clicked image
-    src.classList.add('selected-image');
-}
