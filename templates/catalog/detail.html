@@ -308,7 +308,7 @@
             <div class="thumbnail-item{% if forloop.first %} selected{% endif %}">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
-                  <img alt="{{ product.title }}" src="{{ img_url }}" onclick="updateMainImage(this)" loading="lazy">
+                  <img onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
               </figure>
             </div>
           {% endfor %}
