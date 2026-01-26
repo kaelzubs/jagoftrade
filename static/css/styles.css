@@ -779,13 +779,23 @@ h2.jumb {
   .header-one { font-size: 1.6rem; }
 }
 
+.brand-logo-wrapper {
+  text-align: center;        /* centers the logo */
+  margin: 0;                 /* removes extra spacing */
+}
+
 .brand-logo {
-  max-width: 120px;   /* controls size */
-  height: auto;       /* keeps aspect ratio */
-  margin: 0 auto;     /* centers the logo */
-  display: block;
-  border-radius: 8px; /* subtle rounded corners */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* professional soft shadow */
+  max-width: 120px;          /* smaller size */
+  height: auto;              /* keeps aspect ratio */
+  display: inline-block;
+  border-radius: 6px;        /* subtle rounded corners */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* soft shadow for professional look */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);    /* slight zoom on hover */
+  opacity: 0.9;              /* polished hover effect */
 }
 
 
