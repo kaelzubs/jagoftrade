@@ -820,6 +820,13 @@ h2.jumb {
   opacity: 0.9;              /* polished hover effect */
 }
 
+.img-class {
+  max-width: 100%;   /* scales down within parent container */
+  height: auto;      /* keeps aspect ratio */
+  display: block;    /* removes inline spacing */
+  margin: 0 auto;    /* centers the image if container is wider */
+  border-radius: 6px; /* optional: subtle rounded corners */
+}
 
 /* Change the background color when the checkbox is checked */
 .my-green-checkbox .custom-control-input:checked ~ .custom-control-label::before {
