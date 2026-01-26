@@ -809,7 +809,7 @@ h2.jumb {
 }
 
 .brand-logo {
-  max-width: 60px;          /* smaller size */
+  max-width: 100px;          /* smaller size */
   height: auto;              /* keeps aspect ratio */
   display: block;
   border-radius: 6px;        /* subtle rounded corners */
