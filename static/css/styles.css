@@ -782,15 +782,17 @@ h2.jumb {
 .brand-logo-wrapper {
   text-align: center;        /* centers the logo */
   margin: 0;                 /* removes extra spacing */
+  padding: 0;
 }
 
 .brand-logo {
-  max-width: 120px;          /* smaller size */
+  max-width: 100px;          /* smaller size */
   height: auto;              /* keeps aspect ratio */
   display: inline-block;
   border-radius: 6px;        /* subtle rounded corners */
   box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* soft shadow for professional look */
   transition: transform 0.3s ease, opacity 0.3s ease;
+  margin: 0;
 }
 
 .brand-logo:hover {
