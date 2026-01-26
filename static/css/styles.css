@@ -809,7 +809,7 @@ h2.jumb {
 }
 
 .brand-logo {
-  max-width: 100px;          /* smaller size */
+  max-width: 200px;          /* smaller size */
   height: auto;              /* keeps aspect ratio */
   display: block;
   border-radius: 6px;        /* subtle rounded corners */
@@ -823,7 +823,7 @@ h2.jumb {
 }
 
 .img-class {
-  width: 100%;   /* scales down within parent container */
+  max-width: 100%;   /* scales down within parent container */
   height: auto;      /* keeps aspect ratio */
   display: block;    /* removes inline spacing */
   margin: 0 auto;    /* centers the image if container is wider */

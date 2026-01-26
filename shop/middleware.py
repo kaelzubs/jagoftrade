@@ -185,20 +185,18 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
 
             # Frames: Ad iframes, Google Sign-In, GTM
             f"frame-src 'self' "
-            f"https://googleads.g.doubleclick.net/ "
-            f"https://tpc.googlesyndication.com/ "
-            f"https://pagead2.googlesyndication.com/ "
-            f"https://accounts.google.com/gsi/ "
-            f"https://ep2.adtrafficquality.google/"
-            f"https://www.googletagmanager.com/"
-            f"https://accounts.google.com/"
-            f"https://www.google.com/recaptcha/ "
-            f"https://recaptcha.net/recaptcha/ "
-            f"https://www.youtube.com/ "
-            f"https://youtube.com/ "
-            f"https://www.facebook.com/ "
-            f"https://platform.twitter.com/; "
-               
+            f"https://googleads.g.doubleclick.net "
+            f"https://tpc.googlesyndication.com "
+            f"https://pagead2.googlesyndication.com "
+            f"https://accounts.google.com/gsi "
+            f"https://accounts.google.com "
+            f"https://www.google.com/recaptcha "
+            f"https://recaptcha.net/recaptcha "
+            f"https://www.youtube.com "
+            f"https://youtube.com "
+            f"https://www.facebook.com "
+            f"https://platform.twitter.com "
+            f"https://ep2.adtrafficquality.google; "    
 
             # Strict restrictions
             f"object-src 'none'; "
