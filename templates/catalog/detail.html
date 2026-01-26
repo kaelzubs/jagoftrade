@@ -276,88 +276,61 @@
 
 <div class="product-detail-container">
   <div class="product-row">
-    <!-- Product Images -->
+    <!-- Product Image -->
     <div class="product-images-col">
-      <div class="row">
-        {% if product.images.all %}
-        <figure class="product-figure">
-          {% with first_image=product.images.first %}
-            {% if first_image %}
-              {% picture first_image.image as img_url %}
-              <img id="mainImage" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
-            {% else %}
-              <div class="text-muted text-center py-5" style="position: relative;">
-                <i class="fas fa-image fa-3x mb-2"></i>
-                <p>No image available</p>
-              </div>
-            {% endif %}
-          {% endwith %}
-        </figure>
-        {% else %}
-          <div class="text-muted text-center py-5" style="position: relative;">
-            <i class="fas fa-image fa-3x mb-2"></i>
-            <p>No images available</p>
-          </div>
-        {% endif %}
-      </div>
-
-      <!-- Thumbnail Gallery -->
-      {% if product.images.all|length > 1 %}
-        <div class="thumbnail-gallery">
-          {% for image in product.images.all %}
-            <div class="thumbnail-item">
-              <figure style="position: relative;">
-                {% picture image.image as img_url %}
-                  <img id="otherImage" onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
-              </figure>
+      <figure class="product-figure">
+        {% with first_image=product.images.first %}
+          {% if first_image %}
+            {% picture first_image.image as img_url %}
+            <img id="mainImage" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
+          {% else %}
+            <div class="text-muted text-center py-5" style="position: relative;">
+              <i class="fas fa-image fa-3x mb-2"></i>
+              <p>No image available</p>
             </div>
-          {% endfor %}
+          {% endif %}
+        {% endwith %}
+      </figure>
+    </div>
+
+    <!-- Product Information -->
+    <div class="product-info-col">
+      <div class="product-info">
+        <h1 class="product-title">{{ product.title }}</h1>
+        <div class="product-price">${{ product.price|floatformat:2|intcomma }}</div>
+
+        <div class="product-meta">
+          <div class="meta-item">
+            <div class="meta-label">Category</div>
+            <div class="meta-value">{{ product.category.name }}</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Availability</div>
+            <div class="meta-value">
+              <span class="badge badge-success">In Stock</span>
+            </div>
+          </div>
         </div>
-        <p class="more-images-title">
-          <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
-        </p>
-      {% endif %}
 
-      <!-- Product Information -->
-      <div class="product-info-col">
-        <div class="product-info">
-          <h1 class="product-title">{{ product.title }}</h1>
-          
-          <div class="product-price">${{ product.price|floatformat:2|intcomma }}</div>
+        <p class="product-description">{{ product.description }}</p>
 
-          <div class="product-meta">
-            <div class="meta-item">
-              <div class="meta-label">Category</div>
-              <div class="meta-value">{{ product.category.name }}</div>
-            </div>
-            <div class="meta-item">
-              <div class="meta-label">Availability</div>
-              <div class="meta-value">
-                <span class="badge badge-success">In Stock</span>
-              </div>
-            </div>
+        <form method="post" action="{% url 'orders:cart_add' product.id %}" class="product-form">
+          {% csrf_token %}
+          <div class="product-actions">
+            <button type="submit" class="btn btn-success add-to-cart" data-id="{{ product.id }}">
+              <i class="fas fa-heart mr-2"></i>Add to Wishlist
+            </button>
+            {% if product.affiliate_link %}
+              <a class="btn btn-primary" href="{{ product.affiliate_link }}" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-shopping-cart mr-2"></i>Buy Now
+              </a>
+            {% endif %}
           </div>
+        </form>
 
-          <p class="product-description">{{ product.description }}</p>
-
-          <form method="post" action="{% url 'orders:cart_add' product.id %}" class="product-form">
-            {% csrf_token %}
-            <div class="product-actions">
-              <button type="submit" class="btn btn-success add-to-cart" data-id="{{ product.id }}">
-                <i class="fas fa-heart mr-2"></i>Add to Wishlist
-              </button>
-              {% if product.affiliate_link %}
-                <a class="btn btn-primary" href="{{ product.affiliate_link }}" target="_blank" rel="noopener noreferrer">
-                  <i class="fas fa-shopping-cart mr-2"></i>Buy Now
-                </a>
-              {% endif %}
-            </div>
-          </form>
-
-          <div class="alert alert-info" role="alert">
-            <i class="fas fa-info-circle mr-2"></i>
-            <strong>Affiliate Link:</strong> When you click "Buy Now", you'll be directed to our trusted partner. We may earn a commission at no extra cost to you.
-          </div>
+        <div class="alert alert-info" role="alert">
+          <i class="fas fa-info-circle mr-2"></i>
+          <strong>Affiliate Link:</strong> When you click "Buy Now", you'll be directed to our trusted partner. We may earn a commission at no extra cost to you.
         </div>
       </div>
     </div>
