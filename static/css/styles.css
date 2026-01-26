@@ -752,6 +752,26 @@ h2.jumb {
   max-width: 40px;
   height: auto;
 }
+.mobile-logo-wrapper {
+  margin: 0;              /* remove extra space around figure */
+  padding: 0;
+  text-align: center;     /* center the logo */
+}
+
+.mobile-logo {
+  max-width: 80px;        /* smaller size for mobile */
+  height: auto;           /* keep aspect ratio */
+  display: inline-block;
+  margin: 0;              /* no extra spacing */
+  border-radius: 6px;     /* subtle rounded corners */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* soft shadow for professional look */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.mobile-logo:hover {
+  transform: scale(1.05); /* slight zoom on hover */
+  opacity: 0.9;           /* polished hover effect */
+}
 
 @media screen and (max-width: 767px) {
   .mobile-logo {
