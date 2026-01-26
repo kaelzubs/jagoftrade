@@ -768,9 +768,9 @@ h2.jumb {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.mobile-logo img {
-  margin-top: -30px;
-  margin-left: -20px;
+.brand-logo {
+  margin-top: -80px;
+  margin-left: -40px;
 }
 
 .mobile-logo:hover {
