@@ -277,21 +277,17 @@
 <div class="product-detail-container">
   <div class="product-row">
     <!-- Product Images -->
-    <div class="product-images-col d-flex flex-column">
-      <figure class="product-figure">
+    <div class="card shadow">
+      <figure class="product-figure img-fluid">
         {% with first_image=product.images.first %}
           {% if first_image %}
             {% picture first_image.image as img_url %}
-            <img id="mainImage" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
+            <img class="img-class" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
           {% else %}
-            <div class="text-muted text-center py-5" style="position: relative;">
-              <i class="fas fa-image fa-3x mb-2"></i>
-              <p>No image available</p>
-            </div>
+            <div class="item-placeholder">No image</div>
           {% endif %}
         {% endwith %}
       </figure>
-
       <!-- Thumbnail Gallery -->
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery d-flex flex-wrap gap-2">
