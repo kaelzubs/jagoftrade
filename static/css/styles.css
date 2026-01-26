@@ -800,14 +800,10 @@ h2.jumb {
   .header-one { font-size: 1.6rem; }
 }
 
-.brand-block {
-  position: relative;
-}
-
 .brand-logo-wrapper {
   margin: 0;                 /* removes extra spacing */
   padding: 0;
-  position: absolute;   /* allows positioning relative to text */
+  position: relative;   /* allows positioning relative to text */
   top: -10px;           /* moves upward */
   right: 0;  
 }
