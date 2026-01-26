@@ -805,21 +805,6 @@ h2.jumb {
 }
 
 .brand-logo-wrapper {
-  margin: 0;
-  padding: 0;
-  position: absolute;   /* allows positioning relative to text */
-  top: -10px;           /* moves upward */
-  right: 0;             /* aligns to the right */
-}
-
-.brand-logo {
-  max-width: 60px;      /* smaller size */
-  height: auto;
-  display: block;
-}
-
-.brand-logo-wrapper {
-  text-align: center;        /* centers the logo */
   margin: 0;                 /* removes extra spacing */
   padding: 0;
   position: absolute;   /* allows positioning relative to text */
