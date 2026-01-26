@@ -823,7 +823,7 @@ h2.jumb {
 }
 
 .img-class {
-  max-width: 100%;   /* scales down within parent container */
+  width: 100%;   /* scales down within parent container */
   height: auto;      /* keeps aspect ratio */
   display: block;    /* removes inline spacing */
   margin: 0 auto;    /* centers the image if container is wider */
