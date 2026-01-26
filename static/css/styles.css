@@ -768,10 +768,6 @@ h2.jumb {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.brand-logo {
-  margin-top: -80px;
-  margin-left: -40px;
-}
 
 .mobile-logo:hover {
   transform: scale(1.05); /* slight zoom on hover */
@@ -804,20 +800,40 @@ h2.jumb {
   .header-one { font-size: 1.6rem; }
 }
 
+.brand-block {
+  position: relative;
+}
+
+.brand-logo-wrapper {
+  margin: 0;
+  padding: 0;
+  position: absolute;   /* allows positioning relative to text */
+  top: -10px;           /* moves upward */
+  right: 0;             /* aligns to the right */
+}
+
+.brand-logo {
+  max-width: 60px;      /* smaller size */
+  height: auto;
+  display: block;
+}
+
 .brand-logo-wrapper {
   text-align: center;        /* centers the logo */
   margin: 0;                 /* removes extra spacing */
   padding: 0;
+  position: absolute;   /* allows positioning relative to text */
+  top: -10px;           /* moves upward */
+  right: 0;  
 }
 
 .brand-logo {
-  max-width: 100px;          /* smaller size */
+  max-width: 60px;          /* smaller size */
   height: auto;              /* keeps aspect ratio */
-  display: inline-block;
+  display: block;
   border-radius: 6px;        /* subtle rounded corners */
   box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* soft shadow for professional look */
   transition: transform 0.3s ease, opacity 0.3s ease;
-  margin: 0;
 }
 
 .brand-logo:hover {
