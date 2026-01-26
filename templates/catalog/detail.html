@@ -276,7 +276,7 @@
 
 <div class="product-detail-container">
   <div class="product-row">
-    <!-- Product Image -->
+    <!-- Product Images -->
     <div class="product-images-col">
       <figure class="product-figure">
         {% with first_image=product.images.first %}
@@ -291,24 +291,24 @@
           {% endif %}
         {% endwith %}
       </figure>
-    </div>
 
-    <!-- Thumbnail Gallery -->
-    {% if product.images.all|length > 1 %}
-    <div class="thumbnail-gallery">
-      {% for image in product.images.all %}
-        <div class="thumbnail-item">
-          <figure style="position: relative;">
-            {% picture image.image as img_url %}
-              <img id="otherImage" onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
-          </figure>
+      <!-- Thumbnail Gallery -->
+      {% if product.images.all|length > 1 %}
+        <div class="thumbnail-gallery">
+          {% for image in product.images.all %}
+            <div class="thumbnail-item">
+              <figure style="position: relative;">
+                {% picture image.image as img_url %}
+                  <img id="otherImage" onclick="updateMainImage(this)" alt="{{ product.title }}" src="{{ img_url }}">
+              </figure>
+            </div>
+          {% endfor %}
         </div>
-      {% endfor %}
+        <p class="more-images-title">
+          <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
+        </p>
+      {% endif %}
     </div>
-    <p class="more-images-title">
-      <i class="fas fa-images mr-2"></i>All Images ({{ product.images.all|length }})
-    </p>
-    {% endif %}
 
     <!-- Product Information -->
     <div class="product-info-col">
@@ -353,16 +353,7 @@
     </div>
   </div>
 </div>
-<script>
-  function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
-  }
-</script>
-<style>
-  .selected-image {
-    border: 2px solid #007bff;
-  }
-</style>
+
 <script>
   function updateMainImage(src) {
     document.getElementById('mainImage').src = src.src;
@@ -374,4 +365,10 @@
     src.classList.add('selected-image');
   }
 </script>
+
+<style>
+  .selected-image {
+    border: 2px solid #007bff;
+  }
+</style>
 {% endblock %}
