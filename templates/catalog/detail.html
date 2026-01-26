@@ -278,19 +278,41 @@
   <div class="product-row">
     <!-- Product Images -->
     <div class="product-images-col d-flex flex-column">
-      <figure class="product-figure">
-        {% with first_image=product.images.first %}
-          {% if first_image %}
-            {% picture first_image.image as img_url %}
-            <img id="mainImage" class="img-class" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
-          {% else %}
-            <div class="text-muted text-center py-5" style="position: relative;">
-              <i class="fas fa-image fa-3x mb-2"></i>
-              <p>No image available</p>
+      <div class="container mt-4">
+        {% for product in products %}
+        <div class="col-md-3 mb-4 main-div">
+          <div class="card shadow">
+            <figure class="product-figure img-fluid">
+              {% with first_image=product.images.first %}
+                {% if first_image %}
+                  {% picture first_image.image as img_url %}
+                  <img id="mainImage" class="img-class" data-bs-toggle="modal" data-bs-target="#imageModal" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
+                {% else %}
+                  <div class="item-placeholder">No image</div>
+                {% endif %}
+              {% endwith %}
+            </figure>
+            <div class="card-body">
+              <div class="title-container desktop-only">
+                <h5 class="card-title">{{ product.title|truncatechars:60 }}</h5>
+              </div>
+              <div class="title-container mobile-only">
+                <h5 class="card-title">{{ product.title }}</h5>
+              </div>
+              <p class="card-text">${{ product.price|floatformat:2|intcomma }}</p>
+              <a href="{% url 'catalog:detail' product.slug %}" class="btn btn-sm btn-success">
+                <i class="fas fa-eye mr-1"></i>View
+              </a>
             </div>
-          {% endif %}
-        {% endwith %}
-      </figure>
+          </div>
+        </div>
+        {% empty %}
+          <div class="col-12 text-center text-muted">
+            <p>No products available.</p>
+          </div>
+        {% endfor %}
+      </div>
+      {% endblock %}
       <!-- Thumbnail Gallery -->
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery d-flex flex-wrap gap-2">
@@ -352,7 +374,16 @@
     </div>
   </div>
 </div>
-
+<script>
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+  }
+</script>
+<style>
+  .selected-image {
+    border: 2px solid #007bff;
+  }
+</style>
 <script>
   function updateMainImage(src) {
     document.getElementById('mainImage').src = src.src;
@@ -364,10 +395,4 @@
     src.classList.add('selected-image');
   }
 </script>
-
-<style>
-  .selected-image {
-    border: 2px solid #007bff;
-  }
-</style>
 {% endblock %}
