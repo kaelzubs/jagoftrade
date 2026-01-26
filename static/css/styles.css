@@ -768,6 +768,11 @@ h2.jumb {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+.mobile-logo img {
+  margin-top: -30px;
+  margin-left: -20px;
+}
+
 .mobile-logo:hover {
   transform: scale(1.05); /* slight zoom on hover */
   opacity: 0.9;           /* polished hover effect */
