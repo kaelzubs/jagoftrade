@@ -779,6 +779,15 @@ h2.jumb {
   .header-one { font-size: 1.6rem; }
 }
 
+.brand-logo {
+  max-width: 120px;   /* controls size */
+  height: auto;       /* keeps aspect ratio */
+  margin: 0 auto;     /* centers the logo */
+  display: block;
+  border-radius: 8px; /* subtle rounded corners */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* professional soft shadow */
+}
+
 
 /* Change the background color when the checkbox is checked */
 .my-green-checkbox .custom-control-input:checked ~ .custom-control-label::before {
