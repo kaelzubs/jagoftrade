@@ -1,14 +1,14 @@
 from django.contrib import admin
 from .models import Product, Category, ProductImage, CategoryImage
 
-
-class ProductImageInline(admin.TabularInline):
-    model = ProductImage
-    extra = 1
-
-class CategoryImageInline(admin.TabularInline):
+class CategoryImageInline(admin.TabularInline):  # or admin.StackedInline
     model = CategoryImage
-    extra = 1
+    extra = 1   # how many empty forms to display by default
+
+class ProductImageInline(admin.TabularInline):  # or admin.StackedInline
+    model = ProductImage
+    extra = 1   # how many empty forms to display by default
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
@@ -18,9 +18,8 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     inlines = [ProductImageInline]
 
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')  # add this for clarity
-    search_fields = ('name', 'slug')
     prepopulated_fields = {"slug": ("name",)}
     inlines = [CategoryImageInline]
