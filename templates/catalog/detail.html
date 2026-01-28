@@ -286,7 +286,7 @@
               {% with first_image=product.images.first %}
                 {% if first_image %}
                   {% picture first_image.image as img_url %}
-                  <img id="mainImage" class="img-class" data-bs-toggle="modal" data-bs-target="#imageModal" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
+                  <img id="mainImage" data-bs-toggle="modal" data-bs-target="#imageModal" alt="{{ product.title }}" src="{{ img_url }}" loading="lazy">
                 {% else %}
                   <div class="item-placeholder">No image</div>
                 {% endif %}
