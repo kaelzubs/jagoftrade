@@ -113,9 +113,13 @@
     </div>
   </div>
   {% empty %}
-    <div class="col-12 text-center text-muted">
-      <p>No products available.</p>
-    </div>
+    <div class="col-12">
+        <div class="alert alert-info text-center" role="alert">
+          <i class="fas fa-inbox mr-2"></i>
+          <strong>No products available</strong>
+          <p>Check back soon for our product!</p>
+        </div>
+      </div>
   {% endfor %}
 </div>
 {% endblock %}
