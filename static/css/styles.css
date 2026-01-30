@@ -845,3 +845,7 @@ h2.jumb {
 .my-green-checkbox .custom-control-input:active ~ .custom-control-label::before {
   background-color: #90ee90; /* A lighter green for the active state */
 }
+
+.thumbnail-item img.active {
+  border: 2px solid #28a745;
+}

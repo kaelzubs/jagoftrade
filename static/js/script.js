@@ -46,3 +46,16 @@ if (consent) {
     if (consent.analytics) loadAnalytics();
     if (consent.marketing) loadMarketing();
 }
+
+function updateMainImage(element) {
+  const mainImage = document.getElementById("mainImage");
+  mainImage.src = element.src;
+  mainImage.alt = element.alt;
+
+  // Remove active class from all thumbnails
+  document.querySelectorAll(".thumbnail-item img").forEach(img => {
+    img.classList.remove("active");
+  });
+  // Add active class to clicked thumbnail
+  element.classList.add("active");
+}
