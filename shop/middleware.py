@@ -137,6 +137,7 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://jagoftrade-bucket.s3.amazonaws.com/static/admin/js/change_form.js "
             f"https://jagoftrade-bucket.s3.amazonaws.com/static/admin/js/prepopulate_init.js "
             f"https://jagoftrade-bucket.s3.amazonaws.com/static/admin/js/admin/RelatedObjectLookups.js "
+            f"https://jagoftrade-bucket.s3.amazonaws.com/static/admin/js/filters.js "
             f"'unsafe-inline'; "
 
             # Styles: Fonts, CDNs, AdSense
