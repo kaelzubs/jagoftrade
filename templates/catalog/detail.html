@@ -279,7 +279,7 @@
     <!-- Product Images -->
     <div class="product-images-col d-flex flex-column">
       <div class="container mt-4">
-        {% for product in products %}
+        {% if product in products %}
         <div class="col-md-3 mb-4 main-div">
           <div class="card shadow">
             <figure class="product-figure img-fluid">
@@ -310,7 +310,7 @@
           <div class="col-12 text-center text-muted">
             <p>No products available.</p>
           </div>
-        {% endfor %}
+        {% endif %}
       </div>
       {% endblock %}
       <!-- Thumbnail Gallery -->
