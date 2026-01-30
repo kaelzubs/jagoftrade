@@ -136,7 +136,6 @@ class ContentSecurityPolicyMiddleware(MiddlewareMixin):
             f"https://jagoftrade-bucket.s3.amazonaws.com/static/admin/js/vendor/xregexp/xregexp.min.js "
             f"https://jagoftrade-bucket.s3.amazonaws.com/static/admin/js/change_form.js "
             f"https://jagoftrade-bucket.s3.amazonaws.com/static/admin/js/prepopulate_init.js "
-            f"https://jagoftrade-bucket.s3.amazonaws.com/static/admin/js/admin/RelatedObjectLookups.js "
             f"https://jagoftrade-bucket.s3.amazonaws.com/static/admin/js/filters.js "
             f"'unsafe-inline'; "
 

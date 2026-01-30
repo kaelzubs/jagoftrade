@@ -157,20 +157,20 @@
         <a href="{% url 'catalog:category_list_by_category' category.slug %}" class="category-link">
           <div class="card category-card shadow">
             <div class="category-images-grid">
-              {% if category.images.all %}
+              {% if category.images.exists %}
                 {% for image in category.images.all|slice:":6" %}
                   <figure>
                     {% picture image.image as img_url %}
                       <img alt="{{ category.name }}" src="{{ img_url }}" loading="lazy">
                   </figure>
                 {% endfor %}
-                {% if category.images.all|length < 6 %}
-                  {% for i in "x"|rjust:6|length %}
+                {% with 6|add:"-category.images.count" as placeholders %}
+                  {% for i in placeholders|make_list %}
                     <div class="item-placeholder">
                       <i class="fas fa-image"></i>
                     </div>
                   {% endfor %}
-                {% endif %}
+                {% endwith %}
               {% else %}
                 <div class="item-placeholder" style="grid-column: 1 / -1; grid-row: 1 / -1;">
                   <i class="fas fa-image fa-2x"></i>
