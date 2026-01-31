@@ -306,7 +306,7 @@
             <div class="thumbnail-item">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
-                <img id="otherImage"
+                <img class="otherImage"
                      onclick="updateMainImage(this)"
                      alt="{{ product.title }}"
                      src="{{ img_url }}">
@@ -389,7 +389,7 @@
   function updateMainImage(src) {
     document.getElementById('mainImage').src = src.src;
     // Remove border from all other images
-    document.querySelectorAll('#otherImage').forEach(img => {
+    document.querySelectorAll('.otherImage').forEach(img => {
       img.classList.remove('selected-image');
     });
     // Add border to clicked image
