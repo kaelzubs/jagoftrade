@@ -226,7 +226,7 @@
     transform: translateY(-4px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
   }
-  .product-detail-container {
+  .product-images-col {
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
   }
@@ -381,24 +381,20 @@
   </div>
 </div>
 <script>
-  function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
-  }
-</script>
-<style>
-  .selected-image {
-    border: 2px solid #007bff;
-  }
-</style>
-<script>
-  function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
-    // Remove border from all other images
-    document.querySelectorAll('#otherImage').forEach(img => {
-      img.classList.remove('selected-image');
-    });
-    // Add border to clicked image
-    src.classList.add('selected-image');
+  function updateMainImage(clickedImage) {
+    // Get the main image element
+    const mainImage = document.getElementById("mainImage");
+
+    // Update the src and alt attributes
+    mainImage.src = clickedImage.src;
+    mainImage.alt = clickedImage.alt;
+
+    // If you want the modal to show the updated image too:
+    const modalImage = document.querySelector("#imageModal img");
+    if (modalImage) {
+      modalImage.src = clickedImage.src;
+      modalImage.alt = clickedImage.alt;
+    }
   }
 </script>
 {% endblock %}
