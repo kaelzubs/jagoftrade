@@ -306,7 +306,7 @@
             <div class="thumbnail-item">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
-                <img class="otherImage"
+                <img id="otherImage"
                      onclick="updateMainImage(this)"
                      alt="{{ product.title }}"
                      src="{{ img_url }}">
@@ -376,17 +376,24 @@
   </div>
 </div>
 <script>
-  function updateMainImage(el) {
-    // Update the main image
-    document.getElementById('mainImage').src = el.src;
-
-    // Remove highlight from all thumbnails
-    document.querySelectorAll('.otherImage').forEach(img => {
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+  }
+</script>
+<style>
+  .selected-image {
+    border: 2px solid #007bff;
+  }
+</style>
+<script>
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+    // Remove border from all other images
+    document.querySelectorAll('#otherImage').forEach(img => {
       img.classList.remove('selected-image');
     });
-
-    // Add highlight to the clicked thumbnail
-    el.classList.add('selected-image');
+    // Add border to clicked image
+    src.classList.add('selected-image');
   }
 </script>
 {% endblock %}

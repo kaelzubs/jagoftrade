@@ -809,7 +809,7 @@ h2.jumb {
 }
 
 .brand-logo {
-  max-width: 300px;          /* smaller size */
+  max-width: 400px;          /* smaller size */
   height: auto;              /* keeps aspect ratio */
   display: block;
   border-radius: 6px;        /* subtle rounded corners */
@@ -848,8 +848,4 @@ h2.jumb {
 
 .thumbnail-item img.active {
   border: 2px solid #28a745;
-}
-
-.selected-image {
-  border: 2px solid #007bff;
 }
