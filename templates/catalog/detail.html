@@ -226,7 +226,7 @@
     transform: translateY(-4px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
   }
-  .product-images-col {
+  .container-image {
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
   }
@@ -282,7 +282,7 @@
   <div class="product-row">
     <!-- Product Images -->
     <div class="product-images-col">
-      <div class="container">
+      <div class="container-image">
         <div class="mb-4 main-div">
           <div class="card shadow">
             <figure class="product-figure img-fluid">
@@ -308,7 +308,7 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item mx-2" id="otherImage">
+            <div class="thumbnail-item" id="otherImage">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
                 <img class="otherImage"
@@ -320,7 +320,7 @@
           {% endfor %}
         </div>
         <span class="more-images-title">
-          <i class="fas fa-images ml-2"></i>
+          <i class="fas fa-images"></i>
           All Images ({{ product.images.all|length }})
         </span>
       {% endif %}
