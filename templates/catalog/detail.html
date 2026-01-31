@@ -205,13 +205,14 @@
     display: block;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow: visible;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     position: relative;
   }
   .product-figure img {
-    width: 100%;
+    width: auto;
+    max-width: none;
     height: auto;
     object-fit: cover;
     object-position: center;
@@ -268,10 +269,6 @@
     }
     .more-images-title {
       font-size: 1rem;
-    }
-    .product-figure img {
-      max-width: 100%;
-      height: auto;
     }
   }
 </style>
