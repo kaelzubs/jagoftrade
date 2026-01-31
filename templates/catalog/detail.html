@@ -9,7 +9,9 @@
     display: flex;
     gap: 2rem;
   }
-
+  .product-images-col {
+    flex: 0 0 50%;
+  }
   .product-info-col {
     flex: 0 0 50%;
   }
@@ -198,7 +200,7 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9;
     background: #f8f9fa;
     display: block;
     align-items: center;
@@ -229,6 +231,10 @@
     .product-row {
       flex-direction: column;
       gap: 1.5rem;
+    }
+    .product-images-col,
+    .product-info-col {
+      flex: 0 0 100%;
     }
     .main-image-container {
       position: static;
@@ -272,7 +278,7 @@
       <div class="container-fluid">
         <div class="mb-4 main-div">
           <div class="card shadow">
-            <figure class="product-figure img-fluid">
+            <figure class="product-figure">
               {% with first_image=product.images.first %}
                 {% if first_image %}
                   {% picture first_image.image as img_url %}
