@@ -280,7 +280,11 @@ STORAGES = {
 
 PICTURES = {
     "USE_PLACEHOLDERS": False,
+    "DEFAULT_MAX_WIDTHS": [246, 500, 1000],
+    "DEFAULT_FORMATS": ["webp", "jpeg"],
+    "CACHE": True,
 }
+
 
 # Login settings - redirect to login with 'next' parameter
 LOGIN_REDIRECT_URL = "core:home"   # where users go after login
