@@ -48,7 +48,6 @@
   }
   .thumbnail-gallery {
     display: flex;
-    gap: 0.75rem;
     margin-top: 1.5rem;
     overflow-x: auto;
     padding-bottom: 0.5rem;
@@ -309,7 +308,7 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item mx-2" id="otherImage">
+            <div class="thumbnail-item mx-1" id="otherImage">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
                 <img class="otherImage"
@@ -320,8 +319,8 @@
             </div>
           {% endfor %}
         </div>
-        <span class="more-images-title">
-          <i class="fas fa-images mr-2"></i>
+        <span class="more-images-title mr-2">
+          <i class="fas fa-images"></i>
           All Images ({{ product.images.all|length }})
         </span>
       {% endif %}
