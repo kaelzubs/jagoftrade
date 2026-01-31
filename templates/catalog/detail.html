@@ -207,9 +207,11 @@
     overflow: hidden;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
+    position: relative;
+  }
+  img-card {
     margin-left: calc(-50vw + 50%);
     margin-right: calc(-50vw + 50%);
-    position: relative;
   }
   .product-figure img {
     width: 100%;
@@ -280,10 +282,10 @@
 <div class="product-detail-container">
   <div class="product-row">
     <!-- Product Images -->
-    <div class="product-images-col">
-      <div class="container-image">
-        <div class="mb-4 main-div">
-          <div class="card shadow">
+    <div class="modal fade product-images-col" id="imageModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg container-image">
+        <div class="modal-content mb-4 main-div">
+          <div class="modal-body text-center card shadow img-card">
             <figure class="product-figure img-fluid">
               {% with first_image=product.images.first %}
                 {% if first_image %}
