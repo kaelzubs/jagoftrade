@@ -14,6 +14,9 @@
     display: flex;
     gap: 2rem;
   }
+  .product-images-col {
+    flex: 0 0 50%;
+  }
   .product-info-col {
     flex: 0 0 50%;
   }
@@ -204,7 +207,7 @@
     width: 100%;
     aspect-ratio: 4 / 3;
     background: #f8f9fa;
-    display: block;
+    display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
@@ -233,6 +236,10 @@
     .product-row {
       flex-direction: column;
       gap: 1.5rem;
+    }
+    .product-images-col,
+    .product-info-col {
+      flex: 0 0 100%;
     }
     .main-image-container {
       position: static;
@@ -309,7 +316,7 @@
 
       <!-- Thumbnail Gallery -->
       {% if product.images.all|length > 1 %}
-        <div class="thumbnail-gallery gap-2">
+        <div class="thumbnail-gallery">
           {% for image in product.images.all %}
             <div class="thumbnail-item">
               <figure style="position: relative;">
@@ -383,4 +390,25 @@
     </div>
   </div>
 </div>
+<script>
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+  }
+</script>
+<style>
+  .selected-image {
+    border: 2px solid #007bff;
+  }
+</style>
+<script>
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+    // Remove border from all other images
+    document.querySelectorAll('#otherImage').forEach(img => {
+      img.classList.remove('selected-image');
+    });
+    // Add border to clicked image
+    src.classList.add('selected-image');
+  }
+</script>
 {% endblock %}
