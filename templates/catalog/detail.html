@@ -308,7 +308,7 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item mx-1" id="otherImage">
+            <div class="thumbnail-item mx-2" id="otherImage">
               <figure style="position: relative;">
                 {% picture image.image as img_url %}
                 <img class="otherImage"
@@ -319,7 +319,7 @@
             </div>
           {% endfor %}
         </div>
-        <span class="more-images-title mr-2">
+        <span class="more-images-title mr-4">
           <i class="fas fa-images"></i>
           All Images ({{ product.images.all|length }})
         </span>
