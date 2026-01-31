@@ -209,10 +209,6 @@
     border-top-right-radius: 0.25rem;
     position: relative;
   }
-  img-card {
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-  }
   .product-figure img {
     width: 100%;
     height: auto;
@@ -220,6 +216,8 @@
     object-position: center;
     position: relative;
     display: block;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
   }
   .image-card {
     cursor: pointer;
@@ -283,10 +281,10 @@
   <div class="product-row">
     <!-- Product Images -->
     <div class="modal fade product-images-col" id="imageModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg container-image">
-        <div class="modal-content mb-4 main-div">
-          <div class="modal-body text-center card shadow img-card">
-            <figure class="product-figure img-fluid">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content mb-4">
+          <div class="modal-body text-center card shadow">
+            <figure class="product-figure">
               {% with first_image=product.images.first %}
                 {% if first_image %}
                   {% picture first_image.image as img_url %}
