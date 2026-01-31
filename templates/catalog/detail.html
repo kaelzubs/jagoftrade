@@ -307,7 +307,7 @@
 
       <!-- Thumbnail Gallery -->
       {% if product.images.all|length > 1 %}
-        <div class="thumbnail-gallery">
+        <div class="thumbnail-gallery mr-2">
           {% for image in product.images.all %}
             <div class="thumbnail-item">
               <figure style="position: relative;">
@@ -321,7 +321,7 @@
           {% endfor %}
         </div>
         <span class="more-images-title">
-          <i class="fas fa-images mx-4"></i>
+          <i class="fas fa-images mr-2"></i>
           All Images ({{ product.images.all|length }})
         </span>
       {% endif %}
