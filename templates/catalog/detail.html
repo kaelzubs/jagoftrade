@@ -74,7 +74,7 @@
     margin: 0;
     width: 100%;
     height: 100%;
-    display: flex;
+    display: block;
     align-items: center;
     justify-content: center;
     position: relative;
@@ -309,7 +309,7 @@
 
       <!-- Thumbnail Gallery -->
       {% if product.images.all|length > 1 %}
-        <div class="thumbnail-gallery d-flex flex-wrap gap-2">
+        <div class="thumbnail-gallery gap-2">
           {% for image in product.images.all %}
             <div class="thumbnail-item">
               <figure style="position: relative;">
