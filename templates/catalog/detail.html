@@ -303,7 +303,7 @@
             <div class="thumbnail-item">
               <figure>
                 {% picture image.image as img_url %}
-                <img class="otherImage"
+                <img id="otherImage"
                      onclick="updateMainImage(this)"
                      alt="{{ product.title }}"
                      src="{{ img_url }}">
@@ -373,22 +373,24 @@
   </div>
 </div>
 <script>
-  function updateMainImage(clickedImage) {
-    const mainImage = document.getElementById("mainImage");
-    const modalImage = document.getElementById("modalImage");
-
-    mainImage.src = clickedImage.src;
-    mainImage.alt = clickedImage.alt;
-
-    modalImage.src = clickedImage.src;
-    modalImage.alt = clickedImage.alt;
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
   }
-
-  // Ensure modal shows the current main image
-  document.getElementById("mainImage").addEventListener("click", function() {
-    const modalImage = document.getElementById("modalImage");
-    modalImage.src = this.src;
-    modalImage.alt = this.alt;
-  });
+</script>
+<style>
+  .selected-image {
+    border: 2px solid #007bff;
+  }
+</style>
+<script>
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+    // Remove border from all other images
+    document.querySelectorAll('#otherImage').forEach(img => {
+      img.classList.remove('selected-image');
+    });
+    // Add border to clicked image
+    src.classList.add('selected-image');
+  }
 </script>
 {% endblock %}
