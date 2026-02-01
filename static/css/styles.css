@@ -801,7 +801,7 @@ h2.jumb {
 }
 
 .brand-logo-wrapper {
-  width: 400px;
+  width: 100px;
   margin: 0;                 /* removes extra spacing */
   padding: 0;
   position: relative;   /* allows positioning relative to text */
