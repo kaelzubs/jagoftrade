@@ -809,7 +809,7 @@ h2.jumb {
 }
 
 .brand-logo {
-  max-width: 200px;          /* smaller size */
+  width: 100%;          /* smaller size */
   height: auto;              /* keeps aspect ratio */
   display: block;
   border-radius: 6px;        /* subtle rounded corners */
@@ -818,7 +818,7 @@ h2.jumb {
 }
 
 .brand-logo img {
-  width: 200px;
+  max-width: 300px;
 }
 
 .brand-logo:hover {
