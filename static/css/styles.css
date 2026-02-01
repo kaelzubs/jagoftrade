@@ -801,6 +801,7 @@ h2.jumb {
 }
 
 .brand-logo-wrapper {
+  width: 400px;
   margin: 0;                 /* removes extra spacing */
   padding: 0;
   position: relative;   /* allows positioning relative to text */
@@ -815,10 +816,6 @@ h2.jumb {
   border-radius: 6px;        /* subtle rounded corners */
   box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* soft shadow for professional look */
   transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.brand-logo img {
-  max-width: 300px;
 }
 
 .brand-logo:hover {
