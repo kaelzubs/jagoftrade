@@ -375,16 +375,6 @@
 <script>
   function updateMainImage(src) {
     document.getElementById('mainImage').src = src.src;
-  }
-</script>
-<style>
-  .selected-image {
-    border: 2px solid #007bff;
-  }
-</style>
-<script>
-  function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
     // Remove border from all other images
     document.querySelectorAll('#otherImage').forEach(img => {
       img.classList.remove('selected-image');
