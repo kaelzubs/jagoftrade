@@ -851,7 +851,7 @@ h2.jumb {
   border: 2px solid #28a745;
 }
 
-.animate {
+/* .animate {
   transform: scale(0.8);
   opacity: 0;
   transition: transform 0.5s ease, opacity 0.5s ease;
@@ -860,4 +860,4 @@ h2.jumb {
 .animate .show {
   transform: scale(1);
   opacity: 1;
-}
+} */
