@@ -295,10 +295,10 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item">
+            <div class="thumbnail-item" id="thumbs{{ forloop.counter0 }}" onclick="showImage('{% picture image.image as img_url %}{{ img_url }}')">
               <figure>
                 {% picture image.image as img_url %}
-                <img class="thumb" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+                <img src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -365,12 +365,9 @@
   </div>
 </div>
 <script>
-  const bigImage = document.getElementById('bigImage');
-  document.querySelectorAll('.thumb').forEach(img => {
-    img.addEventListener('click', () => {
-      bigImage.src = img.src;
-      setTimeout(() => bigImage.classList.add('show'), 50); // Trigger fade
-    });
-  });
+  function showImage(src) {
+    const bigImage = document.getElementById('bigImage');
+    bigImage.src = src;
+  }
 </script>
 {% endblock %}
