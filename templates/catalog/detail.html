@@ -283,7 +283,7 @@
           {% with first_image=product.images.first %}
             {% if first_image %}
               {% picture first_image.image as img_url %}
-              <img id="bigImage" class="fade" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+              <img id="bigImage" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
             {% else %}
               <div class="item-placeholder">No image</div>
             {% endif %}
@@ -298,7 +298,7 @@
             <div class="thumbnail-item">
               <figure>
                 {% picture image.image as img_url %}
-                <img class="thumb" src="{{ img_url }}" alt="{{ product.title }}">
+                <img class="thumb" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -368,7 +368,6 @@
   const bigImage = document.getElementById('bigImage');
   document.querySelectorAll('.thumb').forEach(img => {
     img.addEventListener('click', () => {
-      bigImage.classList.remove('show'); // Reset
       bigImage.src = img.src;
       setTimeout(() => bigImage.classList.add('show'), 50); // Trigger fade
     });
