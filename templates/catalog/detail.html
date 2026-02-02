@@ -278,8 +278,8 @@
   <div class="product-row">
     <!-- Product Images -->
     <div class="product-images-col">
-      <div class="card shadow mb-4 animate">
-        <figure class="product-figure">
+      <div class="card shadow mb-4">
+        <figure class="product-figure animate">
           {% with first_image=product.images.first %}
             {% if first_image %}
               {% picture first_image.image as img_url %}
