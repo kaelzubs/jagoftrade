@@ -279,7 +279,7 @@
     <!-- Product Images -->
     <div class="product-images-col">
       <div class="card shadow mb-4 animate">
-        <figure class="product-figure">
+        <figure class="product-figure" id="display">
           {% with first_image=product.images.first %}
             {% if first_image %}
               {% picture first_image.image as img_url %}
@@ -295,10 +295,10 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item" id="thumbs{{ forloop.counter0 }}" onclick="showImage('{% picture image.image as img_url %}{{ img_url }}')">
+            <div class="thumbnail-item">
               <figure>
                 {% picture image.image as img_url %}
-                <img src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+                <img src="{{ img_url }}" alt="{{ product.title }}" onclick="showImage(this.src)" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -366,8 +366,7 @@
 </div>
 <script>
   function showImage(src) {
-    const bigImage = document.getElementById('bigImage');
-    bigImage.src = src;
+    document.getElementById("display").innerHTML = '<img src="' + src + '" alt="Product Image" loading="lazy">';
   }
 </script>
 {% endblock %}
