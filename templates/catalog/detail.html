@@ -296,9 +296,9 @@
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
             <div class="thumbnail-item">
-              <figure id="thumbs">
+              <figure>
                 {% picture image.image as img_url %}
-                <img src="{{ img_url }}" alt="{{ product.title }}">
+                <img id="thumb-img" src="{{ img_url }}" alt="{{ product.title }}">
               </figure>
             </div>
           {% endfor %}
@@ -366,7 +366,7 @@
 </div>
 <script>
   const bigImage = document.getElementById('bigImage');
-  document.querySelectorAll('#thumbs img').forEach(img => {
+  document.querySelectorAll('#thumb-img').forEach(img => {
     img.addEventListener('click', () => {
       bigImage.classList.remove('show'); // Reset
       bigImage.src = img.src;
