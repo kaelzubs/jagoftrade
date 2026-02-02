@@ -295,8 +295,8 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item" id="thumbs">
-              <figure>
+            <div class="thumbnail-item">
+              <figure id="thumbs">
                 {% picture image.image as img_url %}
                 <img src="{{ img_url }}" alt="{{ product.title }}">
               </figure>
