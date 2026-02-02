@@ -279,11 +279,11 @@
     <!-- Product Images -->
     <div class="product-images-col">
       <div class="card shadow mb-4">
-        <figure class="product-figure">
+        <figure class="product-figure animate">
           {% with first_image=product.images.first %}
             {% if first_image %}
               {% picture first_image.image as img_url %}
-              <img id="mainImage" src="{{ img_url }}" data-bs-toggle="modal" data-bs-target="#imageModal" alt="{{ product.title }}" loading="lazy">
+              <img id="bigImage" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
             {% else %}
               <div class="item-placeholder">No image</div>
             {% endif %}
@@ -296,9 +296,9 @@
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
             <div class="thumbnail-item">
-              <figure>
+              <figure id="thumbs">
                 {% picture image.image as img_url %}
-                <img id="otherImage" src="{{ img_url }}" alt="{{ product.title }}" onclick="updateMainImage(this)">
+                <img src="{{ img_url }}" alt="{{ product.title }}">
               </figure>
             </div>
           {% endfor %}
@@ -365,19 +365,13 @@
   </div>
 </div>
 <script>
-  function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
-  }
-</script>
-<script>
-  function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
-    // Remove border from all other images
-    document.querySelectorAll('#otherImage').forEach(img => {
-      img.classList.remove('selected-image');
+  const bigImage = document.getElementById('bigImage');
+  document.querySelectorAll('#thumbs img').forEach(img => {
+    img.addEventListener('click', () => {
+      bigImage.classList.remove('show'); // Reset
+      bigImage.src = img.src;
+      setTimeout(() => bigImage.classList.add('show'), 50); // Trigger fade
     });
-    // Add border to clicked image
-    src.classList.add('selected-image');
-  }
+  });
 </script>
 {% endblock %}

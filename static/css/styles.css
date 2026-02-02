@@ -850,3 +850,14 @@ h2.jumb {
 .thumbnail-item img.active {
   border: 2px solid #28a745;
 }
+
+.animate {
+  transform: scale(0.8);
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.animate .show {
+  transform: scale(1);
+  opacity: 1;
+}
