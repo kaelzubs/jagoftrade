@@ -298,7 +298,7 @@
             <div class="thumbnail-item" data-full="{{ image.image.url }}">
               <figure>
                 {% picture image.image as img_url %}
-                <img src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+                <img id="thumbnail" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -365,11 +365,12 @@
   </div>
 </div>
 <script>
-  const mainImage = document.getElementById('mainImage');
-  document.querySelectorAll('.thumbnail-item picture').forEach(thumbnail => {
+  const mainImage = document.getElementById('#mainImage');
+  document.getElementById('#thumbnail').forEach(thumbnail => {
     thumbnail.addEventListener('click', function() {
       const newSrc = thumbnail.dataset.full;
       mainImage.src = newSrc
+      mainImage.querySelector('img').src = newSrc;
       mainImage.querySelectorAll('source').forEach(source => {
         source.srcset = newSrc;
       });
