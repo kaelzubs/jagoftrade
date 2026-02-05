@@ -59,20 +59,3 @@ function updateMainImage(element) {
   // Add active class to clicked thumbnail
   element.classList.add("active");
 }
-
-const mainImage = document.getElementById('mainImage'); // no #
-const thumbnails = document.querySelectorAll('.thumbnail'); // use class for multiple
-
-thumbnails.forEach(thumbnail => {
-    thumbnail.addEventListener('click', function() {
-        const newSrc = thumbnail.dataset.full;
-
-        // Update <img> inside mainImage
-        mainImage.querySelector('img').src = newSrc;
-
-        // Update all <source> tags inside mainImage
-        mainImage.querySelectorAll('source').forEach(source => {
-            source.srcset = newSrc;
-        });
-    });
-});

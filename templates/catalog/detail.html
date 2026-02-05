@@ -364,4 +364,21 @@
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const thumbnails = document.querySelectorAll('.thumbnail-item');
+    const mainImage = document.getElementById('mainImage');
+
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', function() {
+        const fullImageUrl = this.getAttribute('data-full');
+        mainImage.src = fullImageUrl;
+
+        // Update selected state
+        thumbnails.forEach(t => t.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+  });
+</script>
 {% endblock %}
