@@ -298,7 +298,7 @@
             <div class="thumbnail-item" data-full="{{ image.image.url }}">
               <figure>
                 {% picture image.image as img_url %}
-                <img id="thumbnail" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+                <img class="thumbnail" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
