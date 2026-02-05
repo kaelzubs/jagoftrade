@@ -365,11 +365,10 @@
   </div>
 </div>
 <script>
-  const mainImage = document.querySelector('#mainImage');
+  const mainImage = document.querySelector('#mainImage img');
   document.querySelectorAll('.thumbnail-item').forEach(thumbnail => {
     thumbnail.addEventListener('click', function() {
       const newSrc = thumbnail.dataset.full;
-      mainImage.src = newSrc;
       mainImage.querySelector('img').src = newSrc
       mainImage.querySelectorAll('source').forEach(source => {
         source.srcset = newSrc;
