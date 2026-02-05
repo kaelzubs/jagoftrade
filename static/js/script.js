@@ -59,3 +59,15 @@ function updateMainImage(element) {
   // Add active class to clicked thumbnail
   element.classList.add("active");
 }
+
+const mainImage = document.getElementById('#mainImage');
+document.getElementById('#thumbnail').forEach(thumbnail => {
+    thumbnail.addEventListener('click', function() {
+        const newSrc = thumbnail.dataset.full;
+        mainImage.src = newSrc;
+        mainImage.querySelector('img').src = newSrc;
+        mainImage.querySelectorAll('source').forEach(source => {
+            source.srcset = newSrc;
+        });
+    });
+});
