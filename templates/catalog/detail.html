@@ -365,15 +365,15 @@
   </div>
 </div>
 <script>
-  const mainImage = document.querySelectorAll('#mainImage picture');
-  document.querySelectorAll('.thumbnail-item img').forEach(thumbnail => {
+  const mainImage = document.querySelector('#mainImage');
+  document.querySelectorAll('.thumbnail-item').forEach(thumbnail => {
     thumbnail.addEventListener('click', function() {
       const newSrc = thumbnail.dataset.full;
-      // Update main image
-      mainImage.querySelector('img').src = newSrc;
-      // Optionally, update picture sources if using <picture> element
+      mainImage.src = newSrc;
+      mainImage.querySelector('img').src = newSrc
       mainImage.querySelectorAll('source').forEach(source => {
         source.srcset = newSrc;
+      })
     });
   });
 </script>
