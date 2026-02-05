@@ -278,7 +278,7 @@
   <div class="product-row">
     <!-- Product Images -->
     <div class="product-images-col">
-      <div class="card shadow mb-4 animate">
+      <div class="card shadow mb-4">
         <figure class="product-figure">
           {% with first_image=product.images.first %}
             {% if first_image %}
@@ -295,10 +295,10 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item">
+            <div class="thumbnail-item" data-full="{{ image.image.url }}">
               <figure>
                 {% picture image.image as img_url %}
-                <img src="{{ img_url }}" alt="{{ product.title }}" onclick="displayImage(this)" loading="lazy">
+                <img src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -365,11 +365,16 @@
   </div>
 </div>
 <script>
-  function displayImage(clickedImage) {
-    // Get the main image element
-    const mainImage = document.getElementById("mainImage");
-    // Set its source to the clicked thumbnail's source
-    mainImage.src = clickedImage.src;
-  }
+  const mainImage = document.querySelectorAll('#mainImage picture');
+  document.querySelectorAll('.thumbnail-item img').forEach(thumbnail => {
+    thumbnail.addEventListener('click', function() {
+      const newSrc = thumbnail.dataset.full;
+      // Update main image
+      mainImage.querySelector('img').src = newSrc;
+      // Optionally, update picture sources if using <picture> element
+      mainImage.querySelectorAll('source').forEach(source => {
+        source.srcset = newSrc;
+    });
+  });
 </script>
 {% endblock %}
