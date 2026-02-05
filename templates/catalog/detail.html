@@ -366,13 +366,13 @@
 </div>
 <script>
   const mainImage = document.getElementById('mainImage');
-  document.querySelectorAll('.thumbnail-item').forEach(thumbnail => {
+  document.querySelectorAll('.thumbnail-item picture').forEach(thumbnail => {
     thumbnail.addEventListener('click', function() {
       const newSrc = thumbnail.dataset.full;
       mainImage.src = newSrc
       mainImage.querySelectorAll('source').forEach(source => {
         source.srcset = newSrc;
-      })
+      });
     });
   });
 </script>
