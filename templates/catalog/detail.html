@@ -283,7 +283,7 @@
           {% with first_image=product.images.first %}
             {% if first_image %}
               {% picture first_image.image as img_url %}
-              <img id="mainImage" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+              <img id="mainImage"  src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
             {% else %}
               <div class="item-placeholder">No image</div>
             {% endif %}
@@ -295,10 +295,10 @@
       {% if product.images.all|length > 1 %}
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item" data-full="{{ image.image.url }}">
+            <div class="thumbnail-item">
               <figure>
                 {% picture image.image as img_url %}
-                <img src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+                <img src="{{ img_url }}" data-full="{{ image.image.url }}" alt="{{ product.title }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -366,12 +366,12 @@
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const thumbnails = document.querySelectorAll('.thumbnail-item'); // select the divs
+    const thumbnails = document.querySelectorAll('.thumbnail-item img'); // select the divs
     const mainImage = document.getElementById('mainImage');
 
     thumbnails.forEach(thumbnail => {
       thumbnail.addEventListener('click', function() {
-        const fullImageUrl = this.getAttribute('data-full'); // read from div
+        const fullImageUrl = this.dataset.full; // read from div
         mainImage.src = fullImageUrl;
 
         // Update selected state
