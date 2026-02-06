@@ -298,7 +298,7 @@
             <div class="thumbnail-item">
               <figure>
                 {% picture image.image as img_url %}
-                <img class="thumbnail" src="{{ img_url }}" data-full="{{ image.image.url }}" alt="{{ product.title }}" onclick="updateMainImage(this)" loading="lazy">
+                <img class="thumbnail" src="{{ img_url }}" data-full="{{ img_url }}" alt="{{ product.title }}" onclick="updateMainImage(this)" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -367,19 +367,12 @@
 <script>
   function updateMainImage(src) {
     document.getElementById('mainImage').src = src.dataset.full;
-
-  }
-</script>
-
-<script>
-  function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.dataset.full;
-    // Remove border from all other images
-    document.querySelectorAll('.thumbnail').forEach(img => {
-      img.classList.remove('selected-image');
+    // Remove 'selected' class from all thumbnails
+    document.querySelectorAll('.thumbnail-item').forEach(item => {
+      item.classList.remove('selected-image');
     });
-    // Add border to clicked image
-    src.classList.add('selected-image');
+    // Add 'selected' class to clicked thumbnail
+    src.parentElement.parentElement.classList.add('selected-image');
   }
 </script>
 {% endblock %}

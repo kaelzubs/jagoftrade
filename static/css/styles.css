@@ -227,7 +227,7 @@ img {
 }
 
 .selected-image {
-  border: 2px solid #28a745 !important;
+  border: 3px solid #28a745 !important;
 }
 
 .grid-img {
