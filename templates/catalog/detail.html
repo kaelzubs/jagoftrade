@@ -366,7 +366,7 @@
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const previewPicture = document.querySelector("#preview picture");
+    const previewPicture = document.querySelector("#mainImage").closest("figure");
     document.querySelectorAll(".thumb").forEach(thumb => {
       thumb.onclick = () => {
         const newSrc = thumb.dataset.full;
