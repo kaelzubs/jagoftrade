@@ -282,7 +282,7 @@
         <figure class="product-figure">
           {% with first_image=product.images.first %}
             {% if first_image %}
-              {% picture first_image.image "800x600" alt=product.title id="mainImage" data-bs-toggle="modal" data-bs-target="#imageModal" %}
+              <img id="mainImage" src="{{ first_image.image.url }}" alt="{{ product.title }}" data-bs-toggle="modal" data-bs-target="#imageModal" loading="lazy">
             {% else %}
               <div class="item-placeholder">No image</div>
             {% endif %}
@@ -291,12 +291,12 @@
       </div>
 
       <!-- Thumbnail Gallery -->
-      {% if product.images.all|length > 1 %}
+      {% if product.images.all|length > 1 %} 
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
             <div class="thumbnail-item">
               <figure>
-                {% picture image.image "200x200" alt=product.title id="otherImage" onclick="updateMainImage(this)" %}
+                <img id="otherImage" src="{{ image.image.url }}" alt="{{ product.title }}" onclick="updateMainImage(this)" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -307,7 +307,7 @@
         </span>
       {% endif %}
     </div>
-
+  
     <!-- Product Information -->
     <div class="product-info-col">
       <div class="product-info">
@@ -362,13 +362,14 @@
     </div>
   </div>
 </div>
-
 <script>
   function updateMainImage(src) {
     document.getElementById('mainImage').src = src.src;
+    // Remove border from all other images
     document.querySelectorAll('#otherImage').forEach(img => {
       img.classList.remove('selected-image');
     });
+    // Add border to clicked image
     src.classList.add('selected-image');
   }
 </script>
