@@ -282,7 +282,7 @@
         <figure class="product-figure">
           {% with first_image=product.images.first %}
             {% if first_image %}
-              <img id="mainImage" src="{{ first_image.image.url }}" alt="{{ product.title }}" loading="lazy">
+              <img id="mainImage" src="{{ first_image.image.url }}" alt="{{ product.title }}" data-bs-toggle="modal" data-bs-target="#imageModal" loading="lazy">
             {% else %}
               <div class="item-placeholder">No image</div>
             {% endif %}
@@ -296,7 +296,7 @@
           {% for image in product.images.all %}
             <div class="thumbnail-item">
               <figure>
-                <img class="otherImage" src="{{ image.image.url }}" data-full="{{ image.image.url }}" alt="{{ product.title }}" loading="lazy">
+                <img id="otherImage" src="{{ image.image.url }}" alt="{{ product.title }}" onclick="updateMainImage(this)" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -363,21 +363,19 @@
   </div>
 </div>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const previewPicture = document.getElementById("mainImage");
-    document.querySelectorAll(".otherImage").forEach(thumb => {
-      thumb.onclick = () => {
-        const newSrc = thumb.dataset.full;
-
-        // Update <img>
-        previewPicture.querySelector("img").src = newSrc;
-
-        // Update <source> tags
-        previewPicture.querySelectorAll("source").forEach(source => {
-          source.srcset = newSrc;
-        });
-      };
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+  }
+</script>
+<script>
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+    // Remove border from all other images
+    document.querySelectorAll('#otherImage').forEach(img => {
+      img.classList.remove('selected-image');
     });
-  });
+    // Add border to clicked image
+    src.classList.add('selected-image');
+  }
 </script>
 {% endblock %}
