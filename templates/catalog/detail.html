@@ -278,12 +278,11 @@
   <div class="product-row">
     <!-- Product Images -->
     <div class="product-images-col">
-      <div class="card shadow mb-4 preview">
+      <div class="card shadow mb-4">
         <figure class="product-figure">
           {% with first_image=product.images.first %}
             {% if first_image %}
-              {% picture first_image.image as img_url %}
-              <img id="mainImage" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+              <img id="mainImage" src="{{ first_image.image.url }}" alt="{{ product.title }}" loading="lazy">
             {% else %}
               <div class="item-placeholder">No image</div>
             {% endif %}
@@ -297,8 +296,7 @@
           {% for image in product.images.all %}
             <div class="thumbnail-item">
               <figure>
-                {% picture image.image as img_url %}
-                <img class="thumb" src="{{ img_url }}" data-full="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+                <img class="otherImage" src="{{ image.image.url }}" data-full="{{ image.image.url }}" alt="{{ product.title }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -366,8 +364,8 @@
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const previewPicture = document.querySelector("#mainImage").closest("figure");
-    document.querySelectorAll(".thumb").forEach(thumb => {
+    const previewPicture = document.getElementById("mainImage");
+    document.querySelectorAll(".otherImage").forEach(thumb => {
       thumb.onclick = () => {
         const newSrc = thumb.dataset.full;
 
