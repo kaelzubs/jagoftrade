@@ -373,7 +373,8 @@
       thumbnail.addEventListener('click', function() {
         const fullImageUrl = this.dataset.full; // read from div
         mainImage.src = fullImageUrl;
-
+        mainImage.alt = this.alt;
+        mainImage.loading = 'lazy';
         // Update selected state
         thumbnails.forEach(t => t.classList.remove('selected-image'));
         this.classList.add('selected-image');
