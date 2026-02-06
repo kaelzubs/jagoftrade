@@ -298,7 +298,7 @@
             <div class="thumbnail-item">
               <figure>
                 {% picture image.image as img_url %}
-                <img id="thumbnail" src="{{ img_url }}" data-full="{{ image.image.url }}" alt="{{ product.title }}" loading="lazy">
+                <img id="thumbnail" src="{{ img_url }}" data-full="{{ image.image.url }}" alt="{{ product.title }}" onclick="updateMainImage(this)" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -365,19 +365,20 @@
   </div>
 </div>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const thumbnails = document.querySelectorAll('#thumbnail'); // select the divs
-    const mainImage = document.getElementById('mainImage');
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+  }
+</script>
 
-    thumbnails.forEach(thumbnail => {
-      thumbnail.addEventListener('click', function() {
-        const fullImageUrl = this.dataset.full; // read from div
-        mainImage.src = fullImageUrl;
-        // Update selected state
-        thumbnails.forEach(t => t.classList.remove('selected-image'));
-        this.classList.add('selected-image');
-      });
+<script>
+  function updateMainImage(src) {
+    document.getElementById('mainImage').src = src.src;
+    // Remove border from all other images
+    document.querySelectorAll('#thumbnail').forEach(img => {
+      img.classList.remove('selected-image');
     });
-  });
+    // Add border to clicked image
+    src.classList.add('selected-image');
+  }
 </script>
 {% endblock %}
