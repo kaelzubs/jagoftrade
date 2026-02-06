@@ -585,7 +585,7 @@ h2.jumb {
 .img-class {
   width: 400px;
   height: auto;
-  display: block;
+  display: flex;
 }
 
 .logo {
