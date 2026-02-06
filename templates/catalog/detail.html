@@ -283,7 +283,7 @@
           {% with first_image=product.images.first %}
             {% if first_image %}
               {% picture first_image.image as img_url %}
-              <img id="mainImage"  src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
+              <img id="mainImage" src="{{ img_url }}" alt="{{ product.title }}" loading="lazy">
             {% else %}
               <div class="item-placeholder">No image</div>
             {% endif %}
@@ -295,10 +295,10 @@
       {% if product.images.all|length > 1 %} 
         <div class="thumbnail-gallery">
           {% for image in product.images.all %}
-            <div class="thumbnail-item">
+            <div class="thumbnail-item" data-full="{{ image.image.url }}">
               <figure>
                 {% picture image.image as img_url %}
-                <img id="thumbnail" src="{{ img_url }}" data-full="{{ image_url }}" alt="{{ product.title }}" onclick="updateMainImage(this)" loading="lazy">
+                <img src="{{ img_url }}" alt="{{ product.title }}" onclick="updateMainImage(this)" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -371,9 +371,9 @@
 </script>
 <script>
   function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
+    document.getElementById('mainImage').src = src.src
     // Remove border from all other images
-    document.querySelectorAll('#thumbnail').forEach(img => {
+    document.querySelectorAll('.thumbnail-item').forEach(img => {
       img.classList.remove('selected-image');
     });
     // Add border to clicked image
