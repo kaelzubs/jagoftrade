@@ -298,7 +298,7 @@
             <div class="thumbnail-item">
               <figure>
                 {% picture image.image as img_url %}
-                <img class="thumbnail" src="{{ img_url }}" data-full="{{ img_url }}" alt="{{ product.title }}" onclick="updateMainImage(this)" loading="lazy">
+                <img id="thumbnail" src="{{ img_url }}" data-full="{{ img_url }}" alt="{{ product.title }}" onclick="updateMainImage(this)" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -368,7 +368,7 @@
   function updateMainImage(src) {
     document.getElementById('mainImage').src = src.dataset.full;
     // Remove 'selected' class from all thumbnails
-    document.querySelectorAll('.thumbnail-item').forEach(item => {
+    document.querySelectorAll('#thumbnail').forEach(item => {
       item.classList.remove('selected-image');
     });
     // Add 'selected' class to clicked thumbnail
