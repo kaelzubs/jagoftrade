@@ -298,7 +298,7 @@
             <div class="thumbnail-item">
               <figure>
                 {% picture image.image as img_url %}
-                <img src="{{ img_url }}" data-full="{{ image.image.url }}" alt="{{ product.title }}" loading="lazy">
+                <img id="thumbnail" src="{{ img_url }}" data-full="{{ image.image.url }}" alt="{{ product.title }}" loading="lazy">
               </figure>
             </div>
           {% endfor %}
@@ -366,15 +366,13 @@
 </div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const thumbnails = document.querySelectorAll('.thumbnail-item img'); // select the divs
+    const thumbnails = document.getElementById('thumbnail'); // select the divs
     const mainImage = document.getElementById('mainImage');
 
     thumbnails.forEach(thumbnail => {
       thumbnail.addEventListener('click', function() {
         const fullImageUrl = this.dataset.full; // read from div
         mainImage.src = fullImageUrl;
-        mainImage.alt = this.alt;
-        mainImage.loading = 'lazy';
         // Update selected state
         thumbnails.forEach(t => t.classList.remove('selected-image'));
         this.classList.add('selected-image');
