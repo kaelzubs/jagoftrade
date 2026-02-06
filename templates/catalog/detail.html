@@ -366,13 +366,14 @@
 </div>
 <script>
   function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
+    document.getElementById('mainImage').src = src.dataset.full;
+
   }
 </script>
 
 <script>
   function updateMainImage(src) {
-    document.getElementById('mainImage').src = src.src;
+    document.getElementById('mainImage').src = src.dataset.full;
     // Remove border from all other images
     document.querySelectorAll('#thumbnail').forEach(img => {
       img.classList.remove('selected-image');
