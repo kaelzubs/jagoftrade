@@ -280,9 +280,9 @@ STORAGES = {
 
 PICTURES = {
     "USE_PLACEHOLDERS": False,
-    "DEFAULT_MAX_WIDTHS": [246, 500, 1000],
-    "DEFAULT_FORMATS": ["webp", "jpeg"],
-    "CACHE": True,
+    # "DEFAULT_MAX_WIDTHS": [246, 500, 1000],
+    # "DEFAULT_FORMATS": ["webp", "jpeg"],
+    # "CACHE": True,
 }
 
 
