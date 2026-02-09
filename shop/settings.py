@@ -285,7 +285,7 @@ STORAGES = {
 #     "CACHE": True,
 # }
 PICTURES = {
-    "USE_PLACEHOLDERS": True,              # Enables placeholders to avoid layout shifts
+    "USE_PLACEHOLDERS": False,              # Enables placeholders to avoid layout shifts
     "DEFAULT_MAX_WIDTHS": [320, 640, 1280],# Common responsive breakpoints
     "DEFAULT_FORMATS": ["webp", "jpeg"],   # WebP for modern browsers, JPEG fallback
     "CACHE": True,                         # Always cache for performance
