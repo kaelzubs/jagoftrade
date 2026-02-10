@@ -582,11 +582,11 @@ h2.jumb {
     display: none;
 }
 
-/* .img-class {
-  width: 400px;
+.img-class {
+  max-width: 400px;
   height: auto;
-  display: flex;
-} */
+  display: block
+}
 
 .logo {
   max-width: 100px;
