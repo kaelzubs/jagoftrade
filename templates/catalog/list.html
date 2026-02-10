@@ -112,6 +112,16 @@
     text-decoration: none;
     color: inherit;
   }
+  .product-figure {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .product-figure img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
   @media (max-width: 992px) {
     .category-card {
       height: 260px;
@@ -155,7 +165,7 @@
             <div class="category-images-grid">
               {% if category.images.exists %}
                 {% for image in category.images.all|slice:":6" %}
-                  <figure>
+                  <figure class="">
                     {% picture image.image as img_url %}
                       <img alt="{{ category.name }}" src="{{ img_url }}" loading="lazy">
                   </figure>
