@@ -36,12 +36,13 @@
     max-width: 100%;
     aspect-ratio: 4 / 3;
     background: #f8f9fa;
-    display: flex;
+    display: block;
     justify-content: center;
     overflow: hidden;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
     position: relative;
+    line-height: 0;
   }
   .product-figure img {
     max-width: 100%;
@@ -49,6 +50,7 @@
     object-fit: cover;
     object-position: center;
     display: block;
+    vertical-align: bottom;
   }
   .product-figure .item-placeholder {
     width: 100%;
@@ -83,6 +85,7 @@
       height: auto;
       overflow: hidden;
       display: flex;
+      line-height: 0;
     }
     .product-figure img {
       max-width: 100%;
@@ -90,6 +93,7 @@
       object-fit: contain;
       object-position: center;
       display: block;
+      vertical-align: bottom;
     }
   }
 </style>
