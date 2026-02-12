@@ -287,7 +287,7 @@
         <figure class="product-figure">
           {% with first_image=product.images.first %}
             {% if first_image %}
-              <img id="mainImage" src="{{ first_image.image.url }}" alt="{{ product.title }}" data-bs-toggle="modal" data-bs-target="#imageModal" loading="lazy">
+              <img id="mainImage" class="size-images" src="{{ first_image.image.url }}" alt="{{ product.title }}" data-bs-toggle="modal" data-bs-target="#imageModal" loading="lazy">
             {% else %}
               <div class="item-placeholder">No image</div>
             {% endif %}
@@ -377,5 +377,12 @@
     // Add border to clicked image
     src.classList.add('selected-image');
   }
+</script>
+<script>
+  const img = document.querySelector(".size-images");
+  img.onload = () => {
+    const ratio = img.naturalWidth / img.naturalHeight;
+    img.parentElement.style.aspectRatio = ratio;
+  };
 </script>
 {% endblock %}
