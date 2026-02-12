@@ -197,14 +197,14 @@
   }
   .product-figure-container {
     width: 100%;
+    height: 500px;
+    display: flex;
     overflow: hidden;
   }
   .product-figure {
     margin: 0;
     padding: 0;
     background: #f8f9fa;
-    width: 100%;
-    height: 500px;
     display: block;
     overflow: hidden;
     border-top-left-radius: 0.25rem;
@@ -285,7 +285,7 @@
   <div class="product-row">
     <!-- Product Images -->
     <div class="product-images-col">
-      <div class="card shadow mb-4">
+      <div class="card shadow mb-4 product-figure-container">
         <figure class="product-figure">
           {% with first_image=product.images.first %}
             {% if first_image %}
