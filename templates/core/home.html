@@ -138,14 +138,4 @@
     {% endfor %}
   </div>
 </div>
-<script>
-    document.querySelectorAll(".img-class").forEach(img => {
-      function setAspect() {
-        const ratio = img.naturalWidth / img.naturalHeight;
-        img.parentElement.style.aspectRatio = ratio;
-      }
-      if (img.complete) setAspect();
-      else img.addEventListener("load", setAspect);
-    });
-  </script>
 {% endblock %}
