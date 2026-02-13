@@ -118,7 +118,7 @@
             <h5 class="card-title">{{ product.title|truncatechars:60 }}</h5>
           </div>
           <div class="title-container mobile-only">
-            <h5 class="card-title">{{ product.title }}</h5>
+            <h5 class="card-title">{{ product.title|truncatechars:60 }}</h5>
           </div>
           <p class="card-text">${{ product.price|floatformat:2|intcomma }}</p>
           <a href="{% url 'catalog:detail' product.slug %}" class="btn btn-sm btn-success">

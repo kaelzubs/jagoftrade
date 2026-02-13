@@ -382,10 +382,13 @@
   }
 </script>
 <script>
-  const img = document.querySelector(".size-images");
-  img.onload = () => {
-    const ratio = img.naturalWidth / img.naturalHeight;
-    img.parentElement.style.aspectRatio = ratio;
-  };
+  document.querySelectorAll(".size-images").forEach(img => {
+    function setAspect() {
+      const ratio = img.naturalWidth / img.naturalHeight;
+      img.parentElement.style.aspectRatio = ratio;
+    }
+    if (img.complete) setAspect();
+    else img.addEventListener("load", setAspect);
+  });
 </script>
 {% endblock %}
