@@ -100,8 +100,8 @@
 <div class="container mt-4">
   <div class="row">
     {% for product in products %}
-    <div class="col-md-3 mb-4 main-div">
-      <div class="card shadow">
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+      <div class="card product-card shadow">
         <figure class="product-figure">
           {% with first_image=product.images.first %}
             {% if first_image %}
