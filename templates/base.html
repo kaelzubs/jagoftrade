@@ -376,12 +376,12 @@
     });
   </script>
   <script>
-  function copyShareLink() {
-    const link = "{{ request.build_absolute_uri }}";
-    navigator.clipboard.writeText(link).then(() => {
-      alert("Product link copied! Paste it into Instagram or TikTok.");
-    });
-  }
+    function copyShareLink() {
+      const link = "{{ request.build_absolute_uri }}";
+      navigator.clipboard.writeText(link).then(() => {
+        alert("Product link copied! Paste it into Instagram or TikTok.");
+      });
+    }
   </script>
 </body>
 </html>
