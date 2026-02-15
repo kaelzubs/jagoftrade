@@ -41,6 +41,14 @@
   .search-results-info strong {
     color: #28a745;
   }
+  .products-info {
+    font-size: 1rem;
+    color: #495057;
+    margin-bottom: 2rem;
+  }
+  .products-info strong {
+    color: #28a745;
+  }
   .product-figure {
     margin: 0;
     padding: 0;
@@ -79,7 +87,8 @@
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    display: block;
+    height: 100%;
+    display: block
   }
   .product-card:hover {
     transform: translateY(-4px);
@@ -94,6 +103,7 @@
     color: #212529;
     margin-bottom: 0.75rem;
     line-height: 1.4;
+    min-height: 2.8rem;
   }
   .product-card .card-text {
     font-size: 1.5rem;
@@ -106,11 +116,13 @@
     padding: 0.5rem 1rem;
     font-size: 0.9rem;
     transition: all 0.3s ease;
+    margin-right: 0.5rem;
+    margin-bottom: 0.25rem;
   }
   .product-card .btn-success {
     background: #28a745;
     border-color: #28a745;
-    margin-right: 0.5rem;
+    color: white;
   }
   .product-card .btn-success:hover {
     background: #218838;
@@ -119,6 +131,7 @@
   .product-card .btn-primary {
     background: #007bff;
     border-color: #007bff;
+    color: white;
   }
   .product-card .btn-primary:hover {
     background: #0056b3;
@@ -207,7 +220,7 @@
       <div class="row">
         {% for product in page_obj %}
           <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-            <div class="card product-card">
+            <div class="card product-card shadow">
               <figure class="product-figure">
                 {% with first_image=product.images.first %}
                   {% if first_image %}

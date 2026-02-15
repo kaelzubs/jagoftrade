@@ -30,6 +30,14 @@
 </div>
 
 <style>
+  .products-info {
+    font-size: 1rem;
+    color: #495057;
+    margin-bottom: 2rem;
+  }
+  .products-info strong {
+    color: #28a745;
+  }
   .product-figure {
     margin: 0;
     padding: 0;
@@ -61,6 +69,91 @@
     color: #aaa;
     font-size: 1rem;
     background: #e9ecef;
+  }
+  .product-card {
+    border: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    display: block
+  }
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  }
+  .product-card .card-body {
+    padding: 1.25rem;
+  }
+  .product-card .card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    min-height: 2.8rem;
+  }
+  .product-card .card-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #28a745;
+    margin-bottom: 1rem;
+  }
+  .product-card .btn {
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-right: 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+  .product-card .btn-success {
+    background: #28a745;
+    border-color: #28a745;
+    color: white;
+  }
+  .product-card .btn-success:hover {
+    background: #218838;
+    border-color: #218838;
+  }
+  .product-card .btn-primary {
+    background: #007bff;
+    border-color: #007bff;
+    color: white;
+  }
+  .product-card .btn-primary:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+  }
+  .no-products {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    color: #6c757d;
+  }
+  .no-products i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #dee2e6;
+  }
+  .pagination {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+  }
+  .pagination .page-link {
+    color: #28a745;
+    border-color: #dee2e6;
+  }
+  .pagination .page-link:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  .pagination .page-item.active .page-link {
+    background-color: #28a745;
+    border-color: #28a745;
   }
   @media (max-width: 768px) {
     .jumbotron {
@@ -97,7 +190,7 @@
   }
 </style>
 
-<div class="category-container">
+<div class="container">
   <div class="row">
     {% for product in products %}
     <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
@@ -114,10 +207,10 @@
         </figure>
         <div class="card-body">
           <div class="title-container desktop-only">
-            <h5 class="card-title">{{ product.title|truncatechars:60 }}</h5>
+            <h5 class="card-title">{{ product.title|truncatechars:50 }}</h5>
           </div>
           <div class="title-container mobile-only">
-            <h5 class="card-title">{{ product.title|truncatechars:60 }}</h5>
+            <h5 class="card-title">{{ product.title|truncatechars:50 }}</h5>
           </div>
           <p class="card-text">${{ product.price|floatformat:2|intcomma }}</p>
           <a href="{% url 'catalog:detail' product.slug %}" class="btn btn-sm btn-success">
