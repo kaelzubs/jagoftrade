@@ -42,14 +42,14 @@ if not SECRET_KEY:
     )
     
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Heroku and production hosts
-if DEBUG == True:
+if DEBUG:
     ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = ['www.jagoftrade.com', 'jagoftrade.com', '127.0.0.1']
-PREPEND_WWW = True
+ALLOWED_HOSTS = ['www.jagoftrade.com', 'jagoftrade.com', 'localhost', '127.0.0.1']
+# PREPEND_WWW = True
 
 # Application definition
 INSTALLED_APPS = [
@@ -78,7 +78,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',   # Example: Google
     'allauth.socialaccount.providers.facebook', # Example: Facebook
-
 ]
 
 SITE_ID = 1
@@ -196,15 +195,23 @@ WSGI_APPLICATION = 'shop.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600,
-        ssl_require=True
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default='sqlite:///db.sqlite3',
+            conn_max_age=600,
+            ssl_require=True
 
-    )
-}
- 
+        )
+    }
+    
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 AUTH_USER_MODEL = 'accounts.CustomUser'  # if using custom user
@@ -314,16 +321,17 @@ MAILCHIMP_API_KEY = os.getenv('MAILCHIMP_API_KEY')
 MAILCHIMP_EMAIL_LIST_ID = os.getenv('MAILCHIMP_EMAIL_LIST_ID')
 MAILCHIMP_DATA_CENTER = os.getenv('MAILCHIMP_DATA_CENTER')
 
-# # settings.py (production)
-if not DEBUG:
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    SESSION_COOKIE_SAMESITE = "Lax"
-    CSRF_COOKIE_SAMESITE = "Lax"
-    SECURE_SSL_REDIRECT = True
-    SECURE_HSTS_SECONDS = 31536000
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
+# settings.py (production)
+SESSION_COOKIE_SECURE = True  # Set to True if you have SSL configured; Heroku handles SSL at the load balancer
+CSRF_COOKIE_SECURE = True     # Set to True if you have SSL configured; Heroku handles SSL at the load balancer
+SESSION_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SAMESITE = "Lax"
+SECURE_SSL_REDIRECT = True  # Set to True if you have SSL configured; Heroku handles SSL at the load balancer
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
@@ -331,4 +339,7 @@ SIMPLE_JWT = {
 }
 
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Heroku sets this header for SSL
+
 
