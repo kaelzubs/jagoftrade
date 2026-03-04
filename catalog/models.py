@@ -5,7 +5,7 @@ from pictures.models import PictureField
 
 
 class Category(models.Model):
-    node_id = models.CharField(max_length=50, unique=True, help_text="Amazon browse node ID associated with this category image.")
+    node_id = models.CharField(max_length=50, unique=True, null=True, help_text="Amazon browse node ID associated with this category image.")
     parent_id = models.CharField(max_length=50, blank=True, null=True, help_text="Amazon browse node ID of the parent category, if applicable.")
     name = models.CharField(max_length=120, unique=True, help_text="Category name of the product.")
     slug = models.SlugField(max_length=140, unique=True, help_text="URL-friendly identifier generated from the name.")
