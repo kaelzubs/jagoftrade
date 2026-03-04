@@ -2,6 +2,7 @@ from celery import shared_task
 from .models import Product
 from .services.paapi import fetch_product, save_product_from_paapi
 
+
 @shared_task
 def refresh_products():
     """
