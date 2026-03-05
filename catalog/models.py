@@ -5,8 +5,6 @@ from pictures.models import PictureField
 
 
 class Category(models.Model):
-    node_id = models.CharField(max_length=50, unique=True, null=True, help_text="Amazon browse node ID associated with this category image.")
-    parent_id = models.CharField(max_length=50, blank=True, null=True, help_text="Amazon browse node ID of the parent category, if applicable.")
     name = models.CharField(max_length=120, unique=True, help_text="Category name of the product.")
     slug = models.SlugField(max_length=140, unique=True, help_text="URL-friendly identifier generated from the name.")
     
@@ -37,7 +35,6 @@ class Product(models.Model):
     Represents a product in the catalog.
     Each product belongs to a category and has a unique ASIN identifier.
     """
-    asin = models.CharField(max_length=20, null=True, unique=True, help_text="Amazon Standard Identification Number (ASIN) for the product.")
     category = models.ForeignKey("Category", on_delete=models.PROTECT,related_name="products",  help_text="Category this product belongs to.")
     title = models.CharField(max_length=200, help_text="Title of the product.")
     slug = models.SlugField(unique=True, help_text="URL-friendly identifier generated from the title.")
